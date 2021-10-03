@@ -19,7 +19,7 @@
           </router-link>
         </v-col>
       </v-row>
-      <v-list-item link to="/channel/cryptosingh">
+      <v-list-item link to="/channel/cryptosingh" nuxt>
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>

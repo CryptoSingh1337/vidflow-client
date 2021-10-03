@@ -1,9 +1,9 @@
 <template>
-  <router-link to="/upload">
+  <NuxtLink to="/upload">
     <v-btn icon :small="$vuetify.breakpoint.xs">
       <v-icon>mdi-video-plus-outline</v-icon>
     </v-btn>
-  </router-link>
+  </NuxtLink>
 </template>
 
 <script>

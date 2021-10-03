@@ -27,6 +27,7 @@
             v-for="(child, j) in parent.pages"
             link
             :to="child.to"
+            nuxt
           >
             <v-list-item-icon>
               <v-icon>{{ child.icon }}</v-icon>

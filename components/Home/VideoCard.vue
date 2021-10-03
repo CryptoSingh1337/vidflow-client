@@ -1,5 +1,12 @@
 <template>
-  <v-card class="ma-4 rounded-0" max-width="350" to="/watch/12345" flat>
+  <v-card
+    class="ma-4 rounded-0"
+    :color="$vuetify.theme.dark ? '#121212' : ''"
+    max-width="350"
+    :to="`/watch/${video.id}`"
+    flat
+    nuxt
+  >
     <v-img
       :src="video.thumbnail"
       alt="thumbnail"
