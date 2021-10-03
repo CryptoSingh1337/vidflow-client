@@ -49,17 +49,17 @@
     </v-navigation-drawer>
     <v-app-bar app clipped-left flat>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-img
-        class="ml-1 hidden-xs-only"
-        max-height="40"
-        max-width="40"
-        src="/logo.svg"
-      ></v-img>
-      <router-link class="ml-2" to="/" style="text-decoration: none"
-        ><h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
+      <NuxtLink class="ml-2" to="/" style="text-decoration: none">
+        <v-img
+          class="ml-1 hidden-xs-only"
+          max-height="40"
+          max-width="40"
+          src="/logo.svg"
+        ></v-img>
+        <h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
           VidFlow
-        </h3></router-link
-      >
+        </h3>
+      </NuxtLink>
       <v-spacer></v-spacer>
       <v-text-field
         solo

@@ -1,7 +1,10 @@
 <template>
-  <router-link :to="'/watch/' + video.id">
-    <v-list-item link>
-      <v-list-item-avatar tile width="168" height="94"
+  <NuxtLink :to="'/watch/' + video.id">
+    <v-list-item link class="px-0 px-sm-5">
+      <v-list-item-avatar
+        tile
+        :width="$vuetify.breakpoint.xs ? '100' : '168'"
+        :height="$vuetify.breakpoint.xs ? '56.25' : '94'"
         ><v-img
           aspect-ratio="16/9"
           :src="video.thumbnail"
@@ -11,9 +14,9 @@
       <v-list-item-content>
         <div class="body-2">
           {{
-            (this.$vuetify.breakpoint.sm
-              ? video.title.substring(0, 100)
-              : video.title.substring(0, 60)) + "..."
+            ($vuetify.breakpoint.xs
+              ? video.title.substring(0, 60)
+              : video.title.substring(0, 100)) + "..."
           }}
         </div>
         <div>
@@ -24,15 +27,15 @@
         </div>
       </v-list-item-content>
     </v-list-item>
-  </router-link>
+  </NuxtLink>
 </template>
 
 <script>
 export default {
   name: "SideVideoCard",
   props: {
-    video: Object,
-  },
+    video: Object
+  }
 };
 </script>
 

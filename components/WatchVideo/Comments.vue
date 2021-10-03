@@ -25,11 +25,7 @@
       <v-btn class="mx-3" depressed :disabled="comment === ''">Comment</v-btn>
     </div>
     <div class="mt-6">
-      <Comment
-        :key="i"
-        v-for="i in [1, 2, 3, 4, 5, 6]"
-        :comment="comments[0]"
-      />
+      <Comment :key="i" v-for="i in 6" :comment="comments[0]" />
     </div>
   </div>
 </template>
@@ -40,7 +36,7 @@ import Comment from "@/components/WatchVideo/Comment.vue";
 export default {
   name: "Comments",
   components: {
-    Comment,
+    Comment
   },
   data() {
     return {
@@ -54,15 +50,15 @@ export default {
           channelName: "Harsh Live",
           createdAt: "16 hourse ago",
           content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        },
-      ],
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+        }
+      ]
     };
   },
   filters: {
     numberfy: function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-  },
+    }
+  }
 };
 </script>

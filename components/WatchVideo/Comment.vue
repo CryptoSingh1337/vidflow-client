@@ -1,5 +1,5 @@
 <template>
-  <v-list-item three-line>
+  <v-list-item class="px-0 px-sm-5" three-line>
     <v-list-item-avatar
       ><v-img :src="comment.avatar" :alt="comment.channelName"></v-img
     ></v-list-item-avatar>
@@ -17,7 +17,7 @@
 export default {
   name: "Comment",
   props: {
-    comment: Object,
-  },
+    comment: Object
+  }
 };
 </script>

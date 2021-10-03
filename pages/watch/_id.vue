@@ -8,19 +8,15 @@
         poster="https://source.unsplash.com/1920x1080/?technology"
         controls
         :width="
-          this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
-            ? '100%'
-            : '60%'
+          $vuetify.breakpoint.xs || $vuetify.breakpoint.sm ? '100%' : '60%'
         "
         :height="
-          this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm
-            ? '100%'
-            : '50%'
+          $vuetify.breakpoint.xs || $vuetify.breakpoint.sm ? '100%' : '50%'
         "
       ></video>
     </div>
     <v-row no-gutters>
-      <v-col class="pa-5" cols="12" sm="12" md="6" lg="8">
+      <v-col class="pa-5 pa-sm-10" cols="12" sm="12" md="6" lg="8">
         <VideoFooter :video="video" />
         <Comments />
         <v-btn
@@ -32,7 +28,7 @@
           >SHOW MORE</v-btn
         >
       </v-col>
-      <v-col class="pa-5" cols="12" sm="12" md="6" lg="4">
+      <v-col class="pa-5 pa-sm-10" cols="12" sm="12" md="6" lg="4">
         <SideBarCard :data="videos" />
       </v-col>
     </v-row>
