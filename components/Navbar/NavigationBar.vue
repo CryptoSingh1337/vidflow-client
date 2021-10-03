@@ -52,7 +52,7 @@
         class="ml-1 hidden-xs-only"
         max-height="40"
         max-width="40"
-        src="/vuetify-logo.svg"
+        src="/logo.svg"
       ></v-img>
       <router-link class="ml-2" to="/" style="text-decoration: none"
         ><h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
