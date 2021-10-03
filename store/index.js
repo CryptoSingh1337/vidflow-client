@@ -1,13 +1,18 @@
+import data from "@/assets/data/videos";
+
 export const state = () => ({
     loggedIn: false,
-    drawer: true,
+    videos: data,
 })
 
 export const mutations = {
     handleSignInOut(state) {
         state.loggedIn = !state.loggedIn;
-    },
-    handleDrawer(state) {
-        state.drawer = !state.drawer;
+    }
+}
+
+export const getters = {
+    getVideoById: (state) => (id) => {
+        return state.videos.find((video) => video.id == id);
     }
 }
