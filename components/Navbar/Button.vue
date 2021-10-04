@@ -3,7 +3,13 @@
     <template v-slot:activator="{ on, attrs }">
       <div class="my-auto" v-on="on" v-bind="attrs">
         <NuxtLink v-if="to !== undefined" :to="to">
-          <v-btn class="mx-1" icon :small="$vuetify.breakpoint.xs">
+          <v-btn
+            v-on="on"
+            v-bind="attrs"
+            class="mx-1"
+            icon
+            :small="$vuetify.breakpoint.xs"
+          >
             <v-icon>{{ icon }}</v-icon>
           </v-btn>
         </NuxtLink>
@@ -23,6 +29,14 @@ export default {
     icon: String,
     to: {
       type: String,
+      required: false,
+    },
+    on: {
+      type: Object,
+      required: false,
+    },
+    attrs: {
+      type: Object,
       required: false,
     },
     tooltip: String,
