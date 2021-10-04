@@ -1,7 +1,7 @@
 <template>
   <div class="mr-2 d-flex">
-    <Button to="/upload" icon="mdi-video-plus" />
-    <Button icon="mdi-bell" />
+    <Button to="/upload" icon="mdi-video-plus" tooltip="Upload video" />
+    <Button icon="mdi-bell" tooltip="Notifications" />
   </div>
 </template>
 

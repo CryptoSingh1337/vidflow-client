@@ -80,17 +80,54 @@
         @keyup.enter="search"
       ></v-text-field>
       <v-spacer></v-spacer>
+      <v-dialog v-model="searchDialog" v-if="$vuetify.breakpoint.xs">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn small v-on="on" v-bind="attrs" icon
+            ><v-icon>mdi-magnify</v-icon></v-btn
+          >
+        </template>
+        <v-card>
+          <v-card-title class="text-h5">
+            Search
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              solo
+              flat
+              dense
+              outlined
+              hide-details
+              placeholder="Search"
+              class="my-auto mt-1.5"
+              v-model="searchText"
+              @keyup.enter="
+                search();
+                searchDialog = false;
+              "
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="search">
+              Search
+            </v-btn>
+            <v-btn color="red darken-2" text @click="searchDialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <div v-if="!loggedIn">
         <SideMenu />
         <v-btn
-          :small="$vuetify.breakpoint.sm || $vuetify.breakpoint.xs"
+          :small="$vuetify.breakpoint.xs"
           color="grey"
           @click="handleSignInOut"
         >
           Login/Signup
         </v-btn>
       </div>
-      <div class="d-flex" v-if="loggedIn">
+      <div v-else class="d-flex">
         <SideButtons />
         <AvatarButton />
       </div>
@@ -103,20 +140,23 @@ import { mapState, mapMutations } from "vuex";
 import AvatarButton from "@/components/Navbar/AvatarButton.vue";
 import SideMenu from "@/components/Navbar/SideMenu.vue";
 import SideButtons from "@/components/Navbar/SideButtons.vue";
-import NavLinks from "~/assets/data/nav_links.js";
+import NavLinks from "@/assets/data/nav_links.js";
+import Button from "@/components/Navbar/Button.vue";
 
 export default {
   name: "NavigationBar",
   components: {
     AvatarButton,
     SideMenu,
-    SideButtons
+    SideButtons,
+    Button
   },
   data() {
     return {
       drawer: false,
       searchText: "",
-      links: NavLinks
+      links: NavLinks,
+      searchDialog: false
     };
   },
   computed: {
@@ -124,8 +164,11 @@ export default {
   },
   methods: {
     ...mapMutations(["handleSignInOut"]),
-    search(text) {
-      console.log(text);
+    search() {
+      console.log(this.searchText);
+    },
+    log() {
+      console.log("Button is clicked");
     }
   },
   mounted() {

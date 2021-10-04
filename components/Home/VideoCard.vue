@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="ma-4 rounded-0"
+    class="mx-auto my-3 px-2 rounded-0"
     :color="$vuetify.theme.dark ? '#121212' : ''"
     max-width="350"
     :to="`/watch/${video.id}`"
