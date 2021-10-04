@@ -90,7 +90,7 @@
           Login/Signup
         </v-btn>
       </div>
-      <div v-if="loggedIn">
+      <div class="d-flex" v-if="loggedIn">
         <SideButtons />
         <AvatarButton />
       </div>

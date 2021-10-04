@@ -19,6 +19,7 @@
           </router-link>
         </v-col>
       </v-row>
+      <v-divider class="mx-2"></v-divider>
       <v-list-item link to="/channel/cryptosingh" nuxt>
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
@@ -31,7 +32,7 @@
         </v-list-item-icon>
         <v-list-item-title>Sign out</v-list-item-title>
       </v-list-item>
-      <v-divider></v-divider>
+      <v-divider class="mx-2"></v-divider>
       <v-list-group prepend-icon="mdi-theme-light-dark">
         <template v-slot:activator>
           <v-list-item-content>
