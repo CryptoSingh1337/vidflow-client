@@ -70,9 +70,7 @@
           </v-list-item>
         </template>
         <v-card>
-          <v-card-title class="text-h5">
-            About
-          </v-card-title>
+          <v-card-title class="text-h5"> About </v-card-title>
           <v-card-text
             >This application is developed by Saransh Kumar</v-card-text
           >
@@ -94,18 +92,18 @@ export default {
   name: "AvatarButton",
   data() {
     return {
-      dialog: false
+      dialog: false,
     };
   },
   computed: {
-    ...mapState(["dark"])
+    ...mapState(["dark"]),
   },
   methods: {
     ...mapMutations(["handleSignInOut"]),
     changeTheme(theme) {
       this.$vuetify.theme.dark = theme === "dark" ? true : false;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -4,7 +4,7 @@
       <video
         id="video"
         class="my-10"
-        src="@/assets/INTRO.mp4"
+        src="@/assets/video.mp4"
         poster="https://source.unsplash.com/1920x1080/?technology"
         controls
         :width="
@@ -46,19 +46,19 @@ export default {
   components: {
     Comments,
     SideBarCard,
-    VideoFooter
+    VideoFooter,
   },
   computed: {
     ...mapState(["videos"]),
     video() {
       return this.$store.getters.getVideoById(this.$route.params.id);
-    }
+    },
   },
   methods: {
     handleClick() {
       console.log("Show more");
-    }
-  }
+    },
+  },
 };
 </script>
 

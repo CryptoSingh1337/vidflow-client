@@ -1,38 +1,33 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from "vuetify/es5/util/colors";
 
 export default {
-  target: 'static',
+  target: "static",
   head: {
-    title: 'VidFlow',
+    title: "VidFlow",
     generate: {
       fallback: true
     },
     htmlAttrs: {
-      lang: 'en'
+      lang: "en"
     },
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'VidFlow - A youtube clone' },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        hid: "description",
+        name: "description",
+        content: "VidFlow - A youtube clone"
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/v.png' }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/v.png" }]
   },
-  css: [
-  ],
-  plugins: [
-  ],
+  css: [],
+  plugins: [],
   components: true,
-  buildModules: [
-    '@nuxtjs/vuetify',
-  ],
-  modules: [
-    '@nuxtjs/axios',
-  ],
+  buildModules: ["@nuxtjs/vuetify"],
+  modules: ["@nuxtjs/axios"],
   axios: {},
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
       themes: {
@@ -48,6 +43,5 @@ export default {
       }
     }
   },
-  build: {
-  }
-}
+  build: {}
+};

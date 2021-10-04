@@ -34,8 +34,8 @@
 export default {
   name: "SideVideoCard",
   props: {
-    video: Object
-  }
+    video: Object,
+  },
 };
 </script>
 

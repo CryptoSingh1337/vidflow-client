@@ -8,7 +8,7 @@
     >
       <div
         :class="{
-          'hidden-lg-and-up': $route.name === 'Watch' ? false : true
+          'hidden-lg-and-up': $route.name === 'Watch' ? false : true,
         }"
       >
         <v-list-item>
@@ -34,7 +34,7 @@
             </v-list-item-icon>
             <v-list-item-title>{{ child.name }}</v-list-item-title>
           </v-list-item>
-          <v-list-item class="ma-0" style="min-height: 10px !important;"
+          <v-list-item class="ma-0" style="min-height: 10px !important"
             ><v-divider></v-divider
           ></v-list-item>
         </div>
@@ -59,7 +59,7 @@
         <h3
           :class="[
             $vuetify.theme.dark ? 'white--text' : 'black--text',
-            'heading-1'
+            'heading-1',
           ]"
         >
           VidFlow
@@ -87,9 +87,7 @@
           >
         </template>
         <v-card>
-          <v-card-title class="text-h5">
-            Search
-          </v-card-title>
+          <v-card-title class="text-h5"> Search </v-card-title>
           <v-card-text>
             <v-text-field
               solo
@@ -100,17 +98,12 @@
               placeholder="Search"
               class="my-auto mt-1.5"
               v-model="searchText"
-              @keyup.enter="
-                search();
-                searchDialog = false;
-              "
+              @keyup.enter="search"
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="search">
-              Search
-            </v-btn>
+            <v-btn color="primary" text @click="search"> Search </v-btn>
             <v-btn color="red darken-2" text @click="searchDialog = false">
               Close
             </v-btn>
@@ -140,7 +133,7 @@ import { mapState, mapMutations } from "vuex";
 import AvatarButton from "@/components/Navbar/AvatarButton.vue";
 import SideMenu from "@/components/Navbar/SideMenu.vue";
 import SideButtons from "@/components/Navbar/SideButtons.vue";
-import NavLinks from "@/assets/data/nav_links.js";
+import NavLinks from "@/assets/data/navlinks.js";
 import Button from "@/components/Navbar/Button.vue";
 
 export default {
@@ -149,36 +142,32 @@ export default {
     AvatarButton,
     SideMenu,
     SideButtons,
-    Button
+    Button,
   },
   data() {
     return {
       drawer: false,
       searchText: "",
       links: NavLinks,
-      searchDialog: false
+      searchDialog: false,
     };
   },
   computed: {
-    ...mapState(["loggedIn"])
+    ...mapState(["loggedIn"]),
   },
   methods: {
     ...mapMutations(["handleSignInOut"]),
     search() {
-      console.log(this.searchText);
+      if (this.searchText && this.searchText.trim().length > 0)
+        console.log(this.searchText);
+      if (this.searchDialog) this.searchDialog = false;
     },
     log() {
       console.log("Button is clicked");
-    }
+    },
   },
   mounted() {
     this.drawer = this.$vuetify.breakpoint.mdAndDown ? false : true;
-  }
+  },
 };
 </script>
-
-<style scoped>
-.active-item .v-list-item__icon {
-  color: #1697f6;
-}
-</style>

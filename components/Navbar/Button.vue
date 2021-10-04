@@ -23,9 +23,9 @@ export default {
     icon: String,
     to: {
       type: String,
-      required: false
+      required: false,
     },
-    tooltip: String
-  }
+    tooltip: String,
+  },
 };
 </script>

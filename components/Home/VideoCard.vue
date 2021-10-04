@@ -39,7 +39,7 @@
 export default {
   name: "VideoCard",
   props: {
-    video: Object
-  }
+    video: Object,
+  },
 };
 </script>

@@ -44,17 +44,15 @@
           </v-list-item>
         </template>
         <v-card>
-          <v-card-title class="text-h5">
-            About
-          </v-card-title>
+          <v-card-title class="text-h5"> About </v-card-title>
           <v-card-text
             >This application is developed by Saransh Kumar</v-card-text
           >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="red darken-2" text @click="dialog = false">
-              Close
-            </v-btn>
+            <v-btn color="red darken-2" text @click="dialog = false"
+              >Close</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -67,14 +65,14 @@ export default {
   name: "SideMenu",
   data() {
     return {
-      dialog: false
+      dialog: false,
     };
   },
   methods: {
     changeTheme(theme) {
       this.$vuetify.theme.dark = theme === "dark" ? true : false;
-    }
-  }
+    },
+  },
 };
 </script>
 

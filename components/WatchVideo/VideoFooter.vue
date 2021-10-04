@@ -1,5 +1,5 @@
 <template>
-  <div class="text-h6 font-weight-bold d-block" style="line-height: 1.35;">
+  <div class="text-h6 font-weight-bold d-block" style="line-height: 1.35">
     {{ video.title }}
     <div class="d-flex caption">
       <span class="align-self-center"
@@ -20,9 +20,7 @@
             >
           </template>
           <v-card>
-            <v-card-title class="text-h5">
-              About
-            </v-card-title>
+            <v-card-title class="text-h5"> About </v-card-title>
             <v-card-text
               >This application is developed by Saransh Kumar</v-card-text
             >
@@ -43,17 +41,17 @@
 export default {
   name: "VideoFooter",
   props: {
-    video: Object
+    video: Object,
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
     };
   },
   filters: {
     numberfy: function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-  }
+    },
+  },
 };
 </script>

@@ -11,7 +11,7 @@
         class="mx-xs-auto"
       >
         <v-skeleton-loader
-          class="mx-auto"
+          class="my-3 px-2 rounded-0"
           max-width="350"
           type="image, list-item-avatar-three-line"
           :loading="loading"
@@ -30,18 +30,18 @@ import VideoCard from "@/components/Home/VideoCard.vue";
 export default {
   name: "Home",
   components: {
-    VideoCard
+    VideoCard,
   },
   data() {
     return {
       videos: data,
-      loading: true
+      loading: true,
     };
   },
   mounted() {
     setTimeout(() => {
       this.loading = false;
     }, 3000);
-  }
+  },
 };
 </script>

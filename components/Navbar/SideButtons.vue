@@ -11,7 +11,7 @@ import Button from "@/components/Navbar/Button.vue";
 export default {
   name: "SideButtons",
   components: {
-    Button
-  }
+    Button,
+  },
 };
 </script>
