@@ -6,13 +6,9 @@ export const state = () => ({
 })
 
 export const mutations = {
-	handleSignInOut(state) {
-		state.isAuthenticated = !state.isAuthenticated;
-	}
+	handleSignInOut: state => state.isAuthenticated = !state.isAuthenticated
 }
 
 export const getters = {
-	getVideoById: (state) => (id) => {
-		return state.videos.find((video) => video.id == id);
-	}
+	getVideoById: state => id => state.videos.find((video) => video.id == id)
 }

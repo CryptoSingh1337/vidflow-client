@@ -102,6 +102,7 @@ export default {
     ...mapMutations(["handleSignInOut"]),
     changeTheme(theme) {
       this.$vuetify.theme.dark = theme === "dark" ? true : false;
+      localStorage.setItem("theme", theme);
     },
   },
 };

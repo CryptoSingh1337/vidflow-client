@@ -15,5 +15,19 @@ export default {
   components: {
     NavigationBar,
   },
+  methods: {
+    initializeTheme() {
+      const theme = localStorage.getItem("theme");
+      if (theme) {
+        this.$vuetify.theme.dark = theme === "dark" ? true : false;
+      } else {
+        this.$vuetify.theme.dark = false;
+        localStorage.setItem("theme", "light");
+      }
+    },
+  },
+  mounted() {
+    this.initializeTheme();
+  },
 };
 </script>

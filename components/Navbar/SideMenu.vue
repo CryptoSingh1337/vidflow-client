@@ -71,6 +71,7 @@ export default {
   methods: {
     changeTheme(theme) {
       this.$vuetify.theme.dark = theme === "dark" ? true : false;
+      localStorage.setItem("theme", theme);
     },
   },
 };
