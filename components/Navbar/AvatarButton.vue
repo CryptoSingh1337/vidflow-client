@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y :close-on-content-click="false">
-    <template v-slot:activator="{ on, attrs }">
-      <v-avatar v-bind="attrs" v-on="on">
+    <template #activator="{ on }">
+      <v-avatar v-on="on">
         <v-img src="https://randomuser.me/api/portraits/men/3.jpg"></v-img>
       </v-avatar>
     </template>
@@ -34,7 +34,7 @@
       </v-list-item>
       <v-divider class="mx-2"></v-divider>
       <v-list-group prepend-icon="mdi-theme-light-dark">
-        <template v-slot:activator>
+        <template #activator>
           <v-list-item-content>
             <v-list-item-title>Apperance</v-list-item-title>
           </v-list-item-content>
@@ -61,8 +61,8 @@
         </v-list-item>
       </a>
       <v-dialog v-model="dialog" max-width="350">
-        <template v-slot:activator="{ on, attrs }">
-          <v-list-item link @click="dialog = !dialog" v-on="on" v-bind="attrs">
+        <template #activator="{ on }">
+          <v-list-item link @click="dialog = !dialog" v-on="on">
             <v-list-item-icon>
               <v-icon>mdi-information</v-icon>
             </v-list-item-icon>

@@ -1,11 +1,11 @@
 <template>
   <v-menu offset-y class="mx-3" :close-on-content-click="false">
-    <template v-slot:activator="{ on, attrs }">
-      <v-icon class="mx-2" v-bind="attrs" v-on="on">mdi-dots-vertical</v-icon>
+    <template #activator="{ on }">
+      <v-icon class="mx-2" v-on="on">mdi-dots-vertical</v-icon>
     </template>
     <v-list dense>
       <v-list-group>
-        <template v-slot:activator>
+        <template #activator>
           <v-list-item-icon>
             <v-icon>mdi-theme-light-dark</v-icon>
           </v-list-item-icon>
@@ -35,8 +35,8 @@
         </v-list-item>
       </a>
       <v-dialog v-model="dialog" max-width="350">
-        <template v-slot:activator="{ on, attrs }">
-          <v-list-item link v-on="on" v-bind="attrs">
+        <template #activator="{ on }">
+          <v-list-item link v-on="on">
             <v-list-item-icon>
               <v-icon>mdi-information</v-icon>
             </v-list-item-icon>
