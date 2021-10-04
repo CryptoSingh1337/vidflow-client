@@ -31,3 +31,9 @@ export default {
   },
 };
 </script>
+
+<style>
+* {
+  scrollbar-width: thin;
+}
+</style>

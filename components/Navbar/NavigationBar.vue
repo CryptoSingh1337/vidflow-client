@@ -81,15 +81,8 @@
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-dialog v-model="searchDialog" v-if="$vuetify.breakpoint.xs">
-        <template #activator="{ on: onDialog }">
-          <v-tooltip bottom>
-            <template #activator="{ on: onToolTip }">
-              <v-btn small v-on="{ ...onDialog, ...onToolTip }" icon
-                ><v-icon>mdi-magnify</v-icon></v-btn
-              >
-            </template>
-            <span>Search</span>
-          </v-tooltip>
+        <template #activator="{ on }">
+          <v-btn small v-on="on" icon><v-icon>mdi-magnify</v-icon></v-btn>
         </template>
         <v-card>
           <v-card-title class="text-h5">Search</v-card-title>

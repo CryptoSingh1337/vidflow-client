@@ -6,19 +6,10 @@
     class="mx-3"
     :close-on-content-click="false"
   >
-    <template #activator="{ on: onMenu }">
-      <v-tooltip bottom>
-        <template #activator="{ on: onToolTip }">
-          <v-btn
-            :small="$vuetify.breakpoint.xs"
-            class="my-auto mx-1"
-            icon
-            v-on="{ ...onMenu, ...onToolTip }"
-            ><v-icon>mdi-bell</v-icon></v-btn
-          >
-        </template>
-        <span>Notifications</span>
-      </v-tooltip>
+    <template #activator="{ on }">
+      <v-btn :small="$vuetify.breakpoint.xs" class="my-auto mx-1" icon v-on="on"
+        ><v-icon>mdi-bell</v-icon></v-btn
+      >
     </template>
     <v-list subheader>
       <v-subheader class="d-flex"
