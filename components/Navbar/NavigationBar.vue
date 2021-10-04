@@ -87,7 +87,8 @@
           >
         </template>
         <v-card>
-          <v-card-title class="text-h5"> Search </v-card-title>
+          <v-card-title class="text-h5">Search</v-card-title>
+          <v-divider></v-divider>
           <v-card-text>
             <v-text-field
               solo
@@ -110,7 +111,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <div v-if="!loggedIn">
+      <div v-if="!isAuthenticated">
         <SideMenu />
         <v-btn
           :small="$vuetify.breakpoint.xs"
@@ -153,7 +154,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["loggedIn"]),
+    ...mapState(["isAuthenticated"]),
   },
   methods: {
     ...mapMutations(["handleSignInOut"]),

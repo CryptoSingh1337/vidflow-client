@@ -1,13 +1,13 @@
 import data from "@/assets/data/videos";
 
 export const state = () => ({
-	loggedIn: false,
+	isAuthenticated: false,
 	videos: data,
 })
 
 export const mutations = {
 	handleSignInOut(state) {
-		state.loggedIn = !state.loggedIn;
+		state.isAuthenticated = !state.isAuthenticated;
 	}
 }
 
