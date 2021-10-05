@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y :close-on-content-click="false">
     <template #activator="{ on }">
-      <v-avatar v-on="on">
+      <v-avatar class="btn" v-on="on">
         <v-img src="https://randomuser.me/api/portraits/men/3.jpg"></v-img>
       </v-avatar>
     </template>
@@ -111,5 +111,8 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+.btn:hover {
+  cursor: pointer;
 }
 </style>
