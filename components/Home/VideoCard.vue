@@ -46,10 +46,14 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
         case "md":
-        case "lg":
+        case "lg": {
+          if (this.isGreaterThanSize(title, 65))
+            return title.substring(0, 65) + "...";
+          return title;
+        }
         case "xl": {
-          if (this.isGreaterThanSize(title, 70))
-            return title.substring(0, 70) + "...";
+          if (this.isGreaterThanSize(title, 58))
+            return title.substring(0, 58) + "...";
           return title;
         }
         case "sm": {
