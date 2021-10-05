@@ -15,9 +15,10 @@
         "
       ></video>
     </div>
-    <v-row no-gutters>
-      <v-col class="pa-5 pa-sm-10" cols="12" sm="12" md="6" lg="8">
+    <v-row class="px-lg-5" no-gutters>
+      <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
         <VideoFooter :video="video" />
+        <v-divider></v-divider>
         <Comments />
         <v-btn
           class="mt-4 hidden-md-and-up"
@@ -28,7 +29,7 @@
           >SHOW MORE</v-btn
         >
       </v-col>
-      <v-col class="pa-5 pa-sm-10" cols="12" sm="12" md="6" lg="4">
+      <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
         <SideBarCard :data="videos" />
       </v-col>
     </v-row>

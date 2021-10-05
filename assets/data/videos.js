@@ -6,7 +6,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "1.1M",
-		"time": "9 hours ago"
+		"longViews": "1589631",
+		"time": "9 hours ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 2,
@@ -15,7 +17,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "89K",
-		"time": "10 hours ago"
+		"longViews": "89654",
+		"time": "10 hours ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 3,
@@ -24,7 +28,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "65K",
-		"time": "12 hours ago"
+		"longViews": "65871",
+		"time": "12 hours ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 4,
@@ -33,7 +39,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "450K",
-		"time": "1 day ago"
+		"longViews": "450132",
+		"time": "1 day ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 5,
@@ -42,7 +50,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "9K",
-		"time": "10 mins ago"
+		"longViews": "9542",
+		"time": "10 mins ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 6,
@@ -51,7 +61,9 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "10K",
-		"time": "a few seconds ago"
+		"longViews": "10023",
+		"time": "a few seconds ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	},
 	{
 		"id": 7,
@@ -60,7 +72,8 @@ const data = [
 		"channelName": "Channel Name",
 		"channelLink": "/channel/Cryptosingh",
 		"views": "12K",
-		"time": "10 hours ago"
+		"time": "10 hours ago",
+		"description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary"
 	}
 ]
 
