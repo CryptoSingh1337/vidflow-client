@@ -42,7 +42,6 @@ import SideBarCard from "@/components/WatchVideo/SideBarCard.vue";
 import VideoFooter from "@/components/WatchVideo/VideoFooter.vue";
 
 export default {
-  name: "Id",
   components: {
     Comments,
     SideBarCard,

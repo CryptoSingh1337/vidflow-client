@@ -41,7 +41,6 @@ import data from "@/assets/data/videos";
 import VideoCard from "@/components/Home/VideoCard.vue";
 
 export default {
-  name: "Home",
   components: {
     VideoCard,
   },
