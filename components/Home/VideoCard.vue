@@ -2,7 +2,7 @@
   <v-card
     class="mx-auto my-3 px-2 rounded-0"
     :color="$vuetify.theme.dark ? '#121212' : ''"
-    max-width="350"
+    max-width="100%"
     :to="`/watch/${video.id}`"
     flat
     nuxt
@@ -14,7 +14,7 @@
     ></v-img>
     <div
       class="pa-0 pt-2 subtitle-1 font-weight-bold"
-      v-text="`${video.title.substring(0, 80)}...`"
+      v-text="truncateText(video.title)"
       style="line-height: normal"
     ></div>
     <v-row no-gutters>
@@ -40,6 +40,28 @@ export default {
   name: "VideoCard",
   props: {
     video: Object,
+  },
+  methods: {
+    truncateText(title) {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "md":
+        case "lg":
+        case "xl": {
+          if (this.isGreaterThanSize(title, 70))
+            return title.substring(0, 70) + "...";
+          return title;
+        }
+        case "sm": {
+          if (this.isGreaterThanSize(title, 90))
+            return title.substring(0, 90) + "...";
+          return title;
+        }
+      }
+    },
+    isGreaterThanSize(title, size) {
+      return title.length > size;
+    },
   },
 };
 </script>

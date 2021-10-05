@@ -8,6 +8,7 @@
         sm="6"
         md="4"
         lg="3"
+        xl="2"
         class="mx-xs-auto"
       >
         <v-skeleton-loader
@@ -27,6 +28,7 @@
         sm="6"
         md="4"
         lg="3"
+        xl="2"
         class="mx-xs-auto"
       >
         <VideoCard :video="video" />
