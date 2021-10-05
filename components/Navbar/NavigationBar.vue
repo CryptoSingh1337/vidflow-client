@@ -114,8 +114,10 @@
           :small="$vuetify.breakpoint.xs"
           color="grey"
           @click="handleSignInOut"
+          to="/login"
+          nuxt
         >
-          Login/Signup
+          Login/SignIn
         </v-btn>
       </div>
       <div v-else class="d-flex">
