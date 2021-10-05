@@ -164,7 +164,7 @@ export default {
       console.log("Button is clicked");
     },
   },
-  mounted() {
+  beforeCreated() {
     this.drawer = this.$vuetify.breakpoint.mdAndDown ? false : true;
   },
 };
