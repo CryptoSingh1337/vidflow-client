@@ -11,9 +11,9 @@
         class="mx-xs-auto"
       >
         <v-skeleton-loader
-          class="my-3 px-2 rounded-0"
-          min-width="350"
-          max-width="350"
+          class="mx-auto my-3 px-2 rounded-0"
+          :min-width="$vuetify.breakpoint.xs ? 312 : 350"
+          :max-width="$vuetify.breakpoint.xs ? 312 : 350"
           type="image, list-item-avatar-three-line"
           :loading="loading"
         >
