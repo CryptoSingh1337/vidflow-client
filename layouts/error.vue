@@ -14,7 +14,14 @@
                 The page you are looking for not avaible!
               </p>
               <p v-else>An error occurred</p>
-              <v-btn text class="green" to="/" nuxt>Go to Home</v-btn>
+              <v-btn
+                text
+                class="green"
+                :to="$route.path !== '/' ? '/' : ''"
+                @click="$route.path === '/' ? reload() : ''"
+                nuxt
+                >Go to Home</v-btn
+              >
             </div>
           </div>
         </v-col>
@@ -35,6 +42,9 @@ export default {
   methods: {
     changeThemeToLight() {
       this.$vuetify.theme.dark = false;
+    },
+    reload() {
+      window.location.reload();
     },
   },
   data() {

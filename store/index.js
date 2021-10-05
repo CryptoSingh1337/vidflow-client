@@ -1,7 +1,7 @@
 import data from "@/assets/data/videos";
 
 export const state = () => ({
-	isAuthenticated: false,
+	isAuthenticated: true,
 	videos: data,
 	snackBar: false,
 })
