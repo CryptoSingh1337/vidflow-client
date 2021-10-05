@@ -3,7 +3,7 @@
     {{ video.title }}
     <div class="d-flex caption">
       <span class="align-self-center"
-        >{{ video.views | numberfy }} • {{ new Date().toUTCString() }}</span
+        >{{ video.views | numberfy }} • {{ new Date() | formatDate }}</span
       >
       <span class="ml-auto">
         <v-btn class="mx-1" icon><v-icon>mdi-thumb-up-outline</v-icon></v-btn>
@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import dateformat from "dateformat";
+
 export default {
   name: "VideoFooter",
   props: {
@@ -49,9 +51,8 @@ export default {
     };
   },
   filters: {
-    numberfy: function numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
+    numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    formatDate: (date) => dateformat(date, "mmm d, yyyy"),
   },
 };
 </script>
