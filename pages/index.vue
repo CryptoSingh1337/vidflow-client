@@ -3,10 +3,10 @@
     <v-row v-if="loading" class="ma-3" no-gutters>
       <v-col
         :key="i"
-        v-for="i in $vuetify.breakpoint.xs
-          ? 6
-          : $vuetify.breakpoint.xl
+        v-for="i in $vuetify.breakpoint.xl
           ? 18
+          : $vuetify.breakpoint.smAndDown
+          ? 6
           : 12"
         cols="12"
         sm="6"
@@ -56,9 +56,9 @@ export default {
     };
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.loading = false;
-    // }, 10000);
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
   },
 };
 </script>

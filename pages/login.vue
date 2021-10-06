@@ -5,5 +5,10 @@
 <script>
 export default {
   layout: "basic",
+  head() {
+    return {
+      title: "Login - VidFlow",
+    };
+  },
 };
 </script>
