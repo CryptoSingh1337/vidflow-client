@@ -3,7 +3,11 @@
     <v-row v-if="loading" class="ma-3" no-gutters>
       <v-col
         :key="i"
-        v-for="i in 12"
+        v-for="i in $vuetify.breakpoint.xs
+          ? 6
+          : $vuetify.breakpoint.xl
+          ? 18
+          : 12"
         cols="12"
         sm="6"
         md="4"
