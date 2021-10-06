@@ -8,23 +8,25 @@
         >
       </v-col>
       <v-col cols="12" sm="8" class="d-flex justify-sm-end">
-        <span>
-          <v-btn class="mx-1" plain v-model="liked" @click="liked = !liked"
-            ><v-icon class="pr-1">{{
-              liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
-            }}</v-icon
-            >12K</v-btn
-          >
-          <v-btn
-            class="mx-1"
-            plain
-            v-model="disliked"
-            @click="disliked = !disliked"
-            ><v-icon class="pr-1">{{
-              disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
-            }}</v-icon
-            >1K</v-btn
-          >
+        <span class="d-flex">
+          <v-btn-toggle class="mb-0" borderless dense>
+            <v-btn class="mx-1" plain v-model="liked" @click="liked = !liked"
+              ><v-icon class="pr-1">{{
+                liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
+              }}</v-icon
+              >12K</v-btn
+            >
+            <v-btn
+              class="mx-1"
+              plain
+              v-model="disliked"
+              @click="disliked = !disliked"
+              ><v-icon class="pr-1">{{
+                disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
+              }}</v-icon
+              >1K</v-btn
+            >
+          </v-btn-toggle>
           <v-dialog v-model="dialog" max-width="350">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -139,5 +141,8 @@ export default {
 <style scoped>
 .btn:hover {
   cursor: pointer;
+}
+.no-backgound {
+  background-color: none;
 }
 </style>
