@@ -43,6 +43,11 @@ import SideBarCard from "@/components/WatchVideo/SideBarCard.vue";
 import VideoFooter from "@/components/WatchVideo/VideoFooter.vue";
 
 export default {
+  head() {
+    return {
+      title: "Watch - VidFlow",
+    };
+  },
   components: {
     Comments,
     SideBarCard,
