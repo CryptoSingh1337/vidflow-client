@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto my-3 px-2 rounded-0"
+    class="ma-2 rounded-0"
     :color="$vuetify.theme.dark ? '#121212' : ''"
     max-width="100%"
     :to="`/watch/${video.id}`"
@@ -19,7 +19,7 @@
     ></div>
     <v-row no-gutters>
       <v-col cols="2">
-        <v-list-item :to="video.channelLink" class="pa-0">
+        <v-list-item :to="video.channelLink" class="pa-0" nuxt>
           <v-list-item-avatar width="40" height="40"
             ><v-img src="https://randomuser.me/api/portraits/men/4.jpg"></v-img
           ></v-list-item-avatar>

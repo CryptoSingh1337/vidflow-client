@@ -16,7 +16,7 @@
         class="mx-xs-auto"
       >
         <v-skeleton-loader
-          class="mx-auto my-3 px-2 rounded-0"
+          class="px-2 rounded-0"
           min-width="100%"
           type="image, list-item-avatar-three-line"
           :loading="loading"
@@ -56,9 +56,14 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 10000);
   },
 };
 </script>
+<style>
+.v-skeleton-loader__list-item-avatar-three-line {
+  padding: 0 !important;
+}
+</style>
