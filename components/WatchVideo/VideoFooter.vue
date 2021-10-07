@@ -142,7 +142,7 @@ export default {
 .btn:hover {
   cursor: pointer;
 }
-.no-backgound {
-  background-color: none;
+.v-btn-toggle {
+  background-color: inherit !important;
 }
 </style>
