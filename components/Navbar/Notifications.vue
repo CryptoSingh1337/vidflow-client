@@ -8,7 +8,14 @@
   >
     <template #activator="{ on }">
       <v-btn :small="$vuetify.breakpoint.xs" class="my-auto mx-1" icon v-on="on"
-        ><v-icon>mdi-bell</v-icon></v-btn
+        ><v-badge
+          :content="notifications.length"
+          :value="notifications.length"
+          color="primary"
+          overlap
+        >
+          <v-icon> mdi-bell </v-icon>
+        </v-badge></v-btn
       >
     </template>
     <v-list subheader>
@@ -20,7 +27,7 @@
         ></v-subheader
       >
       <div v-if="notifications.length > 0">
-        <v-list-item :key="i" v-for="(notification, i) in notifications">
+        <v-list-item append :key="i" v-for="(notification, i) in notifications">
           <v-list-item-content>
             <v-list-item-title
               v-text="notification.channelName"
@@ -49,6 +56,18 @@ export default {
   data() {
     return {
       notifications: [
+        {
+          channelName: "Harsh Live",
+          content: "How are you, you are noob",
+        },
+        {
+          channelName: "Harsh Live",
+          content: "How are you, you are noob",
+        },
+        {
+          channelName: "Harsh Live",
+          content: "How are you, you are noob",
+        },
         {
           channelName: "Harsh Live",
           content: "How are you, you are noob",
