@@ -38,14 +38,15 @@
             ><v-divider></v-divider
           ></v-list-item>
         </div>
-        <v-list-item class="justify-self-end">
-          <v-list-item-content>
-            <v-list-item-subtitle class="text-center">
-              <span>© CryptoSingh1337</span>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
       </v-list>
+      <Subscriptions v-if="isAuthenticated" />
+      <v-list-item dense class="justify-self-end">
+        <v-list-item-content>
+          <v-list-item-subtitle class="text-center">
+            <span>© CryptoSingh1337</span>
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
     </v-navigation-drawer>
     <v-app-bar app clipped-left flat>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -130,14 +131,15 @@ import SideMenu from "@/components/Navbar/SideMenu.vue";
 import SideButtons from "@/components/Navbar/SideButtons.vue";
 import NavLinks from "@/assets/data/navlinks.js";
 import Button from "@/components/Navbar/Button.vue";
+import Subscriptions from "@/components/Navbar/Subscriptions.vue";
 
 export default {
-  name: "NavigationBar",
   components: {
     AvatarButton,
     SideMenu,
     SideButtons,
     Button,
+    Subscriptions,
   },
   data() {
     return {

@@ -32,6 +32,16 @@ const data = [
 				icon: 'mdi-video',
 				to: '/videos/cryptosingh'
 			},
+			{
+				name: 'Liked videos',
+				icon: 'mdi-thumb-up',
+				to: '/videos/liked/cryptosingh'
+			},
+			{
+				name: 'Your playlists',
+				icon: 'mdi-playlist-play',
+				to: '/playlists/cryptosingh'
+			}
 		]
 	},
 ];
