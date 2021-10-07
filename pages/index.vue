@@ -16,7 +16,7 @@
         class="mx-xs-auto"
       >
         <v-skeleton-loader
-          class="px-2 rounded-0"
+          class="pa-2 rounded-0"
           min-width="100%"
           type="image, list-item-avatar-three-line"
           :loading="loading"

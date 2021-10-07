@@ -56,12 +56,7 @@
         src="/logo.svg"
       ></v-img>
       <NuxtLink class="ml-2" to="/" style="text-decoration: none">
-        <h3
-          :class="[
-            $vuetify.theme.dark ? 'white--text' : 'black--text',
-            'heading-1',
-          ]"
-        >
+        <h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
           VidFlow
         </h3>
       </NuxtLink>

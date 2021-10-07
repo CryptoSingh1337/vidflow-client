@@ -52,7 +52,11 @@
           <v-list-item-title>Dark</v-list-item-title>
         </v-list-item>
       </v-list-group>
-      <a href="https://github.com/CryptoSingh1337" target="_blank">
+      <a
+        class="text-decoration-none"
+        href="https://github.com/CryptoSingh1337"
+        target="_blank"
+      >
         <v-list-item link>
           <v-list-item-icon>
             <v-icon>mdi-github</v-icon>
@@ -109,9 +113,6 @@ export default {
 </script>
 
 <style scoped>
-a {
-  text-decoration: none;
-}
 .btn:hover {
   cursor: pointer;
 }
