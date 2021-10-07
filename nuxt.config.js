@@ -16,7 +16,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "VidFlow - A youtube clone"
+        content: "VidFlow - An open source content sharing platform (YouTube clone)"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/v.png" }]
