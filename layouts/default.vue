@@ -1,6 +1,12 @@
 <template>
   <v-app>
     <NavigationBar />
+    <Alert
+      :model="alert"
+      :icon="'mdi-success'"
+      :type="alertType"
+      :text="alertText"
+    />
     <v-main>
       <Nuxt />
     </v-main>
@@ -33,7 +39,7 @@ export default {
     NavigationBar,
   },
   computed: {
-    ...mapState(["snackBar"]),
+    ...mapState(["snackBar", "alert", "alertType", "alertText"]),
   },
   methods: {
     initializeTheme() {
