@@ -4,14 +4,35 @@
       <v-col cols="12" sm="8" md="4" lg="4">
         <Header />
         <v-card flat outlined>
-          <v-card-title>Login</v-card-title>
+          <v-card-title>Sign Up</v-card-title>
           <v-card-text>
             <v-form v-model="valid">
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="firstName"
+                    :rules="[rules.required]"
+                    label="First name"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model="lastName"
+                    :rules="[rules.required]"
+                    label="Last name"
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
               <v-text-field
                 v-model="username"
                 prepend-inner-icon="mdi-account"
+                :append-icon="
+                  isAvailable === null ? '' : isAvailable ? '' : 'mdi-close'
+                "
                 :rules="[rules.required]"
-                label="Enter your username"
+                label="Username"
                 outlined
               >
               </v-text-field>
@@ -26,23 +47,18 @@
                 outlined
               >
               </v-text-field>
-              <div class="caption d-flex justify-space-between">
-                <NuxtLink class="text-decoration-none" to="/forgot">
-                  <span class="blue--text">Forgot your password?</span>
+              <v-text-field
+                type="email"
+                :rules="[rules.required, rules.email]"
+                label="Email"
+                outlined
+              ></v-text-field>
+              <div class="caption">
+                <span>Having an account?</span>
+                <NuxtLink class="text-decoration-none" to="/login"
+                  ><span class="blue--text">Login</span>
                 </NuxtLink>
-                <span
-                  >No account?
-                  <NuxtLink class="text-decoration-none" to="/register"
-                    >SignUp</NuxtLink
-                  ></span
-                >
               </div>
-              <v-checkbox
-                v-model="rememberMe"
-                label="Remember me"
-                dense
-                hide-details
-              ></v-checkbox>
               <v-card-actions class="px-0">
                 <v-btn
                   class="tile"
@@ -53,7 +69,7 @@
                   :loading="loading"
                   @click="toggleLoading"
                   :disabled="!valid"
-                  >Login</v-btn
+                  >Sign up</v-btn
                 >
               </v-card-actions>
             </v-form>
@@ -71,7 +87,7 @@ export default {
   layout: "basic",
   head() {
     return {
-      title: "Login - VidFlow",
+      title: "Sign up - VidFlow",
     };
   },
   components: {
@@ -80,13 +96,21 @@ export default {
   data() {
     return {
       valid: true,
+      firstName: "",
+      lastName: "",
       username: "",
       password: "",
+      email: "",
       show: false,
       rules: {
         required: (value) => !!value || "Required.",
+        email: (value) => {
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid email.";
+        },
       },
-      rememberMe: false,
+      isAvailable: null,
       loading: false,
     };
   },
@@ -95,10 +119,17 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-        this.$store.commit("handleSignInOut");
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/login" });
       }, 3000);
+    },
+  },
+  watch: {
+    username: function () {
+      this.isAvailable = false;
     },
   },
 };
 </script>
+
+<style>
+</style>
