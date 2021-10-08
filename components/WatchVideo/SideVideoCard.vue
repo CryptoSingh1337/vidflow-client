@@ -21,7 +21,7 @@
         </div>
         <div>
           <div class="font-weight-bold caption">{{ video.channelName }}</div>
-          <span class="caption"
+          <span class="caption grey--text"
             >{{ video.time }} • {{ video.views }} views</span
           >
         </div>
