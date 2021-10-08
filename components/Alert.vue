@@ -6,7 +6,7 @@
     top
     timeout="2000"
     transition="scale-transition"
-    ><v-icon color="red">{{ icon }}</v-icon>
+    ><v-icon>{{ icon }}</v-icon>
     <div class="Subtitle-2 d-inline">
       {{ text }}
     </div></v-snackbar

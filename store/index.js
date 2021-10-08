@@ -4,16 +4,22 @@ export const state = () => ({
 	isAuthenticated: true,
 	videos: data,
 	snackBar: false,
-	alert: true,
-	alertType: "primary",
-	alertIcon: "success",
-	alertText: "This is the alert"
+	alert: false,
+	alertType: "",
+	alertIcon: "",
+	alertText: ""
 })
 
 export const mutations = {
 	handleSignInOut: state => state.isAuthenticated = !state.isAuthenticated,
 	showSnackBar: state => state.snackBar = !state.snackBar,
-	showAlert: state => state.alert = !state.alert,
+	toggleAlert: state => state.alert = false,
+	showAlert: (state, payload) => {
+		state.alertType = payload.alertType;
+		state.alertIcon = payload.alertIcon;
+		state.alertText = payload.alertText;
+		state.alert = true;
+	},
 }
 
 export const getters = {
