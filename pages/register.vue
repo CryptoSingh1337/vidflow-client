@@ -28,13 +28,19 @@
               <v-text-field
                 v-model="username"
                 prepend-inner-icon="mdi-account"
-                :append-icon="
-                  isAvailable === null ? '' : isAvailable ? '' : 'mdi-close'
-                "
                 :rules="[rules.required]"
                 label="Username"
                 outlined
               >
+                <template v-slot:append>
+                  <v-icon :color="isAvailable ? 'green' : 'red'">{{
+                    isAvailable === null
+                      ? ""
+                      : isAvailable
+                      ? "mdi-check"
+                      : "mdi-close"
+                  }}</v-icon>
+                </template>
               </v-text-field>
               <v-text-field
                 v-model="password"
@@ -125,7 +131,7 @@ export default {
   },
   watch: {
     username: function () {
-      this.isAvailable = false;
+      this.isAvailable = true;
     },
   },
 };
