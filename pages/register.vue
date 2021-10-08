@@ -28,17 +28,13 @@
               <v-text-field
                 v-model="username"
                 prepend-inner-icon="mdi-account"
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.username]"
                 label="Username"
                 outlined
               >
                 <template v-slot:append>
                   <v-icon :color="isAvailable ? 'green' : 'red'">{{
-                    isAvailable === null
-                      ? ""
-                      : isAvailable
-                      ? "mdi-check"
-                      : "mdi-close"
+                    isAvailable ? "mdi-check" : "mdi-close"
                   }}</v-icon>
                 </template>
               </v-text-field>
@@ -101,7 +97,7 @@ export default {
   },
   data() {
     return {
-      valid: true,
+      valid: false,
       firstName: "",
       lastName: "",
       username: "",
@@ -115,8 +111,14 @@ export default {
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid email.";
         },
+        username: (value) => {
+          if (value == "Hello") {
+            this.isAvailable = true;
+          } else this.isAvailable = false;
+          return this.isAvailable || "Username already taken.";
+        },
       },
-      isAvailable: null,
+      isAvailable: false,
       loading: false,
     };
   },
@@ -125,7 +127,16 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
+        this.$store.commit("showAlert", {
+          alertType: "success",
+          alertIcon: "mdi-rocket-launch",
+          alertText:
+            "Your has been created. Please check your email to verify.",
+        });
         this.$router.push({ path: "/login" });
+        setTimeout(() => {
+          this.$store.commit("toggleAlert");
+        }, 2000);
       }, 3000);
     },
   },
