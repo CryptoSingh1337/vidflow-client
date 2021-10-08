@@ -155,8 +155,9 @@ export default {
   methods: {
     ...mapMutations(["handleSignInOut"]),
     search() {
-      if (this.searchText && this.searchText.trim().length > 0)
-        console.log(this.searchText);
+      if (this.searchText && this.searchText.trim().length > 0) {
+        this.$router.push({ path: "/search", query: { q: this.searchText } });
+      }
       if (this.searchDialog) this.searchDialog = false;
     },
     log() {
