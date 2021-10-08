@@ -4,22 +4,19 @@
       <v-icon class="mx-2" v-on="on">mdi-dots-vertical</v-icon>
     </template>
     <v-list dense>
-      <v-list-group>
+      <v-list-group no-action prepend-icon="mdi-theme-light-dark">
         <template #activator>
-          <v-list-item-icon>
-            <v-icon>mdi-theme-light-dark</v-icon>
-          </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>Apperance</v-list-item-title>
           </v-list-item-content>
         </template>
-        <v-list-item dense @click="changeTheme('light')">
+        <v-list-item class="pl-12" dense @click="changeTheme('light')">
           <v-list-item-icon>
             <v-icon>mdi-white-balance-sunny</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Light</v-list-item-title>
         </v-list-item>
-        <v-list-item dense @click="changeTheme('dark')">
+        <v-list-item class="pl-12" dense @click="changeTheme('dark')">
           <v-list-item-icon>
             <v-icon>mdi-moon-waning-crescent</v-icon>
           </v-list-item-icon>
