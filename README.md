@@ -2,7 +2,7 @@
 
 # VidFlow
 
-An open source content sharing platform (YouTube clone). This application will be highly scalable because we are following the micro-service architecture in [backend](https://github.com/CryptoSingh1337/vidflow-backend) and the frontend is created using [nuxt](https://github.com/nuxt/nuxt.js).
+An open source content sharing platform (similar to YouTube). This application will be highly scalable because we are following micro-service architecture in [backend](https://github.com/CryptoSingh1337/vidflow-backend) and the frontend is created using [nuxt](https://github.com/nuxt/nuxt.js).
 
 [![Issues Closed](https://img.shields.io/github/issues-closed/CryptoSingh1337/vidflow-client?color=red)](https://github.com/CryptoSingh1337/vidflow-client/issues?q=is%3Aissue+is%3Aclosed)
 [![Issues Open](https://img.shields.io/github/issues/CryptoSingh1337/vidflow-client?color=green)](https://github.com/CryptoSingh1337/vidflow-client/issues)
@@ -15,9 +15,17 @@ An open source content sharing platform (YouTube clone). This application will b
 - Stunning and responsive UI.
 - Dark and light theme.
 - Material design.
-- JWT token based user authentication and authorization.
-- Highly scalable and using AWS S3 for video storage.
-- Follows micro-services architecture.
+- Sign in / Sign up
+- Home page
+- Trending page
+- Subscriptions page
+- History page
+- Liked videos page
+- Comment on videos
+- Upload video model
+- User Dashboard page
+- Channel page
+- Settings page
 
 ## Run Locally
 
