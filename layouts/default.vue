@@ -3,7 +3,7 @@
     <NavigationBar />
     <Alert
       :model="alert"
-      :icon="'mdi-success'"
+      :icon="alertIcon"
       :type="alertType"
       :text="alertText"
     />
@@ -39,7 +39,7 @@ export default {
     NavigationBar,
   },
   computed: {
-    ...mapState(["snackBar", "alert", "alertType", "alertText"]),
+    ...mapState(["snackBar", "alert", "alertType", "alertIcon", "alertText"]),
   },
   methods: {
     initializeTheme() {

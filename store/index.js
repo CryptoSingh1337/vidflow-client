@@ -7,7 +7,8 @@ export const state = () => ({
 	alert: false,
 	alertType: "",
 	alertIcon: "",
-	alertText: ""
+	alertText: "",
+	origin: process.env.baseUrl,
 })
 
 export const mutations = {

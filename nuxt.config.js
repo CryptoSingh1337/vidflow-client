@@ -16,7 +16,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "VidFlow - An open source content sharing platform (YouTube clone)"
+        content: "VidFlow - An open source content sharing platform (similar to YouTube)"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/v.png" }]
@@ -42,6 +42,9 @@ export default {
         }
       }
     }
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || "http://localhost:3000"
   },
   build: {}
 };

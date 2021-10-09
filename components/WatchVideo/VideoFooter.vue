@@ -39,10 +39,21 @@
               >
             </template>
             <v-card>
-              <v-card-title class="text-h5"> About </v-card-title>
-              <v-card-text
-                >This application is developed by Saransh Kumar</v-card-text
-              >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="headline font-weight-bold mb-3"
+                    >Share</v-list-item-title
+                  >
+                  <div class="d-flex justify-center">
+                    <span class="outline pa-2 mr-2">{{
+                      `${$store.state.origin}/watch/${video.id}`
+                    }}</span>
+                    <span class="d-flex align-center">
+                      <v-icon @click="copy">mdi-content-copy</v-icon>
+                    </span>
+                  </div>
+                </v-list-item-content>
+              </v-list-item>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="red darken-2" text @click="dialog = false">
@@ -132,6 +143,20 @@ export default {
         this.showText = "Show More";
       }
     },
+    copy() {
+      navigator.clipboard.writeText(
+        document.getElementsByClassName("outline")[0].innerText
+      );
+      this.$store.commit("showAlert", {
+        alertType: "info",
+        alertIcon: "mdi-information-outline",
+        alertText: "Copied to clipboard",
+      });
+      this.dialog = false;
+      setTimeout(() => {
+        this.$store.commit("toggleAlert");
+      }, 2000);
+    },
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
@@ -144,5 +169,8 @@ export default {
 }
 .v-btn-toggle {
   background-color: inherit !important;
+}
+.outline {
+  border: 1px solid grey;
 }
 </style>
