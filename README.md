@@ -78,10 +78,9 @@ Start the server
     - Spring Cloud Resilience4j
     - Spring Cloud Zipkin
     - Spring Cloud Sleuth
-    - AWS S3
+    - Microsoft Azure Storage
   - **Deployment**:
-    - AWS EC2
-    - Kubernetes
+    - Microsoft Azure
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
