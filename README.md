@@ -32,7 +32,7 @@ An open source content sharing platform (similar to YouTube). This application w
 Clone the project
 
 ```bash
-  git clone https://github.com/CryptoSingh1337/vidflow-client
+  git clone https://github.com/CryptoSingh1337/vidflow-client.git
 ```
 
 Go to the project directory
@@ -78,7 +78,7 @@ Start the server
     - Spring Cloud Resilience4j
     - Spring Cloud Zipkin
     - Spring Cloud Sleuth
-    - Microsoft Azure Storage
+    - Microsoft Azure Storage service
   - **Deployment**:
     - Microsoft Azure
 
