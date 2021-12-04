@@ -2,7 +2,7 @@
 
 # VidFlow
 
-An open source content sharing platform (similar to YouTube). This application will be highly scalable because we are following micro-service architecture in [backend](https://github.com/CryptoSingh1337/vidflow-backend) and the frontend is created using [nuxt](https://github.com/nuxt/nuxt.js).
+An open source content sharing platform (YouTube clone).
 
 [![Issues Closed](https://img.shields.io/github/issues-closed/CryptoSingh1337/vidflow-client?color=red)](https://github.com/CryptoSingh1337/vidflow-client/issues?q=is%3Aissue+is%3Aclosed)
 [![Issues Open](https://img.shields.io/github/issues/CryptoSingh1337/vidflow-client?color=green)](https://github.com/CryptoSingh1337/vidflow-client/issues)
@@ -69,16 +69,9 @@ Start the server
 - **Server**:
   - Java
   - Spring Boot
-  - **Cloud**:
-    - Spring Cloud Netflix Eureka Server and Client
-    - Spring Cloud Gateway
-    - Spring Cloud Bus
-    - Spring Cloud Config Server
-    - Spring Cloud Open Feign
-    - Spring Cloud Resilience4j
-    - Spring Cloud Zipkin
-    - Spring Cloud Sleuth
-    - Amazon S3
+  - Spring Data Mongo
+  - Spring Data Redis
+  - Spring Security
   - **Deployment**:
     - Amazon AWS
 
