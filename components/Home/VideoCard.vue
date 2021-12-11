@@ -18,7 +18,7 @@
       style="line-height: normal"
     ></div>
     <v-row no-gutters>
-      <v-col cols="2" class="mr-2">
+      <v-col cols="2">
         <v-list-item :to="video.channelLink" class="pa-0" nuxt>
           <v-list-item-avatar width="40" height="40"
             ><v-img src="https://randomuser.me/api/portraits/men/4.jpg"></v-img
@@ -46,14 +46,10 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
         case "md":
-        case "lg": {
-          if (this.isGreaterThanSize(title, 65))
-            return title.substring(0, 65) + "...";
-          return title;
-        }
+        case "lg":
         case "xl": {
-          if (this.isGreaterThanSize(title, 58))
-            return title.substring(0, 58) + "...";
+          if (this.isGreaterThanSize(title, 80))
+            return title.substring(0, 65) + "...";
           return title;
         }
         case "sm": {

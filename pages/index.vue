@@ -3,16 +3,11 @@
     <v-row v-if="loading" class="ma-3" no-gutters>
       <v-col
         :key="i"
-        v-for="i in $vuetify.breakpoint.xl
-          ? 18
-          : $vuetify.breakpoint.smAndDown
-          ? 6
-          : 12"
+        v-for="i in 8"
         cols="12"
         sm="6"
         md="4"
         lg="3"
-        xl="2"
         class="mx-xs-auto"
       >
         <v-skeleton-loader
@@ -32,7 +27,6 @@
         sm="6"
         md="4"
         lg="3"
-        xl="2"
         class="mx-xs-auto"
       >
         <VideoCard :video="video" />
