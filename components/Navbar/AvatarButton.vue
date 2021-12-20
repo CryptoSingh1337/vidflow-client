@@ -13,20 +13,20 @@
           ></v-list-item-avatar>
         </v-col>
         <v-col class="pa-0">
-          <h3>Username</h3>
+          <h3>{{ $auth.user }}</h3>
           <router-link to="/account/settings">
             <span class="caption">Manage your account</span>
           </router-link>
         </v-col>
       </v-row>
       <v-divider class="mx-2"></v-divider>
-      <v-list-item link to="/channel/cryptosingh" nuxt>
+      <v-list-item link :to="`/channel/${$auth.user}`" nuxt>
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Your Channel</v-list-item-title>
       </v-list-item>
-      <v-list-item link @click="handleSignInOut">
+      <v-list-item link @click="logout">
         <v-list-item-icon>
           <v-icon>mdi-logout</v-icon>
         </v-list-item-icon>
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "AvatarButton",
   data() {
@@ -103,10 +103,12 @@ export default {
     ...mapState(["dark"]),
   },
   methods: {
-    ...mapMutations(["handleSignInOut"]),
     changeTheme(theme) {
       this.$vuetify.theme.dark = theme === "dark" ? true : false;
       localStorage.setItem("theme", theme);
+    },
+    async logout() {
+      await this.$auth.logout();
     },
   },
 };

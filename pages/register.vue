@@ -3,6 +3,9 @@
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
         <Header />
+        <v-alert :value="alert" outlined dense type="error">{{
+          alertText
+        }}</v-alert>
         <v-card flat outlined>
           <v-card-title>Sign Up</v-card-title>
           <v-card-text>
@@ -28,15 +31,10 @@
               <v-text-field
                 v-model="username"
                 prepend-inner-icon="mdi-account"
-                :rules="[rules.required, rules.username]"
+                :rules="[rules.required]"
                 label="Username"
                 outlined
               >
-                <template v-slot:append>
-                  <v-icon :color="isAvailable ? 'green' : 'red'">{{
-                    isAvailable ? "mdi-check" : "mdi-close"
-                  }}</v-icon>
-                </template>
               </v-text-field>
               <v-text-field
                 v-model="password"
@@ -50,6 +48,7 @@
               >
               </v-text-field>
               <v-text-field
+                v-model="email"
                 type="email"
                 :rules="[rules.required, rules.email]"
                 label="Email"
@@ -68,8 +67,7 @@
                   color="primary"
                   block
                   x-large
-                  :loading="loading"
-                  @click="toggleLoading"
+                  @click="handleSignUp"
                   :disabled="!valid"
                   >Sign up</v-btn
                 >
@@ -84,6 +82,7 @@
 
 <script>
 import Header from "@/components/Login/Header.vue";
+import Alert from "@/components/Alert.vue";
 
 export default {
   layout: "basic",
@@ -94,6 +93,7 @@ export default {
   },
   components: {
     Header,
+    Alert,
   },
   data() {
     return {
@@ -106,43 +106,45 @@ export default {
       show: false,
       rules: {
         required: (value) => !!value || "Required.",
-        email: (value) => {
-          const pattern =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Invalid email.";
-        },
-        username: (value) => {
-          if (value == "Hello") {
-            this.isAvailable = true;
-          } else this.isAvailable = false;
-          return this.isAvailable || "Username already taken.";
-        },
+        email: (value) =>
+          !value ||
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+          "Invalid email.",
       },
-      isAvailable: false,
-      loading: false,
+      alert: false,
+      alertText: "",
     };
   },
   methods: {
-    toggleLoading() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-        this.$store.commit("showAlert", {
-          alertType: "success",
-          alertIcon: "mdi-rocket-launch",
-          alertText:
-            "Your has been created. Please check your email to verify.",
-        });
-        this.$router.push({ path: "/login" });
-        setTimeout(() => {
-          this.$store.commit("toggleAlert");
-        }, 2000);
-      }, 3000);
+    setAlert(type, icon, text) {
+      this.$store.commit("showAlert", {
+        alertType: type,
+        alertIcon: icon,
+        alertText: text,
+      });
     },
-  },
-  watch: {
-    username: function () {
-      this.isAvailable = true;
+    handleSignUp() {
+      const data = {
+        username: this.username,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+      };
+      this.$axios
+        .post("/user/register", data)
+        .then(() => {
+          this.setAlert(
+            "success",
+            "mdi-rocket-launch",
+            "Your account has been created."
+          );
+          this.$router.push({ path: "/login" });
+        })
+        .catch((err) => {
+          this.alertText = JSON.stringify(err.response.data);
+          this.alert = true;
+        });
     },
   },
 };

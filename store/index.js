@@ -1,7 +1,6 @@
 import data from "@/assets/data/videos";
 
 export const state = () => ({
-	isAuthenticated: true,
 	videos: data,
 	snackBar: false,
 	alert: false,
@@ -12,7 +11,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-	handleSignInOut: state => state.isAuthenticated = !state.isAuthenticated,
 	showSnackBar: state => state.snackBar = !state.snackBar,
 	toggleAlert: state => state.alert = false,
 	showAlert: (state, payload) => {

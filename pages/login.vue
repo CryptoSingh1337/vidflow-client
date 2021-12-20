@@ -3,6 +3,9 @@
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
         <Header />
+        <v-alert :value="alert" outlined dense type="error">{{
+          alertText
+        }}</v-alert>
         <v-card flat outlined>
           <v-card-title>Login</v-card-title>
           <v-card-text>
@@ -37,12 +40,6 @@
                   ></span
                 >
               </div>
-              <v-checkbox
-                v-model="rememberMe"
-                label="Remember me"
-                dense
-                hide-details
-              ></v-checkbox>
               <v-card-actions class="px-0">
                 <v-btn
                   class="tile"
@@ -50,8 +47,7 @@
                   color="primary"
                   block
                   x-large
-                  :loading="loading"
-                  @click="toggleLoading"
+                  @click="handleLogin"
                   :disabled="!valid"
                   >Login</v-btn
                 >
@@ -86,18 +82,35 @@ export default {
       rules: {
         required: (value) => !!value || "Required.",
       },
-      rememberMe: false,
-      loading: false,
+      alert: false,
+      alertText: "",
     };
   },
   methods: {
     toggleLoading() {
-      this.loading = true;
       setTimeout(() => {
-        this.loading = false;
         this.$store.commit("handleSignInOut");
         this.$router.push({ path: "/" });
       }, 3000);
+    },
+    handleLogin() {
+      const data = {
+        username: this.username,
+        password: this.password,
+      };
+      console.log(data);
+      this.$auth
+        .loginWith("local", { data: data })
+        .then((res) => res.data)
+        .then((data) => {
+          this.$auth.setUserToken(data.accessToken, data.refreshToken);
+        })
+        .catch((err) => {
+          if (err.response.data.status === 401) {
+            this.alertText = "Invalid username/password";
+            this.alert = true;
+          }
+        });
     },
   },
 };

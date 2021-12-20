@@ -25,8 +25,13 @@ export default {
   plugins: [],
   components: true,
   buildModules: ["@nuxtjs/vuetify"],
-  modules: ["@nuxtjs/axios"],
-  axios: {},
+  modules: [
+    "@nuxtjs/axios",
+    "@nuxtjs/auth-next"
+  ],
+  axios: {
+    baseURL: "http://localhost:5000/api/v1/"
+  },
   vuetify: {
     theme: {
       dark: false,
@@ -39,6 +44,38 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3
+        }
+      }
+    }
+  },
+  auth: {
+    strategies: {
+      local: {
+        scheme: "refresh",
+        localStorage: {
+          prefix: "auth."
+        },
+        token: {
+          prefix: "access_token.",
+          property: "access_token",
+          maxAge: 86400,
+          type: "Bearer"
+        },
+        refresh_token: {
+          prefix: "refresh_token.",
+          property: "refresh_token",
+          data: "refresh_token",
+          maxAge: 129600
+        },
+        user: {
+          property: "user",
+          autoFetch: true,
+        },
+        endpoints: {
+          login: { url: "/users/login", method: "post" },
+          refresh: { url: "/user/token/refresh", method: "post" },
+          user: { url: "/user", method: "get" },
+          logout: false
         }
       }
     }

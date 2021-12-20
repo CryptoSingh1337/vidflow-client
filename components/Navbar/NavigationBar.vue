@@ -39,7 +39,7 @@
           ></v-list-item>
         </div>
       </v-list>
-      <Subscriptions v-if="isAuthenticated" />
+      <Subscriptions v-if="$auth.loggedIn" />
       <v-list-item dense class="justify-self-end">
         <v-list-item-content>
           <v-list-item-subtitle class="text-center">
@@ -104,15 +104,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <div v-if="!isAuthenticated">
+      <div v-if="!$auth.loggedIn">
         <SideMenu />
-        <v-btn
-          :small="$vuetify.breakpoint.xs"
-          color="grey"
-          @click="handleSignInOut"
-          to="/login"
-          nuxt
-        >
+        <v-btn :small="$vuetify.breakpoint.xs" color="grey" to="/login" nuxt>
           Login/SignIn
         </v-btn>
       </div>
