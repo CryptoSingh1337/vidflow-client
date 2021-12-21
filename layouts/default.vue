@@ -10,22 +10,6 @@
     <v-main>
       <Nuxt />
     </v-main>
-    <v-snackbar app v-model="snackBar">
-      <v-icon color="red">mdi-alert</v-icon>
-      <div class="Subtitle-2 d-inline">
-        Please check your internet connection!
-      </div>
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="red"
-          text
-          v-bind="attrs"
-          @click="$store.commit('showSnackBar')"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
   </v-app>
 </template>
 
@@ -39,7 +23,7 @@ export default {
     NavigationBar,
   },
   computed: {
-    ...mapState(["snackBar", "alert", "alertType", "alertIcon", "alertText"]),
+    ...mapState(["alert", "alertType", "alertIcon", "alertText"]),
   },
   methods: {
     initializeTheme() {
