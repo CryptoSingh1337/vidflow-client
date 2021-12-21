@@ -78,7 +78,14 @@ export default {
           logout: false
         }
       }
-    }
+    },
+    redirect: {
+      login: "/login",
+      logout: "/",
+      callback: "/login",
+      home: "/"
+    },
+    cookie: false
   },
   env: {
     baseUrl: process.env.BASE_URL || "http://localhost:3000"
