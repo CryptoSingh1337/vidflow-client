@@ -141,6 +141,7 @@ export default {
           );
           this.$router.push({ path: "/login" });
         })
+        .then(setTimeout(() => this.$store.commit("toggleAlert"), 2000))
         .catch((err) => {
           this.alertText = JSON.stringify(err.response.data);
           this.alert = true;

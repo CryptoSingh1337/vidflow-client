@@ -2,7 +2,6 @@ import data from "@/assets/data/videos";
 
 export const state = () => ({
 	videos: data,
-	snackBar: false,
 	alert: false,
 	alertType: "",
 	alertIcon: "",
@@ -11,7 +10,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-	showSnackBar: state => state.snackBar = !state.snackBar,
 	toggleAlert: state => state.alert = false,
 	showAlert: (state, payload) => {
 		state.alertType = payload.alertType;

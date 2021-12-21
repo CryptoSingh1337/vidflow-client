@@ -87,12 +87,6 @@ export default {
     };
   },
   methods: {
-    toggleLoading() {
-      setTimeout(() => {
-        this.$store.commit("handleSignInOut");
-        this.$router.push({ path: "/" });
-      }, 3000);
-    },
     handleLogin() {
       const data = {
         username: this.username,
