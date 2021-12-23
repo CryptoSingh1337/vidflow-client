@@ -25,22 +25,22 @@ const data = [
 			{
 				name: 'History',
 				icon: 'mdi-history',
-				to: '/history/cryptosingh'
+				to: '/history'
 			},
 			{
 				name: 'Your videos',
 				icon: 'mdi-video',
-				to: '/videos/cryptosingh'
+				to: '/videos'
 			},
 			{
 				name: 'Liked videos',
 				icon: 'mdi-thumb-up',
-				to: '/videos/liked/cryptosingh'
+				to: '/liked'
 			},
 			{
 				name: 'Your playlists',
 				icon: 'mdi-playlist-play',
-				to: '/playlists/cryptosingh'
+				to: '/playlists'
 			}
 		]
 	},
