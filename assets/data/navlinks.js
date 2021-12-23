@@ -37,11 +37,6 @@ const data = [
 				icon: 'mdi-thumb-up',
 				to: '/liked'
 			},
-			{
-				name: 'Your playlists',
-				icon: 'mdi-playlist-play',
-				to: '/playlists'
-			}
 		]
 	},
 ];
