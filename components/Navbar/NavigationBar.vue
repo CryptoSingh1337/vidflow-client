@@ -39,7 +39,9 @@
           ></v-list-item>
         </div>
       </v-list>
-      <Subscriptions v-if="$auth.loggedIn" />
+      <client-only>
+        <Subscriptions v-if="$auth.loggedIn" />
+      </client-only>
       <v-list-item dense class="justify-self-end">
         <v-list-item-content>
           <v-list-item-subtitle class="text-center">
@@ -104,16 +106,18 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <div v-if="!$auth.loggedIn">
-        <SideMenu />
-        <v-btn :small="$vuetify.breakpoint.xs" color="grey" to="/login" nuxt>
-          Login/SignIn
-        </v-btn>
-      </div>
-      <div v-else class="d-flex">
-        <SideButtons />
-        <AvatarButton />
-      </div>
+      <client-only>
+        <div v-if="!$auth.loggedIn">
+          <SideMenu />
+          <v-btn :small="$vuetify.breakpoint.xs" color="grey" to="/login" nuxt>
+            Login/SignIn
+          </v-btn>
+        </div>
+        <div v-else class="d-flex">
+          <SideButtons />
+          <AvatarButton />
+        </div>
+      </client-only>
     </v-app-bar>
   </div>
 </template>
