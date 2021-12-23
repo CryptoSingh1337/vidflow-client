@@ -2,14 +2,14 @@
   <v-menu offset-y :close-on-content-click="false">
     <template #activator="{ on }">
       <v-avatar class="btn" v-on="on">
-        <v-img src="https://randomuser.me/api/portraits/men/3.jpg"></v-img>
+        <v-img :src="$auth.user.profileImage"></v-img>
       </v-avatar>
     </template>
     <v-list dense>
       <v-row class="mt-1 mb-1">
         <v-col cols="3" class="py-0 ml-2">
           <v-list-item-avatar
-            ><v-img src="https://randomuser.me/api/portraits/men/3.jpg"></v-img
+            ><v-img :src="$auth.user.profileImage"></v-img
           ></v-list-item-avatar>
         </v-col>
         <v-col class="pa-0">
