@@ -98,6 +98,7 @@ export default {
   data() {
     return {
       valid: false,
+      loading: false,
       firstName: "",
       lastName: "",
       username: "",
@@ -131,6 +132,7 @@ export default {
         email: this.email,
         password: this.password,
       };
+      this.loading = true;
       this.$axios
         .post("/user/register", data)
         .then(() => {
@@ -142,9 +144,11 @@ export default {
           this.$router.push({ path: "/login" });
         })
         .then(setTimeout(() => this.$store.commit("toggleAlert"), 2000))
+        .then(() => (this.loading = false))
         .catch((err) => {
           this.alertText = JSON.stringify(err.response.data);
           this.alert = true;
+          this.loading = false;
         });
     },
   },

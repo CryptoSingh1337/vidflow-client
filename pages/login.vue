@@ -48,6 +48,7 @@
                   block
                   x-large
                   @click="handleLogin"
+                  :loading="loading"
                   :disabled="!valid"
                   >Login</v-btn
                 >
@@ -76,6 +77,7 @@ export default {
   data() {
     return {
       valid: true,
+      loading: false,
       username: "",
       password: "",
       show: false,
@@ -93,17 +95,20 @@ export default {
         password: this.password,
       };
       console.log(data);
+      this.loading = true;
       this.$auth
         .loginWith("local", { data: data })
         .then((res) => res.data)
         .then((data) => {
           this.$auth.setUserToken(data.accessToken, data.refreshToken);
         })
+        .then(() => (this.loading = false))
         .catch((err) => {
           if (err.response.data.status === 401) {
             this.alertText = "Invalid username/password";
             this.alert = true;
           }
+          this.loading = false;
         });
     },
   },
