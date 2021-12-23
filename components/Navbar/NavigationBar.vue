@@ -119,7 +119,6 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 import AvatarButton from "@/components/Navbar/AvatarButton.vue";
 import SideMenu from "@/components/Navbar/SideMenu.vue";
 import SideButtons from "@/components/Navbar/SideButtons.vue";
@@ -143,19 +142,12 @@ export default {
       searchDialog: false,
     };
   },
-  computed: {
-    ...mapState(["isAuthenticated"]),
-  },
   methods: {
-    ...mapMutations(["handleSignInOut"]),
     search() {
       if (this.searchText && this.searchText.trim().length > 0) {
         this.$router.push({ path: "/search", query: { q: this.searchText } });
       }
       if (this.searchDialog) this.searchDialog = false;
-    },
-    log() {
-      console.log("Button is clicked");
     },
   },
   beforeCreated() {
