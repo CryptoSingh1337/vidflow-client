@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import SearchResultCard from "@/components/Search/SearchResultCard.vue";
 
 export default {
@@ -25,8 +24,14 @@ export default {
   components: {
     SearchResultCard,
   },
-  computed: {
-    ...mapState(["videos"]),
+  data() {
+    return {
+      videos: null,
+    };
+  },
+  async fetch() {
+    const data = await import("@/assets/data/videos.js");
+    this.videos = data.default;
   },
 };
 </script>
