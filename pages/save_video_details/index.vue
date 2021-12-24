@@ -204,13 +204,13 @@ export default {
         }
       }
     },
-  },
-  handleReset() {
-    this.title = "";
-    this.description = "";
-    this.videoStatus = "";
-    this.tags = [];
-    this.thumbnail = "";
+    handleReset() {
+      this.title = "";
+      this.description = "";
+      this.videoStatus = "";
+      this.tags = [];
+      this.thumbnail = null;
+    },
   },
 };
 </script>
