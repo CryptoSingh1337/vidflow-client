@@ -1,4 +1,4 @@
-import data from "@/assets/data/videos";
+import data from "@/assets/data/videos.js";
 
 export const state = () => ({
 	videos: data,
@@ -6,6 +6,7 @@ export const state = () => ({
 	alertType: "",
 	alertIcon: "",
 	alertText: "",
+	uploadVideo: null,
 	origin: process.env.baseUrl,
 })
 
@@ -17,6 +18,9 @@ export const mutations = {
 		state.alertText = payload.alertText;
 		state.alert = true;
 	},
+	setUploadVideo: (state, payload) => {
+		state.uploadVideo = payload;
+	}
 }
 
 export const getters = {
