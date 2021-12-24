@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row v-if="loading" class="ma-3" no-gutters>
+    <v-row v-if="$fetchState.pending" class="ma-3" no-gutters>
       <v-col
         :key="i"
         v-for="i in 8"
@@ -14,7 +14,7 @@
           class="pa-2 rounded-0"
           min-width="100%"
           type="image, list-item-avatar-three-line"
-          :loading="loading"
+          :loading="true"
         >
         </v-skeleton-loader>
       </v-col>
@@ -29,14 +29,15 @@
         lg="3"
         class="mx-xs-auto"
       >
-        <VideoCard :video="video" />
+        <client-only>
+          <VideoCard :video="video" />
+        </client-only>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import data from "@/assets/data/videos";
 import VideoCard from "@/components/Home/VideoCard.vue";
 
 export default {
@@ -45,14 +46,12 @@ export default {
   },
   data() {
     return {
-      videos: data,
-      loading: true,
+      videos: [],
     };
   },
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+  async fetch() {
+    const data = await import("@/assets/data/videos.js");
+    this.videos = data.default;
   },
 };
 </script>
