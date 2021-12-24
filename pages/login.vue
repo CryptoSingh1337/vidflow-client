@@ -112,5 +112,9 @@ export default {
         });
     },
   },
+  mounted() {
+    this.$vuetify.theme.dark =
+      localStorage.getItem("theme") === "dark" ? true : false;
+  },
 };
 </script>
