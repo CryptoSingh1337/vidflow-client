@@ -7,12 +7,8 @@
         src="@/assets/video.mp4"
         poster="https://source.unsplash.com/1920x1080/?technology"
         controls
-        :width="
-          $vuetify.breakpoint.xs || $vuetify.breakpoint.sm ? '100%' : '60%'
-        "
-        :height="
-          $vuetify.breakpoint.xs || $vuetify.breakpoint.sm ? '100%' : '50%'
-        "
+        :width="$vuetify.breakpoint.smAndDown ? '100%' : '60%'"
+        :height="$vuetify.breakpoint.smAndDown ? '100%' : '50%'"
       ></video>
     </div>
     <v-row class="px-lg-5" no-gutters>
