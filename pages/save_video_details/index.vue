@@ -70,6 +70,7 @@
             <v-container class="px-0">
               <v-btn
                 class="mr-2"
+                :loading="uploading"
                 :disabled="!valid"
                 color="primary"
                 @click.prevent="handleSave"
@@ -90,14 +91,6 @@
             controls
             controlsList="nofullscreen nodownload"
           ></video>
-          <v-container v-if="uploadedSuccessfully">
-            <h3>
-              You can view the video at -
-              <NuxtLink :to="`/watch/${videoId}`">{{
-                `${origin}/watch/${videoId}`
-              }}</NuxtLink>
-            </h3>
-          </v-container>
         </v-col>
       </v-row>
     </v-container>
@@ -140,7 +133,7 @@ export default {
       tag: "",
       thumbnail: null,
       thumbnailLink: "",
-      uploadedSuccessfully: false,
+      uploading: false,
       videoId: "",
     };
   },
@@ -186,12 +179,12 @@ export default {
       return false;
     },
     handleSave() {
-      if (!this.thumbnail) {
+      if (this.thumbnailLink === "") {
         this.showAlert("Please upload the thumbnail first.");
       } else {
+        this.uploading = true;
         const result = this.handleUploadVideo();
         if (result) {
-          this.uploadedSuccessfully = true;
           const data = {
             title: this.title,
             description: this.description,
@@ -201,6 +194,13 @@ export default {
             userId: this.$auth.user.username,
           };
           console.log(data);
+          this.uploading = false;
+          this.$router.push({ path: `/watch/${this.videoId}` });
+        } else {
+          this.uploading = false;
+          this.showAlert(
+            "Something went wrong while uploading. Please try again later."
+          );
         }
       }
     },
