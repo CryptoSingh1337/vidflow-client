@@ -19,7 +19,7 @@
     ></div>
     <v-row no-gutters>
       <v-col cols="2">
-        <v-list-item :to="video.channelLink" class="pa-0" nuxt>
+        <v-list-item :to="video.channelName" class="pa-0" nuxt>
           <v-list-item-avatar width="40" height="40"
             ><v-img src="https://randomuser.me/api/portraits/men/4.jpg"></v-img
           ></v-list-item-avatar>
@@ -28,7 +28,10 @@
       <v-col class="d-flex align-center flex-row">
         <v-card-subtitle class="pa-0 grey--text">
           <div class="font-weight-bold">{{ video.channelName }}</div>
-          <span>{{ video.views }} • {{ video.time }}</span>
+          <span
+            >{{ video.views | formatViews }} •
+            {{ $moment(video.createdAt).fromNow() }}</span
+          >
         </v-card-subtitle>
       </v-col>
     </v-row>
@@ -61,6 +64,16 @@ export default {
     },
     isGreaterThanSize(title, size) {
       return title.length > size;
+    },
+  },
+  filters: {
+    formatViews: function (views) {
+      if (views < 999) return views;
+      else if (views >= 1000 && views < 1000000)
+        return (views / 1000).toFixed(2) + "K";
+      else if (views >= 1000000 && views < 1000000000)
+        return (views / 1000000).toFixed(2) + "M";
+      else return (views / 1000000000).toFixed(2) + "B";
     },
   },
 };
