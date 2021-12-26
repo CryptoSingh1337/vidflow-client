@@ -12,7 +12,7 @@
               label="Title *"
               v-model="title"
               :rules="[rules.required, rules.title]"
-              counter="70"
+              counter="100"
               filled
             ></v-text-field>
             <v-textarea
@@ -117,8 +117,8 @@ export default {
       rules: {
         required: (value) => !!value || "Required.",
         title: (value) =>
-          (value && value.length <= 70) ||
-          "Title must be less than 70 characters.",
+          (value && value.length <= 100) ||
+          "Title must be less than 100 characters.",
         description: (value) =>
           (value && value.length <= 500 && value.length > 50) ||
           "Description must be between 50-500 characters.",
