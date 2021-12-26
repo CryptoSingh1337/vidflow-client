@@ -24,7 +24,10 @@ export default {
   css: [],
   plugins: [],
   components: true,
-  buildModules: ["@nuxtjs/vuetify"],
+  buildModules: [
+    "@nuxtjs/vuetify",
+    "@nuxtjs/moment"
+  ],
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/auth-next"
