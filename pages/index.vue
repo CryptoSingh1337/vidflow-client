@@ -50,8 +50,8 @@ export default {
     };
   },
   async fetch() {
-    const data = await import("@/assets/data/videos.js");
-    this.videos = data.default;
+    const response = await this.$axios.get("/video?page=0");
+    this.videos = response.data;
   },
 };
 </script>
