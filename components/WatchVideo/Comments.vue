@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="my-4">{{ commentsCount | numberfy }} Comments</div>
+    <div class="my-4">{{ comments.length }} Comments</div>
     <v-textarea
       name="comment"
       hide-details="true"
@@ -23,7 +23,7 @@
       >
     </div>
     <div class="mt-6">
-      <Comment :key="i" v-for="i in 6" :comment="comments[0]" />
+      <Comment :key="index" v-for="(c, index) in comments" :comment="c" />
     </div>
   </div>
 </template>
@@ -36,21 +36,13 @@ export default {
   components: {
     Comment,
   },
+  props: {
+    comments: Array,
+  },
   data() {
     return {
       comment: "",
       typing: false,
-      commentsCount: 78946,
-      comments: [
-        {
-          id: 1,
-          avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-          channelName: "Harsh Live",
-          createdAt: "16 hourse ago",
-          content:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        },
-      ],
     };
   },
   methods: {

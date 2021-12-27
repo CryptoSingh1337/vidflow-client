@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="'/watch/' + video.id">
+  <NuxtLink :to="`/watch/${video.id}`">
     <v-list-item link class="px-0 px-sm-5">
       <v-list-item-avatar
         tile
@@ -22,7 +22,8 @@
         <div>
           <div class="font-weight-bold caption">{{ video.channelName }}</div>
           <span class="caption grey--text"
-            >{{ video.time }} • {{ video.views }} views</span
+            >{{ $moment(video.createdAt).fromNow() }} •
+            {{ video.views | formatViews }} views</span
           >
         </div>
       </v-list-item-content>
@@ -35,6 +36,16 @@ export default {
   name: "SideVideoCard",
   props: {
     video: Object,
+  },
+  filters: {
+    formatViews: function (views) {
+      if (views < 999) return views;
+      else if (views >= 1000 && views < 1000000)
+        return Math.floor(views / 1000) + "K";
+      else if (views >= 1000000 && views < 1000000000)
+        return Math.floor(views / 1000000) + "M";
+      else return Math.floor(views / 1000000000) + "B";
+    },
   },
 };
 </script>

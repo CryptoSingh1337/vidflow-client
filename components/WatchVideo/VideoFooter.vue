@@ -4,7 +4,8 @@
     <v-row no-gutters class="align-center subtitle-2 grey--text">
       <v-col cols="12" sm="4" class="my-3">
         <span class="align-self-center"
-          >{{ video.longViews | numberfy }} • 4 Oct, 2021</span
+          >{{ video.views | numberfy }} •
+          {{ $moment(video.createdAt).format("D, MMM YYYY") }}</span
         >
       </v-col>
       <v-col cols="12" sm="8" class="d-flex justify-sm-end">
@@ -14,7 +15,7 @@
               ><v-icon class="pr-1">{{
                 liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
               }}</v-icon
-              >12K</v-btn
+              >{{ video.likes | formatLikes }}</v-btn
             >
             <v-btn
               class="mx-1"
@@ -24,7 +25,7 @@
               ><v-icon class="pr-1">{{
                 disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
               }}</v-icon
-              >1K</v-btn
+              >{{ video.dislikes | formatLikes }}</v-btn
             >
           </v-btn-toggle>
           <v-dialog v-model="dialog" max-width="350">
@@ -72,14 +73,14 @@
           <v-list-item three-line class="pa-0">
             <v-list-item-avatar size="50"
               ><v-img
-                src="https://randomuser.me/api/portraits/men/1.jpg"
+                :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
               ></v-img
             ></v-list-item-avatar>
             <v-list-item-content class="align-self-auto">
-              <v-list-item-title class="font-weight-medium mb-1"
-                >Channel Name</v-list-item-title
-              >
-              <v-list-item-subtitle>1.2M subscribers </v-list-item-subtitle>
+              <v-list-item-title class="font-weight-medium mb-1">{{
+                video.channelName
+              }}</v-list-item-title>
+              <v-list-item-subtitle>1.2M subscribers</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -160,6 +161,13 @@ export default {
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    formatLikes: (likes) => {
+      if (likes < 999) return likes;
+      else if (likes >= 1000 && likes < 1000000)
+        return Math.floor(likes / 1000) + "K";
+      else if (likes >= 1000000 && likes < 1000000000)
+        return Math.floor(likes / 1000000) + "M";
+    },
   },
 };
 </script>
