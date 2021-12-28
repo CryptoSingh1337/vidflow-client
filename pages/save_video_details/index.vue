@@ -64,8 +64,6 @@
               prepend-icon="mdi-image"
               :rules="[rules.thumbnail]"
               v-model="thumbnail"
-              append-icon="mdi-upload"
-              @click:append.prevent="handleThumbnailUpload"
             ></v-file-input>
             <v-container class="px-0">
               <v-btn
@@ -150,58 +148,60 @@ export default {
       if (this.tag.trim() !== "") this.tags.push(this.tag.trim());
       this.tag = "";
     },
-    handleThumbnailUpload() {
-      if (!this.thumbnail) {
-        this.showAlert("Please select the thumbnail.");
-      } else if (
-        this.thumbnail.type === "image/png" ||
-        this.thumbnail.type === "image/jpeg" ||
-        this.thumbnail.type === "image/jpg"
-      ) {
-        console.log(this.thumbnail);
-        this.thumbnailLink =
-          "https://source.unsplash.com/1920x1080/?technology";
-      } else {
-        this.showAlert("Unsupported thumbnail format.");
-      }
-    },
-    handleUploadVideo() {
-      if (!this.uploadVideo) {
-        this.showAlert("Please upload the video first.");
-        return false;
-      }
-      const status = 200;
-      if (status === 200) {
-        console.log(this.uploadVideo);
-        this.videoId = 1;
+    checkThumbnail() {
+      if (!this.thumbnail) return true;
+      if (
+        this.thumbnail &&
+        (this.thumbnail.type === "image/png" ||
+          this.thumbnail.type === "image/jpeg" ||
+          this.thumbnail.type === "image/jpg")
+      )
         return true;
-      }
       return false;
     },
+    checkVideo() {
+      if (!this.uploadVideo) {
+        this.showAlert("Please upload the video first");
+        return false;
+      }
+      return true;
+    },
     handleSave() {
-      if (this.thumbnailLink === "") {
-        this.showAlert("Please upload the thumbnail first.");
-      } else {
+      const isVideoValid = this.checkVideo();
+      const isThumbnailValid = this.checkThumbnail();
+      console.log(isVideoValid, isThumbnailValid);
+      if (!isVideoValid) this.showAlert("Please upload the video first");
+      else if (!isThumbnailValid)
+        this.showAlert("Unsupported thumbnail format");
+      else if (isVideoValid && isThumbnailValid) {
         this.uploading = true;
-        const result = this.handleUploadVideo();
-        if (result) {
-          const data = {
-            title: this.title,
-            description: this.description,
-            videoStatus: this.videoStatus,
-            tags: this.tags.length > 0 ? this.tags : null,
-            thumbnail: this.thumbnailLink,
-            userId: this.$auth.user.username,
-          };
-          console.log(data);
-          this.uploading = false;
-          this.$router.push({ path: `/watch/${this.videoId}` });
-        } else {
-          this.uploading = false;
-          this.showAlert(
-            "Something went wrong while uploading. Please try again later."
-          );
-        }
+        const videoMetadata = {
+          title: this.title,
+          description: this.description,
+          videoStatus: this.videoStatus,
+          tags: this.tags.length > 0 ? this.tags : null,
+          thumbnail: this.thumbnailLink,
+          channelName: this.$auth.user.channelName,
+          username: this.$auth.user.username,
+        };
+        const data = {
+          video: this.uploadVideo,
+          thumbnail: this.thumbnail,
+          videoMetadata: videoMetadata,
+        };
+        console.log(data);
+        this.$axios
+          .post("/video/upload", data)
+          .then((res) => console.log(res))
+          .catch((e) => {
+            this.uploading = false;
+            this.showAlert(
+              "Something went wrong while uploading. Please try again later."
+            );
+            console.log(e);
+          });
+        this.uploading = false;
+        // this.$router.push({ path: `/watch/${this.videoId}` });
       }
     },
     handleReset() {
