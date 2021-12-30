@@ -79,7 +79,8 @@ export default {
           refresh: { url: "/user/token/refresh", method: "post" },
           user: { url: "/user", method: "get" },
           logout: false
-        }
+        },
+        autoLogout: false,
       }
     },
     redirect: {
