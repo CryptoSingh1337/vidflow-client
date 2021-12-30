@@ -4,7 +4,7 @@
     <v-row no-gutters class="align-center subtitle-2 grey--text">
       <v-col cols="12" sm="4" class="my-3">
         <span class="align-self-center"
-          >{{ video.views | numberfy }} •
+          >{{ video.views | numberfy }} views •
           {{ $moment(video.createdAt).format("D, MMM YYYY") }}</span
         >
       </v-col>
@@ -28,41 +28,9 @@
               >{{ video.dislikes | formatLikes }}</v-btn
             >
           </v-btn-toggle>
-          <v-dialog v-model="dialog" max-width="350">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                class="mx-1 px-0"
-                plain
-                @click="dialog = !dialog"
-                v-on="on"
-                v-bind="attrs"
-                ><v-icon>mdi-share-outline</v-icon>SHARE</v-btn
-              >
-            </template>
-            <v-card>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <v-list-item-title class="headline font-weight-bold mb-3"
-                    >Share</v-list-item-title
-                  >
-                  <div class="d-flex justify-center">
-                    <span class="outline pa-2 mr-2">{{
-                      `${$store.state.origin}/watch/${video.id}`
-                    }}</span>
-                    <span class="d-flex align-center">
-                      <v-icon @click="copy">mdi-content-copy</v-icon>
-                    </span>
-                  </div>
-                </v-list-item-content>
-              </v-list-item>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="red darken-2" text @click="dialog = false">
-                  Close
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <v-btn class="mx-1 px-0" plain @click="copy"
+            ><v-icon>mdi-share-outline</v-icon>SHARE</v-btn
+          >
         </span>
       </v-col>
     </v-row>
@@ -126,7 +94,6 @@ export default {
       liked: false,
       disliked: false,
       subscribed: false,
-      dialog: false,
       truncate: true,
       showText: "Show More",
     };
@@ -145,15 +112,12 @@ export default {
       }
     },
     copy() {
-      navigator.clipboard.writeText(
-        document.getElementsByClassName("outline")[0].innerText
-      );
+      navigator.clipboard.writeText(document.URL);
       this.$store.commit("showAlert", {
         alertType: "info",
         alertIcon: "mdi-information-outline",
         alertText: "Copied to clipboard",
       });
-      this.dialog = false;
       setTimeout(() => {
         this.$store.commit("toggleAlert");
       }, 2000);
