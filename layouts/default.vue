@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <SystemBar />
     <NavigationBar />
     <Alert
       :model="alert"
@@ -15,11 +16,13 @@
 
 <script>
 import { mapState } from "vuex";
+import SystemBar from "@/components/SystemBar.vue";
 import NavigationBar from "@/components/Navbar/NavigationBar.vue";
 
 export default {
   name: "App",
   components: {
+    SystemBar,
     NavigationBar,
   },
   computed: {
