@@ -36,7 +36,7 @@
                 <span
                   >No account?
                   <NuxtLink class="text-decoration-none" to="/register"
-                    >SignUp</NuxtLink
+                    >SignIn</NuxtLink
                   ></span
                 >
               </div>

@@ -48,6 +48,12 @@
               >
               </v-text-field>
               <v-text-field
+                v-model="channelName"
+                :rules="[rules.required]"
+                label="Channel name"
+                outlined
+              ></v-text-field>
+              <v-text-field
                 v-model="email"
                 type="email"
                 :rules="[rules.required, rules.email]"
@@ -103,6 +109,7 @@ export default {
       lastName: "",
       username: "",
       password: "",
+      channelName: "",
       email: "",
       show: false,
       rules: {
@@ -130,6 +137,7 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         email: this.email,
+        channelName: this.channelName,
         password: this.password,
       };
       this.loading = true;
