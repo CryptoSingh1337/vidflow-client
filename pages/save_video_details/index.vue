@@ -181,6 +181,7 @@ export default {
           .post("/video/upload", formData)
           .then((res) => res.data)
           .then((data) => {
+            this.videoId = data.videoId;
             const videoMetadata = {
               title: this.title,
               description: this.description,
