@@ -5,6 +5,7 @@
     max-width="100%"
     :to="`/watch/${video.id}`"
     flat
+    :ripple="false"
     nuxt
   >
     <v-img
@@ -18,13 +19,13 @@
       style="line-height: normal"
     ></div>
     <v-row no-gutters>
-      <v-col cols="2">
-        <v-list-item :to="video.channelName" class="pa-0" nuxt>
-          <v-list-item-avatar width="40" height="40"
-            ><v-img src="https://randomuser.me/api/portraits/men/4.jpg"></v-img
-          ></v-list-item-avatar>
-        </v-list-item>
-      </v-col>
+      <NuxtLink :to="`/channel/${video.channelName}`" class="pa-0 channel-link">
+        <v-list-item-avatar width="40" height="40"
+          ><v-img
+            :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
+          ></v-img
+        ></v-list-item-avatar>
+      </NuxtLink>
       <v-col class="d-flex align-center flex-row">
         <v-card-subtitle class="pa-0 grey--text">
           <div class="font-weight-bold">{{ video.channelName }}</div>
@@ -78,3 +79,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.channel-link:hover {
+  cursor: pointer;
+}
+</style>
