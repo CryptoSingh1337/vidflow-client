@@ -5,7 +5,7 @@
       <video
         id="video"
         class="my-10"
-        src="@/assets/video.mp4"
+        :src="video.videoUrl"
         :poster="video.thumbnail"
         controls
         :width="$vuetify.breakpoint.smAndDown ? '100%' : '60%'"
@@ -27,7 +27,7 @@
         >
       </v-col>
       <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
-        <SideBarCard :data="sideBarVideos" />
+        <SideBarCard :videoId="$route.params.id" :data="sideBarVideos" />
       </v-col>
     </v-row>
   </div>
@@ -68,6 +68,9 @@ export default {
     handleClick() {
       console.log("Show more");
     },
+  },
+  mounted() {
+    this.$axios.get(`video/views/${this.$route.params.id}`);
   },
 };
 </script>

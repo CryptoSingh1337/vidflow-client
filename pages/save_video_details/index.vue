@@ -130,7 +130,6 @@ export default {
       tags: [],
       tag: "",
       thumbnail: null,
-      thumbnailLink: "",
       uploading: false,
       videoId: "",
     };
@@ -169,30 +168,34 @@ export default {
     handleSave() {
       const isVideoValid = this.checkVideo();
       const isThumbnailValid = this.checkThumbnail();
-      console.log(isVideoValid, isThumbnailValid);
       if (!isVideoValid) this.showAlert("Please upload the video first");
       else if (!isThumbnailValid)
         this.showAlert("Unsupported thumbnail format");
       else if (isVideoValid && isThumbnailValid) {
         this.uploading = true;
-        const videoMetadata = {
-          title: this.title,
-          description: this.description,
-          videoStatus: this.videoStatus,
-          tags: this.tags.length > 0 ? this.tags : null,
-          thumbnail: this.thumbnailLink,
-          channelName: this.$auth.user.channelName,
-          username: this.$auth.user.username,
-        };
-        const data = {
-          video: this.uploadVideo,
-          thumbnail: this.thumbnail,
-          videoMetadata: videoMetadata,
-        };
-        console.log(data);
+        let formData = new FormData();
+        let videoId = "";
+        formData.append("video", this.uploadVideo);
+        formData.append("thumbnail", this.thumbnail);
         this.$axios
-          .post("/video/upload", data)
-          .then((res) => console.log(res))
+          .post("/video/upload", formData)
+          .then((res) => res.data)
+          .then((data) => {
+            const videoMetadata = {
+              title: this.title,
+              description: this.description,
+              thumbnail: data.thumbnailUrl,
+              videoUrl: data.videoUrl,
+              tags: this.tags.length > 0 ? this.tags : null,
+              channelName: this.$auth.user.channelName,
+              username: this.$auth.user.username,
+              videoStatus: this.videoStatus,
+            };
+            this.$axios
+              .post(`/video/${data.videoId}/video-metadata`, videoMetadata)
+              .then(() => this.$router.push({ path: `/watch/${this.videoId}` }))
+              .catch((e) => console.log(e));
+          })
           .catch((e) => {
             this.uploading = false;
             this.showAlert(
@@ -200,8 +203,6 @@ export default {
             );
             console.log(e);
           });
-        this.uploading = false;
-        // this.$router.push({ path: `/watch/${this.videoId}` });
       }
     },
     handleReset() {

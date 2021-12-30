@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="my-4">{{ comments.length }} Comments</div>
+    <div class="my-4">{{ !comments ? 0 : comments.length }} Comments</div>
     <v-textarea
       name="comment"
       hide-details="true"
