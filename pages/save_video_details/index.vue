@@ -1,10 +1,10 @@
 <template>
   <v-container class="fill-height align-start">
     <v-container fluid>
-      <h2 class="font-weight-bold">Add Video Metadata</h2>
-      <v-row class="mt-5" no-gutters>
+      <h2 class="font-weight-bold text-center">Add Video Metadata</h2>
+      <v-row class="mt-5" no-gutters justify="center">
         <v-col cols="12" lg="6" class="mb-10 mb-lg-0">
-          <v-form v-model="valid" class="mr-lg-16">
+          <v-form v-model="valid" class="mr-lg-16 rounded pa-4">
             <v-alert :value="alert" outlined dense type="error">{{
               alertText
             }}</v-alert>
@@ -79,16 +79,6 @@
               >
             </v-container>
           </v-form>
-        </v-col>
-        <v-col cols="12" lg="6">
-          <video
-            src="@/assets/video.mp4"
-            poster="https://source.unsplash.com/1920x1080/?technology"
-            :width="$vuetify.breakpoint.mdAndDown ? '100%' : '85%'"
-            :height="$vuetify.breakpoint.mdAndDown ? '100%' : '85%'"
-            controls
-            controlsList="nofullscreen nodownload"
-          ></video>
         </v-col>
       </v-row>
     </v-container>
@@ -219,5 +209,8 @@ export default {
 <style scoped>
 video {
   object-fit: cover;
+}
+form {
+  border: solid 1px gray;
 }
 </style>
