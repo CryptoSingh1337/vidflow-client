@@ -58,7 +58,7 @@ export default {
       comment: "",
       editing: false,
       typing: false,
-      commentsData: this.comments,
+      commentsData: this.comments ? this.comments : [],
       editing: false,
       editId: "",
     };
