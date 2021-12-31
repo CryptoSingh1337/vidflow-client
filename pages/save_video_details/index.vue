@@ -12,14 +12,16 @@
               label="Title *"
               v-model="title"
               :rules="[rules.required, rules.title]"
-              counter="100"
+              counter
+              maxlength="100"
               filled
             ></v-text-field>
             <v-textarea
               label="Description *"
               v-model="description"
               :rules="[rules.required, rules.description]"
-              counter="500"
+              counter
+              maxlength="500"
               filled
             ></v-textarea>
             <v-select

@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div class="my-4">{{ !comments ? 0 : comments.length }} Comments</div>
+    <div class="my-6">{{ !comments ? 0 : comments.length }} Comments</div>
     <v-textarea
       name="comment"
-      hide-details="true"
       label="Add a public comment..."
       flat
       dense
       rows="1"
       auto-grow
+      counter
+      maxlength="50"
       v-model="comment"
       @click="typing = true"
     ></v-textarea>
@@ -17,8 +18,8 @@
       <v-btn
         class="mx-3"
         depressed
-        :disabled="comment === ''"
-        @click="postComment"
+        :disabled="comment.length < 3 || comment.length > 50"
+        @click="handleComment"
         >Comment</v-btn
       >
     </div>
@@ -46,12 +47,46 @@ export default {
     };
   },
   methods: {
+    setAlert(type, icon, text) {
+      this.$store.commit("showAlert", {
+        alertType: type,
+        alertIcon: icon,
+        alertText: text,
+      });
+      setTimeout(() => this.$store.commit("toggleAlert"), 2000);
+    },
+    resetCommentField() {
+      this.comment = "";
+      this.typing = false;
+    },
+    addComment(comment) {
+      this.comments.unshift(comment);
+    },
     commentButtons() {
       this.comment = "";
       this.typing = false;
     },
-    postComment() {
-      console.log(this.comment);
+    handleComment() {
+      if (!this.$auth.loggedIn) {
+        this.setAlert(
+          "error",
+          "mdi-alert-circle",
+          "You must login to post a comment."
+        );
+        return;
+      }
+      const user = this.$auth.user;
+      const data = {
+        username: user.username,
+        channelName: user.channelName,
+        body: this.comment,
+      };
+      this.$axios
+        .post(`/video/${this.$route.params.id}/comment`, data)
+        .then((res) => res.data)
+        .then((data) => this.addComment(data))
+        .then(() => this.resetCommentField())
+        .catch((e) => console.log(e));
     },
   },
   filters: {
