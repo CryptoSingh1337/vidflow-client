@@ -15,6 +15,7 @@
         <v-spacer></v-spacer>
         <client-only>
           <SideMenu
+            :key="comment.id"
             v-if="$auth.user ? $auth.user.username === comment.username : false"
             :commentId="comment.id"
           />
@@ -36,6 +37,5 @@ export default {
   props: {
     comment: Object,
   },
-  emits: ["deleteComment"],
 };
 </script>

@@ -3,7 +3,7 @@
     <div class="my-6">
       {{ !commentsData ? 0 : commentsData.length }} Comments
     </div>
-    <v-textarea
+    <v-text-field
       name="comment"
       label="Add a public comment..."
       flat
@@ -14,15 +14,26 @@
       maxlength="50"
       v-model="comment"
       @click="typing = true"
-    ></v-textarea>
+    ></v-text-field>
     <div v-if="typing" class="d-flex my-3 justify-end">
-      <v-btn class="mx-3" depressed @click="commentButtons">Cancel</v-btn>
+      <v-btn class="mx-3" depressed @click="resetCommentField">Cancel</v-btn>
       <v-btn
         class="mx-3"
+        color="primary"
+        v-if="!editing"
         depressed
         :disabled="comment.length < 3 || comment.length > 50"
         @click="handleComment"
         >Comment</v-btn
+      >
+      <v-btn
+        class="mx-3"
+        color="primary"
+        v-else
+        depressed
+        :disabled="comment.length < 3 || comment.length > 50"
+        @click="handleSave"
+        >Save</v-btn
       >
     </div>
     <div class="mt-6">
@@ -45,13 +56,20 @@ export default {
   data() {
     return {
       comment: "",
+      editing: false,
       typing: false,
       commentsData: this.comments,
+      editing: false,
+      editId: "",
     };
   },
   created() {
     this.$nuxt.$on("deleteComment", (id) => {
       this.deleteComment(id);
+    });
+
+    this.$nuxt.$on("editComment", (id) => {
+      this.editComment(id);
     });
   },
   methods: {
@@ -81,9 +99,11 @@ export default {
           .catch((e) => console.log(e));
       }
     },
-    commentButtons() {
-      this.comment = "";
-      this.typing = false;
+    editComment(id) {
+      this.comment = this.commentsData.find((c) => c.id === id).body;
+      this.editing = true;
+      this.typing = true;
+      this.editId = id;
     },
     handleComment() {
       if (!this.$auth.loggedIn) {
@@ -105,6 +125,19 @@ export default {
         .then((res) => res.data)
         .then((data) => this.addComment(data))
         .then(() => this.resetCommentField())
+        .catch((e) => console.log(e));
+    },
+    handleSave() {
+      const data = {
+        body: this.comment,
+      };
+      this.$axios
+        .put(`/video/${this.$route.params.id}/comment/${this.editId}`, data)
+        .then(() => {
+          const comment = this.commentsData.find((c) => c.id === this.editId);
+          comment.body = this.comment;
+          this.comment = "";
+        })
         .catch((e) => console.log(e));
     },
   },

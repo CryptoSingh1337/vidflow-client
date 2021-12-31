@@ -27,7 +27,8 @@ export default {
   },
   methods: {
     handleEdit() {
-      console.log("Edit...", this.commentId);
+      // console.log("Edit...", this.commentId);
+      this.$nuxt.$emit("editComment", this.commentId);
     },
     handleDelete() {
       console.log("Delete...", this.commentId);
