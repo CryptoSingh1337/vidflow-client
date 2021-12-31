@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="'/watch/' + video.id">
+  <NuxtLink :to="`/watch/${video.id}`">
     <SearchCardResultXS v-if="$vuetify.breakpoint.xs" :video="video" />
     <v-list-item inactive v-else link class="px-0 px-sm-5">
       <v-list-item-avatar tile width="360" height="200"
@@ -14,14 +14,17 @@
           {{ video.title }}
         </div>
         <div>
-          <span class="caption grey--text"
-            >{{ video.time }} • {{ video.views }} views</span
+          <span class="d-flex caption grey--text"
+            >{{ video.views | formatViews }} views •
+            {{ $moment(video.createdAt).format("D, MMM YYYY") }}</span
           >
-          <NuxtLink :to="video.channelLink">
+          <NuxtLink :to="`/channel/${video.channelName}`">
             <div class="d-flex my-2" no-gutters>
               <span>
                 <v-avatar size="30">
-                  <img src="https://randomuser.me/api/portraits/men/3.jpg" />
+                  <img
+                    :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
+                  />
                 </v-avatar>
               </span>
               <span class="d-flex align-center">
@@ -33,7 +36,7 @@
           </NuxtLink>
         </div>
         <div class="caption grey--text">
-          {{ `${video.description.substring(0, 80)}...` }}
+          {{ `${video.description.substring(0, 250)}...` }}
         </div>
       </v-list-item-content>
     </v-list-item>
@@ -50,6 +53,16 @@ export default {
   },
   components: {
     SearchCardResultXS,
+  },
+  filters: {
+    formatViews: function (views) {
+      if (views < 999) return views;
+      else if (views >= 1000 && views < 1000000)
+        return (views / 1000).toFixed(2) + "K";
+      else if (views >= 1000000 && views < 1000000000)
+        return (views / 1000000).toFixed(2) + "M";
+      else return (views / 1000000000).toFixed(2) + "B";
+    },
   },
 };
 </script>

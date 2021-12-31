@@ -30,7 +30,7 @@
         <v-card-subtitle class="pa-0 grey--text">
           <div class="font-weight-bold">{{ video.channelName }}</div>
           <span
-            >{{ video.views | formatViews }} •
+            >{{ video.views | formatViews }} views •
             {{ $moment(video.createdAt).fromNow() }}</span
           >
         </v-card-subtitle>
