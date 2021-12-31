@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="my-6">{{ !comments ? 0 : comments.length }} Comments</div>
+    <div class="my-6">
+      {{ !commentsData ? 0 : commentsData.length }} Comments
+    </div>
     <v-textarea
       name="comment"
       label="Add a public comment..."
@@ -24,7 +26,7 @@
       >
     </div>
     <div class="mt-6">
-      <Comment :key="index" v-for="(c, index) in comments" :comment="c" />
+      <Comment :key="index" v-for="(c, index) in commentsData" :comment="c" />
     </div>
   </div>
 </template>
@@ -44,7 +46,13 @@ export default {
     return {
       comment: "",
       typing: false,
+      commentsData: this.comments,
     };
+  },
+  created() {
+    this.$nuxt.$on("deleteComment", (id) => {
+      this.deleteComment(id);
+    });
   },
   methods: {
     setAlert(type, icon, text) {
@@ -60,7 +68,18 @@ export default {
       this.typing = false;
     },
     addComment(comment) {
-      this.comments.unshift(comment);
+      this.commentsData.unshift(comment);
+    },
+    deleteComment(id) {
+      if (id) {
+        this.$axios
+          .delete(`/video/${this.$route.params.id}/comment/${id}`)
+          .then(
+            () =>
+              (this.commentsData = this.commentsData.filter((c) => c.id !== id))
+          )
+          .catch((e) => console.log(e));
+      }
     },
     commentButtons() {
       this.comment = "";

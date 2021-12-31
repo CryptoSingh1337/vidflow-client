@@ -36,5 +36,6 @@ export default {
   props: {
     comment: Object,
   },
+  emits: ["deleteComment"],
 };
 </script>

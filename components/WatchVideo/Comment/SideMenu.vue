@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y class="mx-3" :close-on-content-click="false">
+  <v-menu offset-y class="mx-3">
     <template #activator="{ on }">
       <v-icon class="mx-2" v-on="on">mdi-dots-vertical</v-icon>
     </template>
@@ -31,6 +31,7 @@ export default {
     },
     handleDelete() {
       console.log("Delete...", this.commentId);
+      this.$nuxt.$emit("deleteComment", this.commentId);
     },
   },
 };
