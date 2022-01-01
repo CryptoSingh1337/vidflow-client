@@ -12,9 +12,9 @@
       >
         <v-skeleton-loader
           class="pa-2 rounded-0"
-          min-width="100%"
+          min-width="90%"
           type="image, list-item-avatar-three-line"
-          :loading="true"
+          :loading="loading"
         >
         </v-skeleton-loader>
       </v-col>
@@ -30,7 +30,7 @@
         class="mx-xs-auto"
       >
         <client-only>
-          <VideoCard :video="video" />
+          <VideoCard :width="'90%'" :video="video" />
         </client-only>
       </v-col>
     </v-row>
@@ -46,12 +46,14 @@ export default {
   },
   data() {
     return {
+      loading: true,
       videos: [],
     };
   },
   async fetch() {
     const response = await this.$axios.get("/video?page=0");
-    this.videos = response.data;
+    this.videos = await response.data;
+    this.loading = false;
   },
 };
 </script>
