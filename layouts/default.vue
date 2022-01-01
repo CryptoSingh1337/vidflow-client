@@ -48,5 +48,14 @@ export default {
 <style>
 * {
   scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #d3d3d3;
+  border-radius: 20px;
+  border: 1px solid #c5c5c5;
 }
 </style>
