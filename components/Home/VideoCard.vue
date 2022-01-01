@@ -2,7 +2,7 @@
   <v-card
     class="ma-2 rounded-0"
     :color="$vuetify.theme.dark ? '#121212' : ''"
-    max-width="100%"
+    :max-width="width"
     :to="`/watch/${video.id}`"
     flat
     :ripple="false"
@@ -43,6 +43,7 @@
 export default {
   name: "VideoCard",
   props: {
+    width: String,
     video: Object,
   },
   methods: {
