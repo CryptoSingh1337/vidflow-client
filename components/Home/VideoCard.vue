@@ -19,7 +19,7 @@
       style="line-height: normal"
     ></div>
     <v-row no-gutters>
-      <NuxtLink :to="`/channel/${video.channelName}`" class="pa-0 channel-link">
+      <NuxtLink :to="`/channel/${video.userId}`" class="pa-0 channel-link">
         <v-list-item-avatar width="40" height="40"
           ><v-img
             :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"

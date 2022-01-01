@@ -16,7 +16,7 @@
             @click="drawer = !drawer"
             class="mr-5"
           ></v-app-bar-nav-icon>
-          <v-toolbar-title class="font-weight-bold">VueTube</v-toolbar-title>
+          <v-toolbar-title class="font-weight-bold">VidFlow</v-toolbar-title>
         </v-list-item>
         <v-divider></v-divider>
       </div>

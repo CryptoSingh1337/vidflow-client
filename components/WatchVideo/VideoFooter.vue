@@ -39,16 +39,33 @@
       <v-col cols="8" sm="6" md="5" lg="5">
         <v-card class="transparent" flat>
           <v-list-item three-line class="pa-0">
-            <v-list-item-avatar size="50"
-              ><v-img
-                :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
-              ></v-img
-            ></v-list-item-avatar>
+            <NuxtLink
+              class="'pa-0 channel-link"
+              :to="`/channel/${video.userId}`"
+            >
+              <v-list-item-avatar size="50"
+                ><v-img
+                  :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
+                ></v-img></v-list-item-avatar
+            ></NuxtLink>
             <v-list-item-content class="align-self-auto">
-              <v-list-item-title class="font-weight-medium mb-1">{{
-                video.channelName
-              }}</v-list-item-title>
-              <v-list-item-subtitle>1.2M subscribers</v-list-item-subtitle>
+              <NuxtLink
+                :class="[
+                  'channel-link text-decoration-none',
+                  $vuetify.theme.dark ? 'white--text' : 'black--text',
+                ]"
+                :to="`/channel/${video.userId}`"
+              >
+                <v-list-item-title class="font-weight-medium mb-1">{{
+                  video.channelName
+                }}</v-list-item-title>
+              </NuxtLink>
+              <v-list-item-subtitle
+                >{{
+                  subscribers | formatLikes
+                }}
+                subscribers</v-list-item-subtitle
+              >
             </v-list-item-content>
           </v-list-item>
         </v-card>
@@ -60,16 +77,7 @@
         lg="4"
         class="d-flex align-center justify-end"
       >
-        <v-btn
-          :class="['white--text', $vuetify.breakpoint.xs ? 'pa-3' : '']"
-          :x-small="$vuetify.breakpoint.xs"
-          tile
-          :color="subscribed ? 'grey' : 'red'"
-          depressed
-          v-model="subscribed"
-          @click="subscribed = !subscribed"
-          >{{ subscribed ? "Subscribed" : "Subscribe" }}</v-btn
-        >
+        <SubscribeButton :userId="video.userId" />
       </v-col>
       <v-col cols="12" md="12">
         <div class="subtitle-1" style="line-height: 1.2">
@@ -84,8 +92,13 @@
 </template>
 
 <script>
+import SubscribeButton from "@/components/SubscribeButton.vue";
+
 export default {
   name: "VideoFooter",
+  components: {
+    SubscribeButton,
+  },
   props: {
     video: Object,
   },
@@ -94,6 +107,7 @@ export default {
       liked: false,
       disliked: false,
       subscribed: false,
+      subscribers: 0,
       truncate: true,
       showText: "Show More",
     };
@@ -123,6 +137,13 @@ export default {
       }, 2000);
     },
   },
+  created() {
+    this.$axios
+      .get(`/user/userId/${this.video.userId}/subscribers`)
+      .then((res) => res.data)
+      .then((data) => (this.subscribers = data))
+      .catch((e) => console.log(e));
+  },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
     formatLikes: (likes) => {
@@ -144,5 +165,8 @@ export default {
 }
 .outline {
   border: 1px solid grey;
+}
+.channel-link:hover {
+  cursor: pointer;
 }
 </style>
