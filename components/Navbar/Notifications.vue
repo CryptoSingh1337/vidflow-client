@@ -9,8 +9,8 @@
     <template #activator="{ on }">
       <v-btn :small="$vuetify.breakpoint.xs" class="my-auto mx-1" icon v-on="on"
         ><v-badge
-          :content="notifications.length"
-          :value="notifications.length"
+          :content="notifications.length | smallerfy"
+          :value="notifications.length | smallerfy"
           color="primary"
           overlap
         >
@@ -78,6 +78,14 @@ export default {
   methods: {
     clearNotifications() {
       this.notifications = this.notifications.splice(0, 0);
+    },
+  },
+  filters: {
+    smallerfy: function (number) {
+      if (number > 10) {
+        return "9+";
+      }
+      return number;
     },
   },
 };
