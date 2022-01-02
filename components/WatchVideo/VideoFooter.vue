@@ -77,7 +77,7 @@
         lg="4"
         class="d-flex align-center justify-end"
       >
-        <SubscribeButton :userId="video.userId" />
+        <SubscribeButton :channelName="video.channelName" :id="video.userId" />
       </v-col>
       <v-col cols="12" md="12">
         <div class="subtitle-1" style="line-height: 1.2">
