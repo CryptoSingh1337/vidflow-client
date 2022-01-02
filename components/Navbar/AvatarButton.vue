@@ -20,7 +20,7 @@
         </v-col>
       </v-row>
       <v-divider class="mx-2"></v-divider>
-      <v-list-item link :to="`/channel/${$auth.user.channelName}`" nuxt>
+      <v-list-item link :to="`/channel/${$auth.user.id}`" nuxt>
         <v-list-item-icon>
           <v-icon>mdi-account</v-icon>
         </v-list-item-icon>

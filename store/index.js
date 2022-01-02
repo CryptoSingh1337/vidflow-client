@@ -1,7 +1,4 @@
-import data from "@/assets/data/videos.js";
-
 export const state = () => ({
-	videos: data,
 	alert: false,
 	alertType: "",
 	alertIcon: "",
@@ -20,9 +17,5 @@ export const mutations = {
 	},
 	setUploadVideo: (state, payload) => {
 		state.uploadVideo = payload;
-	}
-}
-
-export const getters = {
-	getVideoById: state => id => state.videos.find((video) => video.id == id)
+	},
 }
