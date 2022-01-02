@@ -1,5 +1,5 @@
 <template>
-  <v-system-bar :app="banner ? true : false" height="36" fixed>
+  <v-system-bar :app="banner ? true : false" height="50" fixed>
     <v-spacer></v-spacer>
     <div :class="[$vuetify.breakpoint.smAndDown ? 'xs' : 'md', 'text-center']">
       The backend of this application is hosted on Heroku (free dynos). So it
@@ -9,6 +9,11 @@
         target="_blank"
         >official article</a
       >.
+      <div>
+        The time zone is set to
+        <a href="https://www.google.com/search?q=universal+time+zone">UTC</a>
+        (Coordinated Universal Time).
+      </div>
     </div>
     <v-spacer></v-spacer>
     <v-btn @click.prevent="banner = false" icon
