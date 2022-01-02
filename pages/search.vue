@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container v-if="videos.length > 0" fluid>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="10" lg="8">
         <client-only>
@@ -11,6 +11,20 @@
         </client-only>
       </v-col>
     </v-row>
+  </v-container>
+  <v-container
+    v-else
+    class="d-flex mt-16 pt-16 align-center justify-center flex-column"
+  >
+    <v-icon
+      class="mb-5"
+      color="#000000"
+      :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
+      >mdi-close-circle</v-icon
+    >
+    <div class="mx-auto text-h3 text-center font-weight-bold">
+      No video found with title: {{ this.$route.query.q }}
+    </div>
   </v-container>
 </template>
 
@@ -28,14 +42,25 @@ export default {
   },
   data() {
     return {
-      videos: null,
+      videos: [],
     };
   },
-  async fetch() {
-    const res = await this.$axios.get(
-      `/video/search?q=${this.$route.query.q}&page=${0}`
-    );
-    this.videos = await res.data;
+  methods: {
+    fetchVideos() {
+      this.$axios
+        .get(`/video/search?q=${this.$route.query.q}&page=${0}`)
+        .then((res) => res.data)
+        .then((data) => (this.videos = data))
+        .catch((e) => console.log(e));
+    },
+  },
+  created() {
+    this.fetchVideos();
+  },
+  watch: {
+    $route() {
+      this.fetchVideos();
+    },
   },
 };
 </script>

@@ -6,6 +6,7 @@
     :to="`/watch/${video.id}`"
     flat
     nuxt
+    :ripple="false"
   >
     <v-img
       :src="video.thumbnail"
@@ -19,7 +20,7 @@
     ></div>
     <v-row no-gutters>
       <v-col cols="2" class="mr-2">
-        <v-list-item :to="`/channel/${video.channelName}`" class="pa-0" nuxt>
+        <v-list-item :to="`/channel/${video.userId}`" class="pa-0" nuxt>
           <v-list-item-avatar width="40" height="40"
             ><v-img
               :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"

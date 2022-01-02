@@ -1,7 +1,7 @@
 <template>
-  <NuxtLink :to="`/watch/${video.id}`">
-    <SearchCardResultXS v-if="$vuetify.breakpoint.xs" :video="video" />
-    <v-list-item inactive v-else link class="px-0 px-sm-5">
+  <SearchCardResultXS v-if="$vuetify.breakpoint.xs" :video="video" />
+  <NuxtLink v-else :to="`/watch/${video.id}`">
+    <v-list-item :ripple="false" class="px-0 px-sm-5">
       <v-list-item-avatar tile width="360" height="200"
         ><v-img
           aspect-ratio="16/9"
@@ -18,7 +18,7 @@
             >{{ video.views | formatViews }} views •
             {{ $moment(video.createdAt).format("D, MMM YYYY") }}</span
           >
-          <NuxtLink :to="`/channel/${video.channelName}`">
+          <NuxtLink :to="`/channel/${video.userId}`">
             <div class="d-flex my-2" no-gutters>
               <span>
                 <v-avatar size="30">

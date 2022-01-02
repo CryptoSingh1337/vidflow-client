@@ -149,7 +149,10 @@ export default {
   methods: {
     search() {
       if (this.searchText && this.searchText.trim().length > 0) {
-        this.$router.push({ path: "/search", query: { q: this.searchText } });
+        this.$router.push({
+          path: "/search",
+          query: { q: this.searchText },
+        });
       }
       if (this.searchDialog) this.searchDialog = false;
     },
