@@ -54,7 +54,7 @@ export default {
           )
           .catch((e) => console.log(e));
         const channel = {
-          userId: this.id,
+          id: this.id,
           channelName: this.channelName,
         };
         if (this.subscribed) {
@@ -73,6 +73,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>
