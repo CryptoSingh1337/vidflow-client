@@ -139,7 +139,7 @@ export default {
   },
   created() {
     this.$axios
-      .get(`/user/userId/${this.video.userId}/subscribers`)
+      .get(`/user/userId/${this.video.userId}/subscribers/count`)
       .then((res) => res.data)
       .then((data) => (this.subscribers = data))
       .catch((e) => console.log(e));
