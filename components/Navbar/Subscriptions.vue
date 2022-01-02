@@ -5,7 +5,7 @@
       v-for="(subscription, i) in channels"
       link
       nuxt
-      :to="`/channel/${subscription.userId}`"
+      :to="`/channel/${subscription.id}`"
       dense
     >
       <v-list-item-avatar
