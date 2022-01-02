@@ -70,7 +70,11 @@ export default {
     },
   },
   mounted() {
-    this.$axios.get(`video/views/${this.$route.params.id}`);
+    this.$axios.get(`/video/views/${this.$route.params.id}`);
+    if (this.$auth.loggedIn)
+      this.$axios.post(
+        `/user/userId/${this.$auth.user.id}/video/${this.$route.params.id}`
+      );
   },
 };
 </script>
