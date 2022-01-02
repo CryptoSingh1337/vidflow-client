@@ -83,6 +83,7 @@
                   sm="6"
                   md="4"
                   lg="3"
+                  class="mx-xs-auto"
                   :key="index"
                   v-for="(video, index) in videos"
                 >
