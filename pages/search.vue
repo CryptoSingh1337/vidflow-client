@@ -18,7 +18,7 @@
   >
     <v-icon
       class="mb-5"
-      color="#000000"
+      :color="$vuetify.theme.dark ? '' : '#000000'"
       :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
       >mdi-close-circle</v-icon
     >
