@@ -39,9 +39,7 @@
           ></v-list-item>
         </div>
       </v-list>
-      <client-only>
-        <Subscriptions v-if="$auth.loggedIn" />
-      </client-only>
+      <Subscriptions v-if="$auth.loggedIn" />
       <v-list-item dense class="justify-self-end">
         <v-list-item-content>
           <v-list-item-subtitle class="text-center">
@@ -58,11 +56,9 @@
         max-width="40"
         src="/logo.svg"
       ></v-img>
-      <NuxtLink class="ml-2" to="/" style="text-decoration: none">
-        <h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
-          VidFlow
-        </h3>
-      </NuxtLink>
+      <h3 :class="$vuetify.theme.dark ? 'white--text' : 'black--text'">
+        VidFlow
+      </h3>
       <v-spacer></v-spacer>
       <v-text-field
         solo
@@ -106,18 +102,16 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <client-only>
-        <div v-if="!$auth.loggedIn">
-          <SideMenu />
-          <v-btn :small="$vuetify.breakpoint.xs" color="grey" to="/login" nuxt>
-            Login/SignIn
-          </v-btn>
-        </div>
-        <div v-else class="d-flex">
-          <SideButtons />
-          <AvatarButton />
-        </div>
-      </client-only>
+      <div v-if="!$auth.loggedIn">
+        <SideMenu />
+        <v-btn :small="$vuetify.breakpoint.xs" color="grey" to="/login" nuxt>
+          Login/SignIn
+        </v-btn>
+      </div>
+      <div v-else class="d-flex">
+        <SideButtons />
+        <AvatarButton />
+      </div>
     </v-app-bar>
   </div>
 </template>

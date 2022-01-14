@@ -19,20 +19,25 @@
       style="line-height: normal"
     ></div>
     <v-row no-gutters>
-      <NuxtLink :to="`/channel/${video.userId}`" class="pa-0 channel-link">
-        <v-list-item-avatar width="40" height="40"
-          ><v-img
-            :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
-          ></v-img
-        ></v-list-item-avatar>
-      </NuxtLink>
+      <v-col cols="2">
+        <client-only>
+          <NuxtLink :to="`/channel/${video.userId}`" class="pa-0 channel-link">
+            <v-list-item-avatar width="40" height="40">
+              <v-img
+                :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
+              >
+              </v-img>
+            </v-list-item-avatar>
+          </NuxtLink>
+        </client-only>
+      </v-col>
       <v-col class="d-flex align-center flex-row">
         <v-card-subtitle class="pa-0 grey--text">
           <div class="font-weight-bold">{{ video.channelName }}</div>
-          <span
-            >{{ video.views | formatViews }} views •
-            {{ $moment(video.createdAt).fromNow() }}</span
-          >
+          <span>
+            {{ video.views | formatViews }} views •
+            {{ $moment(video.createdAt).fromNow() }}
+          </span>
         </v-card-subtitle>
       </v-col>
     </v-row>

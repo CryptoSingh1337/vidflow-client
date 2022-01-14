@@ -1,39 +1,37 @@
 <template>
-  <client-only>
-    <Unauthorize
-      v-if="!$auth.loggedIn"
-      :icon="icon"
-      :heading="heading"
-      :caption="caption"
-    />
-    <v-container v-else-if="$auth.loggedIn && history.length > 0" fluid>
-      <v-row align="center" justify="center" no-gutters>
-        <v-col cols="12" md="10" lg="8">
-          <client-only>
-            <SearchResultCard
-              :key="i"
-              v-for="(video, i) in history"
-              :video="video"
-            />
-          </client-only>
-        </v-col>
-      </v-row>
-    </v-container>
-    <v-container
-      v-else
-      class="d-flex mt-16 pt-16 align-center justify-center flex-column"
+  <Unauthorize
+    v-if="!$auth.loggedIn"
+    :icon="icon"
+    :heading="heading"
+    :caption="caption"
+  />
+  <v-container v-else-if="$auth.loggedIn && history.length > 0" fluid>
+    <v-row align="center" justify="center" no-gutters>
+      <v-col cols="12" md="10" lg="8">
+        <client-only>
+          <SearchResultCard
+            :key="i"
+            v-for="(video, i) in history"
+            :video="video"
+          />
+        </client-only>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container
+    v-else
+    class="d-flex mt-16 pt-16 align-center justify-center flex-column"
+  >
+    <v-icon
+      class="mb-5"
+      :color="$vuetify.theme.dark ? '' : '#000000'"
+      :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
+      >mdi-information</v-icon
     >
-      <v-icon
-        class="mb-5"
-        :color="$vuetify.theme.dark ? '' : '#000000'"
-        :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
-        >mdi-information</v-icon
-      >
-      <div class="mx-auto text-h3 text-center font-weight-bold">
-        Your watch history is empty!
-      </div>
-    </v-container>
-  </client-only>
+    <div class="mx-auto text-h3 text-center font-weight-bold">
+      Your watch history is empty!
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -58,14 +56,15 @@ export default {
       history: [],
     };
   },
-  created() {
-    if (this.$auth.loggedIn) {
-      this.$axios
-        .get(`/user/userId/${this.$auth.user.id}/watch/history?page=${0}`)
-        .then((res) => res.data)
-        .then((data) => (this.history = data))
-        .catch((e) => console.log(e));
+  async asyncData({ $auth, $axios }) {
+    let history = [];
+    if ($auth.loggedIn) {
+      const response = await $axios.get(
+        `/user/userId/${$auth.user.id}/watch/history?page=${0}`
+      );
+      history = await response.data;
     }
+    return { history };
   },
 };
 </script>

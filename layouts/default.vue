@@ -34,8 +34,8 @@ export default {
       if (theme) {
         this.$vuetify.theme.dark = theme === "dark" ? true : false;
       } else {
-        this.$vuetify.theme.dark = false;
-        localStorage.setItem("theme", "light");
+        this.$vuetify.theme.dark = true;
+        localStorage.setItem("theme", "dark");
       }
     },
   },

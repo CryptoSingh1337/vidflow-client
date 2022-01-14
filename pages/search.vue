@@ -2,13 +2,11 @@
   <v-container v-if="videos.length > 0" fluid>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="10" lg="8">
-        <client-only>
-          <SearchResultCard
-            :key="i"
-            v-for="(video, i) in videos"
-            :video="video"
-          />
-        </client-only>
+        <SearchResultCard
+          :key="i"
+          v-for="(video, i) in videos"
+          :video="video"
+        />
       </v-col>
     </v-row>
   </v-container>

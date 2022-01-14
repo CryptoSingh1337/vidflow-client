@@ -3,12 +3,12 @@
     :class="['white--text', $vuetify.breakpoint.xs ? 'pa-3 ml-4' : '']"
     :x-small="$vuetify.breakpoint.xs"
     tile
-    :disabled="$auth.user ? $auth.user.id === id : false"
-    :color="subscribed ? 'grey' : 'red'"
+    :disabled="same"
+    :color="subscribe ? 'grey' : 'red'"
     depressed
-    v-model="subscribed"
+    v-model="subscribe"
     @click="handleSubscribe"
-    >{{ subscribed ? "Subscribed" : "Subscribe" }}</v-btn
+    >{{ subscribe ? "Subscribed" : "Subscribe" }}</v-btn
   >
 </template>
 
@@ -17,24 +17,13 @@ export default {
   props: {
     id: String,
     channelName: String,
+    subscribed: Boolean,
+    same: Boolean,
   },
   data() {
     return {
-      subscribed: false,
+      subscribe: this.subscribed,
     };
-  },
-  created() {
-    if (this.$auth.loggedIn)
-      this.$axios
-        .get(`/user/userId/${this.$auth.user.id}/subscribed/${this.id}`)
-        .then((res) => {
-          if (res.status === 200) {
-            this.subscribed = true;
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
   },
   methods: {
     setAlert(type, icon, text) {
@@ -47,17 +36,17 @@ export default {
     },
     handleSubscribe() {
       if (this.$auth.loggedIn) {
-        this.subscribed = !this.subscribed;
+        this.subscribe = !this.subscribe;
         this.$axios
           .post(
-            `/user/userId/${this.$auth.user.id}/subscribers?subscribeToUserId=${this.id}&increase=${this.subscribed}`
+            `/user/userId/${this.$auth.user.id}/subscribers?subscribeToUserId=${this.id}&increase=${this.subscribe}`
           )
           .catch((e) => console.log(e));
         const channel = {
           id: this.id,
           channelName: this.channelName,
         };
-        if (this.subscribed) {
+        if (this.subscribe) {
           this.$nuxt.$emit("addSubscription", channel);
         } else {
           this.$nuxt.$emit("removeSubscription", channel);

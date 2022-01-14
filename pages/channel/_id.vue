@@ -32,7 +32,12 @@
           lg="3"
           offset-sm="0"
         >
-          <SubscribeButton :channelName="channelName" :id="$route.params.id" />
+          <SubscribeButton
+            :channelName="channelName"
+            :id="$route.params.id"
+            :subscribed="subscribed"
+            :same="same"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -118,48 +123,42 @@ export default {
       error: null,
       tabs: ["Home", "Vidoes"],
       tab: null,
-      loading: true,
       channelName: "",
       subscribers: 0,
       videos: [],
+      same: false,
     };
   },
-  async fetch() {
-    try {
-      const res = await this.$axios.get(
-        `/video/user/${this.$route.params.id}?page=${0}`
-      );
-      this.videos = await res.data;
-    } catch (e) {
-      console.log(e);
+  async asyncData({ $auth, params, $axios }) {
+    const userId = params.id;
+    let response = await $axios.get(`/video/user/${userId}?page=${0}`);
+    const videos = await response.data;
+
+    response = await $axios.get(`/user/userId/${userId}/channel`);
+    const channelName = await response.data;
+
+    response = await $axios.get(`/user/userId/${userId}/subscribers/count`);
+    const subscribers = await response.data;
+
+    let subscribed = false;
+    let same = false;
+    if ($auth.loggedIn) {
+      if ($auth.user.id !== userId) {
+        try {
+          response = await $axios.get(
+            `/user/userId/${$auth.user.id}/subscribed/${userId}`
+          );
+          subscribed = (await response.status) === 200 ? true : false;
+        } catch (e) {}
+      } else {
+        subscribed = false;
+      }
     }
+
+    return { same, subscribed, videos, channelName, subscribers };
   },
   methods: {
     handleTabClick(item) {},
-  },
-  created() {
-    this.$axios
-      .get(`/user/userId/${this.$route.params.id}/channel`)
-      .then((res) => res.data)
-      .then((data) => {
-        this.channelName = data;
-        return data;
-      })
-      .then(() => {
-        this.$axios
-          .get(`/user/userId/${this.$route.params.id}/subscribers/count`)
-          .then((res) => res.data)
-          .then((data) => (this.subscribers = data))
-          .catch((e) => console.log(e));
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  },
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
   },
   filters: {
     numberfy: function (number) {

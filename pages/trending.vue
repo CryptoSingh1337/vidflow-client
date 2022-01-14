@@ -2,26 +2,7 @@
   <v-container fluid>
     <h3>Trending</h3>
     <v-container fluid>
-      <v-row v-if="$fetchState.pending" class="ma-3" no-gutters>
-        <v-col
-          :key="i"
-          v-for="i in 8"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          class="mx-xs-auto"
-        >
-          <v-skeleton-loader
-            class="pa-2 rounded-0"
-            min-width="100%"
-            type="image, list-item-avatar-three-line"
-            :loading="true"
-          >
-          </v-skeleton-loader>
-        </v-col>
-      </v-row>
-      <v-row v-else class="ma-3" no-gutters>
+      <v-row class="ma-3" no-gutters>
         <v-col
           :key="video.id"
           v-for="video in videos"
@@ -31,9 +12,7 @@
           lg="3"
           class="mx-xs-auto"
         >
-          <client-only>
-            <VideoCard :video="video" />
-          </client-only>
+          <VideoCard :video="video" />
         </v-col>
       </v-row>
     </v-container>
@@ -57,9 +36,10 @@ export default {
       videos: [],
     };
   },
-  async fetch() {
-    const response = await this.$axios.get("/video/trending?page=0");
-    this.videos = response.data;
+  async asyncData({ $axios }) {
+    const response = await $axios.get("/video/trending?page=0");
+    const videos = response.data;
+    return { videos };
   },
 };
 </script>

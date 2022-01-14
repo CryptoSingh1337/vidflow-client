@@ -48,7 +48,7 @@ export default {
       this.channels.push(channel);
     },
     removeSubscription(channel) {
-      this.channels = this.channels.filter((c) => c.userId !== channel.userId);
+      this.channels = this.channels.filter((c) => c.id !== channel.id);
     },
   },
 };

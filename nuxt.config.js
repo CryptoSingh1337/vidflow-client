@@ -1,12 +1,8 @@
 import colors from "vuetify/es5/util/colors";
 
 export default {
-  target: "static",
   head: {
     title: "VidFlow",
-    generate: {
-      fallback: true
-    },
     htmlAttrs: {
       lang: "en"
     },
@@ -37,7 +33,7 @@ export default {
   },
   vuetify: {
     theme: {
-      dark: false,
+      dark: true,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -55,8 +51,10 @@ export default {
     strategies: {
       local: {
         scheme: "refresh",
-        localStorage: {
-          prefix: "auth."
+        cookie: {
+          prefix: "auth.",
+          maxAge: 86400,
+          secure: true,
         },
         token: {
           prefix: "access_token.",
@@ -89,7 +87,7 @@ export default {
       callback: "/login",
       home: "/"
     },
-    cookie: false
+    localStorage: false
   },
   router: {
     prefetchLinks: false,

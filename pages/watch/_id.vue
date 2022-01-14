@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-if="$fetch.pending"></div>
-    <div v-else class="d-flex justify-center black">
+    <div class="d-flex justify-center black">
       <video
         id="video"
         class="my-10"
@@ -14,9 +13,14 @@
     </div>
     <v-row class="px-lg-5" no-gutters>
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
-        <VideoFooter v-if="initialized" :video="video" />
+        <VideoFooter
+          :same="same"
+          :subscribers="subscribers"
+          :subscribed="subscribed"
+          :video="video"
+        />
         <v-divider></v-divider>
-        <Comments v-if="initialized" :comments="video.comments" />
+        <Comments :comments="video.comments" />
         <v-btn
           class="mt-4 hidden-md-and-up"
           color="primary"
@@ -55,14 +59,40 @@ export default {
       sideBarVideos: [],
       sideVideoPage: 0,
       initialized: false,
+      same: false,
+      subscribed: false,
+      subscribers: 0,
     };
   },
-  async fetch() {
-    const response = await this.$axios.get(`/video/${this.$route.params.id}`);
-    this.video = response.data;
-    const sideVideos = await this.$axios.get(`/video/trending?page=0`);
-    this.sideBarVideos = sideVideos.data;
-    this.initialized = true;
+  async asyncData({ $auth, params, $axios }) {
+    const videoId = params.id;
+    let response = await $axios.get(`/video/${videoId}`);
+    const video = await response.data;
+
+    response = await $axios.get(`/video/trending?page=${0}`);
+    const sideBarVideos = await response.data;
+
+    const userId = video.userId;
+
+    response = await $axios.get(`/user/userId/${userId}/subscribers/count`);
+    const subscribers = await response.data;
+
+    let subscribed = false;
+    let same = false;
+    if ($auth.loggedIn) {
+      if ($auth.user.id !== userId) {
+        try {
+          response = await $axios.get(
+            `/user/userId/${$auth.user.id}/subscribed/${userId}`
+          );
+          subscribed = (await response.status) === 200 ? true : false;
+        } catch (e) {}
+      } else {
+        subscribed = false;
+      }
+    }
+
+    return { subscribers, video, sideBarVideos, subscribed, same };
   },
   methods: {
     handleClick() {

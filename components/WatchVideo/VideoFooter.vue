@@ -77,7 +77,12 @@
         lg="4"
         class="d-flex align-center justify-end"
       >
-        <SubscribeButton :channelName="video.channelName" :id="video.userId" />
+        <SubscribeButton
+          :same="same"
+          :subscribed="subscribed"
+          :channelName="video.channelName"
+          :id="video.userId"
+        />
       </v-col>
       <v-col cols="12" md="12">
         <div class="subtitle-1" style="line-height: 1.2">
@@ -101,13 +106,14 @@ export default {
   },
   props: {
     video: Object,
+    same: Boolean,
+    subscribed: Boolean,
+    subscribers: Number,
   },
   data() {
     return {
       liked: false,
       disliked: false,
-      subscribed: false,
-      subscribers: 0,
       truncate: true,
       showText: "Show More",
     };
@@ -136,13 +142,6 @@ export default {
         this.$store.commit("toggleAlert");
       }, 2000);
     },
-  },
-  created() {
-    this.$axios
-      .get(`/user/userId/${this.video.userId}/subscribers/count`)
-      .then((res) => res.data)
-      .then((data) => (this.subscribers = data))
-      .catch((e) => console.log(e));
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
