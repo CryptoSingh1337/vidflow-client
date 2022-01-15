@@ -1,5 +1,10 @@
 <template>
   <div v-if="channels.length > 0">
+    <v-subheader
+      class="mb-2 text-uppercase font-weight-bold"
+      style="min-height: 20px; height: 20px"
+      >Subscriptions</v-subheader
+    >
     <v-list-item
       :key="i"
       v-for="(subscription, i) in channels"
