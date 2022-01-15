@@ -152,6 +152,7 @@ export default {
         } catch (e) {}
       } else {
         subscribed = false;
+        same = true;
       }
     }
 
