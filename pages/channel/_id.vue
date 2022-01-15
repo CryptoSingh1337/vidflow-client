@@ -61,7 +61,15 @@
           >
             <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
               <v-card-title>Popular Uploads</v-card-title>
-              <v-row class="ma-3" no-gutters>
+              <v-container
+                class="fill-height justify-center"
+                v-if="videos.length === 0"
+              >
+                <h3 class="mt-5 text-md-h5 font-weight-medium">
+                  No videos found
+                </h3>
+              </v-container>
+              <v-row v-else class="ma-3" no-gutters>
                 <v-col
                   cols="12"
                   sm="6"
@@ -82,7 +90,15 @@
           >
             <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
               <v-card-title>Uploads</v-card-title>
-              <v-row class="ma-3" no-gutters>
+              <v-container
+                class="fill-height justify-center"
+                v-if="videos.length === 0"
+              >
+                <h3 class="mt-5 text-md-h5 font-weight-medium">
+                  No videos found
+                </h3>
+              </v-container>
+              <v-row v-else class="ma-3" no-gutters>
                 <v-col
                   cols="12"
                   sm="6"
