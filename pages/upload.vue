@@ -14,17 +14,19 @@
       v-model="valid"
       :class="[$vuetify.breakpoint.mdAndDown ? 'width-md' : 'width-lg']"
     >
-      <v-file-input
-        v-model="video"
-        :rules="[rules.required, rules.video]"
-        solo
-        outlined
-        prepend-icon=""
-        label="Upload your video file"
-        show-size
-        counter
-        accept="video/*"
-      ></v-file-input>
+      <client-only>
+        <v-file-input
+          v-model="video"
+          :rules="[rules.required, rules.video]"
+          solo
+          outlined
+          prepend-icon=""
+          label="Upload your video file"
+          show-size
+          counter
+          accept="video/*"
+        ></v-file-input>
+      </client-only>
       <v-btn
         class="mx-auto"
         color="primary"
@@ -48,6 +50,7 @@ export default {
   },
   data() {
     return {
+      initialized: true,
       valid: false,
       alert: false,
       alertText: "",

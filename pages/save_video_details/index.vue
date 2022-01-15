@@ -58,15 +58,17 @@
                 </v-col>
               </v-row>
             </v-container>
-            <v-file-input
-              show-size
-              counter
-              accept="image/*"
-              label="Upload thumbnail"
-              prepend-icon="mdi-image"
-              :rules="[rules.thumbnail]"
-              v-model="thumbnail"
-            ></v-file-input>
+            <client-only>
+              <v-file-input
+                show-size
+                counter
+                accept="image/*"
+                label="Upload thumbnail"
+                prepend-icon="mdi-image"
+                :rules="[rules.thumbnail]"
+                v-model="thumbnail"
+              ></v-file-input>
+            </client-only>
             <v-container class="px-0">
               <v-btn
                 class="mr-2"
@@ -166,7 +168,6 @@ export default {
       else if (isVideoValid && isThumbnailValid) {
         this.uploading = true;
         let formData = new FormData();
-        let videoId = "";
         formData.append("video", this.uploadVideo);
         formData.append("thumbnail", this.thumbnail);
         this.$axios
