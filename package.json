@@ -12,7 +12,6 @@
     "@nuxtjs/auth-next": "5.0.0-1637745161.ea53f98",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/moment": "^1.6.1",
-    "@nuxtjs/vercel-builder": "^0.22.1",
     "core-js": "^3.15.1",
     "dateformat": "^5.0.1",
     "nuxt": "^2.15.7",
