@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <div
+    class="container fill-height justify-center flex-column"
+    v-if="$fetchState.pending"
+  >
+    <v-progress-circular
+      :size="100"
+      :width="7"
+      color="#1867c0"
+      indeterminate
+    ></v-progress-circular>
+    <h3 class="mt-5 text-md-h5 font-weight-medium">Loading...</h3>
+  </div>
+  <div v-else>
     <div class="d-flex justify-center black">
       <video
         id="video"
@@ -64,36 +76,44 @@ export default {
       subscribers: 0,
     };
   },
-  async asyncData({ $auth, params, $axios }) {
-    const videoId = params.id;
-    let response = await $axios.get(`/video/${videoId}`);
+  async fetch() {
+    const videoId = this.$route.params.id;
+    let response = await this.$axios.get(`/video/${videoId}`);
     const video = await response.data;
 
-    response = await $axios.get(`/video/trending?page=${0}`);
+    response = await this.$axios.get(`/video/trending?page=${0}`);
     const sideBarVideos = await response.data;
 
     const userId = video.userId;
 
-    response = await $axios.get(`/user/userId/${userId}/subscribers/count`);
+    response = await this.$axios.get(
+      `/user/userId/${userId}/subscribers/count`
+    );
     const subscribers = await response.data;
 
     let subscribed = false;
     let same = false;
-    if ($auth.loggedIn) {
-      if ($auth.user.id !== userId) {
+    if (this.$auth.loggedIn) {
+      if (this.$auth.user.id !== userId) {
         try {
-          response = await $axios.get(
-            `/user/userId/${$auth.user.id}/subscribed/${userId}`
+          response = await this.$axios.get(
+            `/user/userId/${this.$auth.user.id}/subscribed/${userId}`
           );
           subscribed = (await response.status) === 200 ? true : false;
         } catch (e) {}
       } else {
         subscribed = false;
+        same = true;
       }
     }
-
-    return { subscribers, video, sideBarVideos, subscribed, same };
+    this.video = video;
+    this.sideBarVideos = sideBarVideos;
+    this.subscribers = subscribers;
+    this.subscribed = subscribed;
+    this.same = same;
+    // return { subscribers, video, sideBarVideos, subscribed, same };
   },
+  fetchDelay: 500,
   methods: {
     handleClick() {
       console.log("Show more");
