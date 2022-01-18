@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <div
+    class="container fill-height justify-center flex-column"
+    v-if="$fetchState.pending"
+  >
+    <v-progress-circular
+      :size="100"
+      :width="7"
+      color="#1867c0"
+      indeterminate
+    ></v-progress-circular>
+    <h3 class="mt-5 text-md-h5 font-weight-medium">Loading...</h3>
+  </div>
+  <div v-else>
     <v-parallax
       src="https://picsum.photos/1546/423?random"
       height="230"
@@ -145,24 +157,26 @@ export default {
       same: false,
     };
   },
-  async asyncData({ $auth, params, $axios }) {
-    const userId = params.id;
-    let response = await $axios.get(`/video/user/${userId}?page=${0}`);
+  async fetch() {
+    const userId = this.$route.params.id;
+    let response = await this.$axios.get(`/video/user/${userId}?page=${0}`);
     const videos = await response.data;
 
-    response = await $axios.get(`/user/userId/${userId}/channel`);
+    response = await this.$axios.get(`/user/userId/${userId}/channel`);
     const channelName = await response.data;
 
-    response = await $axios.get(`/user/userId/${userId}/subscribers/count`);
+    response = await this.$axios.get(
+      `/user/userId/${userId}/subscribers/count`
+    );
     const subscribers = await response.data;
 
     let subscribed = false;
     let same = false;
-    if ($auth.loggedIn) {
-      if ($auth.user.id !== userId) {
+    if (this.$auth.loggedIn) {
+      if (this.$auth.user.id !== userId) {
         try {
-          response = await $axios.get(
-            `/user/userId/${$auth.user.id}/subscribed/${userId}`
+          response = await this.$axios.get(
+            `/user/userId/${this.$auth.user.id}/subscribed/${userId}`
           );
           subscribed = (await response.status) === 200 ? true : false;
         } catch (e) {}
@@ -171,8 +185,11 @@ export default {
         same = true;
       }
     }
-
-    return { same, subscribed, videos, channelName, subscribers };
+    this.same = same;
+    this.subscribed = subscribed;
+    this.videos = videos;
+    this.channelName = channelName;
+    this.subscribers = subscribers;
   },
   methods: {
     handleTabClick(item) {},
