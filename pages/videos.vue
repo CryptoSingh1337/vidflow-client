@@ -67,7 +67,7 @@ export default {
   async fetch() {
     if (this.$auth.loggedIn) {
       const response = await this.$axios.get(
-        `/video/user/${this.$auth.user.id}/all?page=${this.page}`
+        `/video/user/${this.$auth.user.id}/all`
       );
       const videos = await response.data;
       this.videos = videos;
