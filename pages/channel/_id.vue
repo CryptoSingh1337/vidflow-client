@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="container fill-height justify-center flex-column"
-    v-if="$fetchState.pending"
-  >
-    <v-progress-circular
-      :size="100"
-      :width="7"
-      color="#1867c0"
-      indeterminate
-    ></v-progress-circular>
-    <h3 class="mt-5 text-md-h5 font-weight-medium">Loading...</h3>
-  </div>
+  <Loader v-if="$fetchState.pending" />
   <div v-else>
     <v-parallax
       src="https://picsum.photos/1546/423?random"
@@ -132,6 +121,7 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 import VideoCard from "@/components/Home/VideoCard.vue";
 import SubscribeButton from "@/components/SubscribeButton.vue";
 
@@ -142,6 +132,7 @@ export default {
     };
   },
   components: {
+    Loader,
     VideoCard,
     SubscribeButton,
   },

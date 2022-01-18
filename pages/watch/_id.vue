@@ -1,16 +1,5 @@
 <template>
-  <div
-    class="container fill-height justify-center flex-column"
-    v-if="$fetchState.pending"
-  >
-    <v-progress-circular
-      :size="100"
-      :width="7"
-      color="#1867c0"
-      indeterminate
-    ></v-progress-circular>
-    <h3 class="mt-5 text-md-h5 font-weight-medium">Loading...</h3>
-  </div>
+  <Loader v-if="$fetchState.pending" />
   <div v-else>
     <div class="d-flex justify-center black">
       <video
@@ -50,6 +39,7 @@
 </template>
 
 <script>
+import Loader from "@/components/Loader.vue";
 import Comments from "@/components/WatchVideo/Comments.vue";
 import SideBarCard from "@/components/WatchVideo/SideBarCard.vue";
 import VideoFooter from "@/components/WatchVideo/VideoFooter.vue";
@@ -61,6 +51,7 @@ export default {
     };
   },
   components: {
+    Loader,
     Comments,
     SideBarCard,
     VideoFooter,
