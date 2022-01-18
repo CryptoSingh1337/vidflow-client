@@ -25,7 +25,7 @@
     <v-icon
       class="mb-5"
       :color="$vuetify.theme.dark ? '' : '#000000'"
-      :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
+      :size="90"
       >mdi-information</v-icon
     >
     <div class="mx-auto text-h3 text-center font-weight-bold">

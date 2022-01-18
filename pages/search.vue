@@ -17,10 +17,10 @@
     <v-icon
       class="mb-5"
       :color="$vuetify.theme.dark ? '' : '#000000'"
-      :size="$vuetify.breakpoint.mdAndUp ? 115 : 100"
+      :size="90"
       >mdi-close-circle</v-icon
     >
-    <div class="mx-auto text-h3 text-center font-weight-bold">
+    <div class="mx-auto text-h4 text-center font-weight-bold">
       No video found with title: {{ this.$route.query.q }}
     </div>
   </v-container>
