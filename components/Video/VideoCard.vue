@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     calculateRatio(likes, dislikes) {
+      if (likes === 0) return 0;
       return ((likes / (likes + dislikes)) * 100).toFixed(2);
     },
   },
