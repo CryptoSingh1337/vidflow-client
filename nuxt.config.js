@@ -17,6 +17,10 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/v.png" }]
   },
+  loading: {
+    color: "#2096f3",
+    height: "3.5px",
+  },
   css: [],
   plugins: [],
   components: true,
