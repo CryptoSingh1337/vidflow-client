@@ -138,6 +138,7 @@ export default {
           comment.body = this.comment;
           this.comment = "";
         })
+        .then(() => (this.editing = false))
         .catch((e) => console.log(e));
     },
   },
