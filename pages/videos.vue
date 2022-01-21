@@ -56,14 +56,6 @@ export default {
       videos: [],
     };
   },
-  methods: {
-    handleClick(row) {
-      console.log(row);
-    },
-    calculateRatio(likes, dislikes) {
-      return ((likes / (likes + dislikes)) * 100).toFixed(2);
-    },
-  },
   async fetch() {
     if (this.$auth.loggedIn) {
       const response = await this.$axios.get(
