@@ -9,17 +9,22 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { property: "og:title", name: "og:title", content: "VidFlow" },
+      { property: "og:url", name: "og:url", content: "https://vidflow-client.herokuapp.com/" },
+      { property: "og:image", name: "og:image", content: "/logo.svg" },
+      { property: "og:type", name: "og:type", content: "web application" },
+      { hipropertyd: "og:description", name: "og:description", content: "VidFlow - An open source content sharing platform (similar to YouTube)" },
       {
-        hid: "description",
+        property: "description",
         name: "description",
         content: "VidFlow - An open source content sharing platform (similar to YouTube)"
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/v.png" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }]
   },
   loading: {
     color: "#2096f3",
-    height: "3.5px",
+    height: "3px",
   },
   css: [],
   plugins: [],
