@@ -11,9 +11,9 @@ export default {
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:title", name: "og:title", content: "VidFlow" },
       { property: "og:url", name: "og:url", content: "https://vidflow-client.herokuapp.com/" },
-      { property: "og:image", name: "og:image", content: "/logo.svg" },
+      { property: "og:image", name: "og:image", content: "/v.png" },
       { property: "og:type", name: "og:type", content: "web application" },
-      { hipropertyd: "og:description", name: "og:description", content: "VidFlow - An open source content sharing platform (similar to YouTube)" },
+      { property: "og:description", name: "og:description", content: "VidFlow - An open source content sharing platform (similar to YouTube)" },
       {
         property: "description",
         name: "description",
