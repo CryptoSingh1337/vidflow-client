@@ -19,6 +19,8 @@
           :subscribers="subscribers"
           :subscribed="subscribed"
           :video="video"
+          :liked="liked"
+          :disliked="disliked"
         />
         <v-divider></v-divider>
         <Comments :comments="video.comments" />
@@ -65,6 +67,8 @@ export default {
       same: false,
       subscribed: false,
       subscribers: 0,
+      liked: false,
+      disliked: false,
     };
   },
   async fetch() {
@@ -84,6 +88,7 @@ export default {
 
     let subscribed = false;
     let same = false;
+    let liked = false;
     if (this.$auth.loggedIn) {
       if (this.$auth.user.id !== userId) {
         try {
@@ -96,12 +101,19 @@ export default {
         subscribed = false;
         same = true;
       }
+      try {
+        response = await this.$axios.get(
+          `/user/userId/${this.$auth.user.id}/video/${videoId}/liked`
+        );
+        liked = (await response.status) === 200 ? true : false;
+      } catch (e) {}
     }
     this.video = video;
     this.sideBarVideos = sideBarVideos;
     this.subscribers = subscribers;
     this.subscribed = subscribed;
     this.same = same;
+    this.liked = liked;
     // return { subscribers, video, sideBarVideos, subscribed, same };
   },
   fetchDelay: 500,

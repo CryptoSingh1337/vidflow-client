@@ -11,17 +11,18 @@
       <v-col cols="12" sm="8" class="d-flex justify-sm-end">
         <span class="d-flex">
           <v-btn-toggle class="mb-0" borderless dense>
-            <v-btn class="mx-1" plain v-model="liked" @click="liked = !liked"
-              ><v-icon class="pr-1">{{
-                liked ? "mdi-thumb-up" : "mdi-thumb-up-outline"
-              }}</v-icon
-              >{{ video.likes | formatLikes }}</v-btn
-            >
             <v-btn
               class="mx-1"
               plain
-              v-model="disliked"
-              @click="disliked = !disliked"
+              :disabled="!$auth.loggedIn"
+              v-model="like"
+              @click.prevent="handleLike"
+              ><v-icon class="pr-1">{{
+                like ? "mdi-thumb-up" : "mdi-thumb-up-outline"
+              }}</v-icon
+              >{{ likes | formatLikes }}</v-btn
+            >
+            <v-btn class="mx-1" plain :disabled="true" v-model="dislike"
               ><v-icon class="pr-1">{{
                 disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
               }}</v-icon
@@ -109,11 +110,14 @@ export default {
     same: Boolean,
     subscribed: Boolean,
     subscribers: Number,
+    liked: Boolean,
+    disliked: Boolean,
   },
   data() {
     return {
-      liked: false,
-      disliked: false,
+      like: this.liked,
+      dislike: this.disliked,
+      likes: this.video.likes,
       truncate: true,
       showText: "Show More",
     };
@@ -142,6 +146,23 @@ export default {
         this.$store.commit("toggleAlert");
       }, 2000);
     },
+    handleLike() {
+      this.like = !this.like;
+      if (this.$auth.loggedIn) {
+        this.$axios.post(
+          `/user/userId/${this.$auth.user.id}/video/like/${this.video.id}?isLiked=${this.like}`
+        );
+        if (this.like) this.likes += 1;
+        else if (!this.like && this.likes > 0) this.likes -= 1;
+      }
+    },
+  },
+  created() {
+    this.$axios
+      .get(`/user/userId/${this.$auth.user.id}/video/${this.video.id}/liked`)
+      .then((response) => response.status)
+      .then((status) => (this.like = status === 200 ? true : false))
+      .catch((e) => {});
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
