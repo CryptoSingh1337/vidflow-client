@@ -76,7 +76,7 @@ Backend repo: [https://github.com/CryptoSingh1337/vidflow-backend](https://githu
 
 ## TODO
 
-- [ ] Like/dislike video functionality.
+- [x] Like/dislike video functionality.
 - [ ] Forgot password via email.
 - [ ] Notifications functionality using redis as data store.
 - [ ] Clear watch history after 21 days using Scheduling Tasks.
