@@ -1,4 +1,4 @@
-<img src="/static/v.png" align="right" />
+<img src="/static/v.png" align="right" height="150" width="132" />
 
 # VidFlow
 
