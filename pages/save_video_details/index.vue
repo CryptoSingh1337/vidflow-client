@@ -4,7 +4,7 @@
       <h2 class="font-weight-bold text-center">Add Video Metadata</h2>
       <v-row class="mt-5" no-gutters justify="center">
         <v-col cols="12" lg="6" class="mb-10 mb-lg-0">
-          <v-form v-model="valid" class="mr-lg-16 rounded pa-4">
+          <v-form ref="form" v-model="valid" class="mr-lg-16 rounded pa-4">
             <v-alert :value="alert" outlined dense type="error">{{
               alertText
             }}</v-alert>
@@ -65,7 +65,7 @@
                 accept="image/*"
                 label="Upload thumbnail"
                 prepend-icon="mdi-image"
-                :rules="[rules.thumbnail]"
+                :rules="[rules.required, rules.thumbnail]"
                 v-model="thumbnail"
               ></v-file-input>
             </client-only>
@@ -200,11 +200,7 @@ export default {
       }
     },
     handleReset() {
-      this.title = "";
-      this.description = "";
-      this.videoStatus = "";
-      this.tags = [];
-      this.thumbnail = null;
+      this.$refs.form.reset();
     },
   },
 };
