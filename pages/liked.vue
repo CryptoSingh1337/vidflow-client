@@ -6,7 +6,7 @@
     :caption="caption"
   />
   <v-container v-else-if="$auth.loggedIn && liked.length > 0" fluid>
-    <h3 class="text-h5 font-weight-bold mb-5">Your liked videos</h3>
+    <h3 class="text-h5 font-weight-bold mb-5">Liked videos</h3>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="10" lg="8">
         <client-only>

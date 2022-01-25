@@ -13,7 +13,7 @@
     <h3 class="mt-5 text-md-h5 font-weight-medium">No videos found</h3>
   </v-container>
   <v-container v-else-if="$vuetify.breakpoint.mdAndUp">
-    <h3 class="text-h5 font-weight-bold mb-5">Your Videos</h3>
+    <h3 class="text-h5 font-weight-bold mb-5">Your videos</h3>
     <VideoList :videos="videos" />
     <div class="text-center mt-5">
       <v-pagination v-model="page" :length="6"></v-pagination>
