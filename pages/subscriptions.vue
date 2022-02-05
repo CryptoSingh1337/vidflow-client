@@ -5,6 +5,20 @@
     :heading="heading"
     :caption="caption"
   />
+  <v-container
+    v-else
+    class="d-flex mt-16 pt-16 align-center justify-center flex-column"
+  >
+    <v-icon
+      class="mb-5"
+      :color="$vuetify.theme.dark ? '' : '#000000'"
+      :size="90"
+      >mdi-information</v-icon
+    >
+    <div class="mx-auto text-h3 text-center font-weight-bold">
+      This page yet to be implemented
+    </div>
+  </v-container>
 </template>
 
 <script>
