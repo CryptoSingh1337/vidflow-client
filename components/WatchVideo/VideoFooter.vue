@@ -158,11 +158,13 @@ export default {
     },
   },
   created() {
-    this.$axios
-      .get(`/user/userId/${this.$auth.user.id}/video/${this.video.id}/liked`)
-      .then((response) => response.status)
-      .then((status) => (this.like = status === 200 ? true : false))
-      .catch((e) => {});
+    if (this.$axios.loggedIn) {
+      this.$axios
+        .get(`/user/userId/${this.$auth.user.id}/video/${this.video.id}/liked`)
+        .then((response) => response.status)
+        .then((status) => (this.like = status === 200 ? true : false))
+        .catch((e) => {});
+    }
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
