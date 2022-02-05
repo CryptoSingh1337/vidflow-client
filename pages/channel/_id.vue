@@ -60,59 +60,63 @@
               'background-color': $vuetify.theme.dark ? '#121212' : '',
             }"
           >
-            <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
-              <v-card-title>Popular Uploads</v-card-title>
-              <v-container
-                class="fill-height justify-center"
-                v-if="videos.length === 0"
-              >
-                <h3 class="mt-5 text-md-h5 font-weight-medium">
-                  No videos found
-                </h3>
-              </v-container>
-              <v-row v-else class="ma-3" no-gutters>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="3"
-                  :key="index"
-                  v-for="(video, index) in videos"
+            <client-only>
+              <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
+                <v-card-title>Popular Uploads</v-card-title>
+                <v-container
+                  class="fill-height justify-center"
+                  v-if="videos.length === 0"
                 >
-                  <VideoCard :width="'90%'" :video="video" />
-                </v-col>
-              </v-row>
-            </v-card>
+                  <h3 class="mt-5 text-md-h5 font-weight-medium">
+                    No videos found
+                  </h3>
+                </v-container>
+                <v-row v-else class="ma-3" no-gutters>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    lg="3"
+                    :key="index"
+                    v-for="(video, index) in videos"
+                  >
+                    <VideoCard :width="'90%'" :video="video" />
+                  </v-col>
+                </v-row>
+              </v-card>
+            </client-only>
           </v-tab-item>
           <v-tab-item
             :style="{
               'background-color': $vuetify.theme.dark ? '#121212' : '',
             }"
           >
-            <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
-              <v-card-title>Uploads</v-card-title>
-              <v-container
-                class="fill-height justify-center"
-                v-if="videos.length === 0"
-              >
-                <h3 class="mt-5 text-md-h5 font-weight-medium">
-                  No videos found
-                </h3>
-              </v-container>
-              <v-row v-else class="ma-3" no-gutters>
-                <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="3"
-                  class="mx-xs-auto"
-                  :key="index"
-                  v-for="(video, index) in videos"
+            <client-only>
+              <v-card :color="$vuetify.theme.dark ? '#121212' : ''" flat>
+                <v-card-title>Uploads</v-card-title>
+                <v-container
+                  class="fill-height justify-center"
+                  v-if="videos.length === 0"
                 >
-                  <VideoCard :width="'90%'" :video="video" />
-                </v-col>
-              </v-row>
-            </v-card>
+                  <h3 class="mt-5 text-md-h5 font-weight-medium">
+                    No videos found
+                  </h3>
+                </v-container>
+                <v-row v-else class="ma-3" no-gutters>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                    lg="3"
+                    class="mx-xs-auto"
+                    :key="index"
+                    v-for="(video, index) in videos"
+                  >
+                    <VideoCard :width="'90%'" :video="video" />
+                  </v-col>
+                </v-row>
+              </v-card>
+            </client-only>
           </v-tab-item>
         </v-tabs-items>
       </v-container>
