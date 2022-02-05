@@ -52,7 +52,7 @@
           >{{ item }}</v-tab
         >
       </v-tabs>
-      <v-container :class="[$vuetify.breakpoint.xs ? 'pa-0' : 'px-10']" fluid>
+      <v-container :class="$vuetify.breakpoint.xs ? 'pa-0' : 'px-10'" fluid>
         <v-tabs-items v-model="tab">
           <v-tab-item
             class="pa-0"
