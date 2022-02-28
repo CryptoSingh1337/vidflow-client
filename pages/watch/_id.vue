@@ -20,7 +20,6 @@
           :subscribed="subscribed"
           :video="video"
           :liked="liked"
-          :disliked="disliked"
         />
         <v-divider></v-divider>
         <Comments :comments="video.comments" />
@@ -68,7 +67,6 @@ export default {
       subscribed: false,
       subscribers: 0,
       liked: false,
-      disliked: false,
     };
   },
   async fetch() {

@@ -10,25 +10,22 @@
       </v-col>
       <v-col cols="12" sm="8" class="d-flex justify-sm-end">
         <span class="d-flex">
-          <v-btn-toggle class="mb-0" borderless dense>
+          <v-btn-toggle class="mb-0" v-model="like" borderless dense>
             <v-btn
               class="mx-1"
               plain
               :disabled="!$auth.loggedIn"
-              v-model="like"
               @click.prevent="handleLike"
               ><v-icon class="pr-1">{{
                 like ? "mdi-thumb-up" : "mdi-thumb-up-outline"
               }}</v-icon
               >{{ likes | formatLikes }}</v-btn
             >
-            <v-btn class="mx-1" plain :disabled="true" v-model="dislike"
-              ><v-icon class="pr-1">{{
-                disliked ? "mdi-thumb-down" : "mdi-thumb-down-outline"
-              }}</v-icon
-              >{{ video.dislikes | formatLikes }}</v-btn
-            >
           </v-btn-toggle>
+          <v-btn class="mx-1" plain :disabled="true"
+            ><v-icon class="pr-1">mdi-thumb-down-outline</v-icon
+            >{{ video.dislikes | formatLikes }}</v-btn
+          >
           <v-btn class="mx-1 px-0" plain @click="copy"
             ><v-icon>mdi-share-outline</v-icon>SHARE</v-btn
           >
@@ -111,16 +108,17 @@ export default {
     subscribed: Boolean,
     subscribers: Number,
     liked: Boolean,
-    disliked: Boolean,
   },
   data() {
     return {
       like: this.liked,
-      dislike: this.disliked,
       likes: this.video.likes,
       truncate: true,
       showText: "Show More",
     };
+  },
+  created() {
+    console.log(this.like);
   },
   methods: {
     truncateText(description) {
@@ -156,15 +154,6 @@ export default {
         else if (!this.like && this.likes > 0) this.likes -= 1;
       }
     },
-  },
-  created() {
-    if (this.$axios.loggedIn) {
-      this.$axios
-        .get(`/user/id/${this.$auth.user.id}/video/id/${this.video.id}/liked`)
-        .then((response) => response.status)
-        .then((status) => (this.like = status === 200 ? true : false))
-        .catch((e) => {});
-    }
   },
   filters: {
     numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
