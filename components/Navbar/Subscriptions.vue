@@ -36,7 +36,7 @@ export default {
   created() {
     if (this.$auth.loggedIn)
       this.$axios
-        .get(`/user/userId/${this.$auth.user.id}/subscribed`)
+        .get(`/user/id/${this.$auth.user.id}/subscribed`)
         .then((res) => res.data)
         .then((data) => (this.channels = data))
         .catch((e) => console.log(e));

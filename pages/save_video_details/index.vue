@@ -186,7 +186,7 @@ export default {
               videoStatus: this.videoStatus,
             };
             this.$axios
-              .post(`/video/${data.videoId}/video-metadata`, videoMetadata)
+              .post(`/video/id/${data.videoId}/video-metadata`, videoMetadata)
               .then(() => this.$router.push({ path: `/watch/${this.videoId}` }))
               .catch((e) => console.log(e));
           })

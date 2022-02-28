@@ -150,7 +150,7 @@ export default {
       this.like = !this.like;
       if (this.$auth.loggedIn) {
         this.$axios.post(
-          `/user/userId/${this.$auth.user.id}/video/like/${this.video.id}?isLiked=${this.like}`
+          `/user/id/${this.$auth.user.id}/video/id/${this.video.id}/like?isLiked=${this.like}`
         );
         if (this.like) this.likes += 1;
         else if (!this.like && this.likes > 0) this.likes -= 1;
@@ -160,7 +160,7 @@ export default {
   created() {
     if (this.$axios.loggedIn) {
       this.$axios
-        .get(`/user/userId/${this.$auth.user.id}/video/${this.video.id}/liked`)
+        .get(`/user/id/${this.$auth.user.id}/video/id/${this.video.id}/liked`)
         .then((response) => response.status)
         .then((status) => (this.like = status === 200 ? true : false))
         .catch((e) => {});

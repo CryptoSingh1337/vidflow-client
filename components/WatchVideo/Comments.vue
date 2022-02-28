@@ -91,7 +91,7 @@ export default {
     deleteComment(id) {
       if (id) {
         this.$axios
-          .delete(`/video/${this.$route.params.id}/comment/${id}`)
+          .delete(`/video/id/${this.$route.params.id}/comment/id/${id}`)
           .then(
             () =>
               (this.commentsData = this.commentsData.filter((c) => c.id !== id))
@@ -121,7 +121,7 @@ export default {
         body: this.comment,
       };
       this.$axios
-        .post(`/video/${this.$route.params.id}/comment`, data)
+        .post(`/video/id/${this.$route.params.id}/comment`, data)
         .then((res) => res.data)
         .then((data) => this.addComment(data))
         .then(() => this.resetCommentField())
@@ -132,7 +132,10 @@ export default {
         body: this.comment,
       };
       this.$axios
-        .put(`/video/${this.$route.params.id}/comment/${this.editId}`, data)
+        .put(
+          `/video/id/${this.$route.params.id}/comment/id/${this.editId}`,
+          data
+        )
         .then(() => {
           const comment = this.commentsData.find((c) => c.id === this.editId);
           comment.body = this.comment;

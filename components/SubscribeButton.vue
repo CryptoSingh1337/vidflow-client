@@ -39,7 +39,7 @@ export default {
         this.subscribe = !this.subscribe;
         this.$axios
           .post(
-            `/user/userId/${this.$auth.user.id}/subscribers?subscribeToUserId=${this.id}&increase=${this.subscribe}`
+            `/user/id/${this.$auth.user.id}/subscribers?subscribeToUserId=${this.id}&increase=${this.subscribe}`
           )
           .catch((e) => console.log(e));
         const channel = {

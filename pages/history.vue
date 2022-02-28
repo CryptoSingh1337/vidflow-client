@@ -61,7 +61,7 @@ export default {
     let history = [];
     if ($auth.loggedIn) {
       const response = await $axios.get(
-        `/user/userId/${$auth.user.id}/watch/history?page=${0}`
+        `/user/id/${$auth.user.id}/watch/history?page=${0}`
       );
       history = await response.data;
     }

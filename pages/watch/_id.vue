@@ -73,7 +73,7 @@ export default {
   },
   async fetch() {
     const videoId = this.$route.params.id;
-    let response = await this.$axios.get(`/video/${videoId}`);
+    let response = await this.$axios.get(`/video/id/${videoId}`);
     const video = await response.data;
 
     response = await this.$axios.get(`/video/trending?page=${0}`);
@@ -81,9 +81,7 @@ export default {
 
     const userId = video.userId;
 
-    response = await this.$axios.get(
-      `/user/userId/${userId}/subscribers/count`
-    );
+    response = await this.$axios.get(`/user/id/${userId}/subscribers/count`);
     const subscribers = await response.data;
 
     let subscribed = false;
@@ -93,7 +91,7 @@ export default {
       if (this.$auth.user.id !== userId) {
         try {
           response = await this.$axios.get(
-            `/user/userId/${this.$auth.user.id}/subscribed/${userId}`
+            `/user/id/${this.$auth.user.id}/subscribed/id/${userId}`
           );
           subscribed = (await response.status) === 200 ? true : false;
         } catch (e) {}
@@ -103,7 +101,7 @@ export default {
       }
       try {
         response = await this.$axios.get(
-          `/user/userId/${this.$auth.user.id}/video/${videoId}/liked`
+          `/user/id/${this.$auth.user.id}/video/id/${videoId}/liked`
         );
         liked = (await response.status) === 200 ? true : false;
       } catch (e) {}
@@ -123,10 +121,10 @@ export default {
     },
   },
   mounted() {
-    this.$axios.get(`/video/views/${this.$route.params.id}`);
+    this.$axios.get(`/video/views/id/${this.$route.params.id}`);
     if (this.$auth.loggedIn)
       this.$axios.post(
-        `/user/userId/${this.$auth.user.id}/video/${this.$route.params.id}`
+        `/user/id/${this.$auth.user.id}/video/id/${this.$route.params.id}`
       );
   },
 };

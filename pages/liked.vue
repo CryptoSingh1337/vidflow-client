@@ -59,7 +59,7 @@ export default {
     let liked = [];
     if ($auth.loggedIn) {
       const response = await $axios.get(
-        `/user/userId/${$auth.user.id}/liked?page=${0}`
+        `/user/id/${$auth.user.id}/liked?page=${0}`
       );
       liked = await response.data;
     }

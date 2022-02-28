@@ -154,15 +154,13 @@ export default {
   },
   async fetch() {
     const userId = this.$route.params.id;
-    let response = await this.$axios.get(`/video/user/${userId}?page=${0}`);
+    let response = await this.$axios.get(`/video/user/id/${userId}?page=${0}`);
     const videos = await response.data;
 
-    response = await this.$axios.get(`/user/userId/${userId}/channel`);
+    response = await this.$axios.get(`/user/id/${userId}/channel`);
     const channelName = await response.data;
 
-    response = await this.$axios.get(
-      `/user/userId/${userId}/subscribers/count`
-    );
+    response = await this.$axios.get(`/user/id/${userId}/subscribers/count`);
     const subscribers = await response.data;
 
     let subscribed = false;
@@ -171,7 +169,7 @@ export default {
       if (this.$auth.user.id !== userId) {
         try {
           response = await this.$axios.get(
-            `/user/userId/${this.$auth.user.id}/subscribed/${userId}`
+            `/user/id/${this.$auth.user.id}/subscribed/id/${userId}`
           );
           subscribed = (await response.status) === 200 ? true : false;
         } catch (e) {}
