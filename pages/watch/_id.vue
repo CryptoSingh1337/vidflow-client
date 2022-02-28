@@ -114,7 +114,6 @@ export default {
     this.liked = liked;
     // return { subscribers, video, sideBarVideos, subscribed, same };
   },
-  fetchDelay: 500,
   methods: {
     handleClick() {
       console.log("Show more");
