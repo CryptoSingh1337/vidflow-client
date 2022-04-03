@@ -22,7 +22,7 @@
         md="4"
       >
         <v-container>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-model="valid_1">
             <v-row>
               <v-col cols="6">
                 <v-text-field
@@ -66,7 +66,51 @@
               outlined
             >
             </v-text-field>
-            <v-btn :disabled="!valid" @click.prevent="handleSave">Save</v-btn>
+            <v-btn
+              :loading="loading_1"
+              :disabled="!valid_1"
+              @click.prevent="handleSave"
+              >Save</v-btn
+            >
+          </v-form>
+          <v-divider class="my-7"></v-divider>
+          <div class="">
+            <h3 class="text-h5 text-center font-weight-bold mb-5">Password</h3>
+          </div>
+          <v-form v-model="valid_2">
+            <v-text-field
+              v-model="oldPassword"
+              :type="show_1 ? 'text' : 'password'"
+              :append-icon="show_1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required]"
+              label="Enter your old password"
+              @click:append="show_1 = !show_1"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              v-model="newPassword"
+              :type="show_2 ? 'text' : 'password'"
+              :append-icon="show_2 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required]"
+              label="Enter the new password"
+              @click:append="show_2 = !show_2"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              v-model="confirmPassword"
+              :type="show_3 ? 'text' : 'password'"
+              :append-icon="show_3 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required]"
+              label="Confirm the new password"
+              @click:append="show_3 = !show_3"
+              outlined
+            ></v-text-field>
+            <v-btn
+              :loading="loading_2"
+              :disabled="!valid_2"
+              @click.prevent="handleChangePassword"
+              >Change password</v-btn
+            >
           </v-form>
         </v-container>
       </v-col>
@@ -84,12 +128,21 @@ export default {
   },
   data() {
     return {
-      valid: false,
+      valid_1: true,
+      valid_2: true,
+      show_1: false,
+      show_2: false,
+      show_3: false,
+      loading_1: false,
+      loading_2: false,
       firstName: "",
       lastName: "",
       username: "",
       channelName: "",
       email: "",
+      oldPassword: "",
+      newPassword: "",
+      confirmPassword: "",
       rules: {
         required: (value) => !!value || "Required.",
         email: (value) =>
@@ -111,8 +164,31 @@ export default {
     }
   },
   methods: {
+    setAlert(type, icon, text) {
+      this.$store.commit("showAlert", {
+        alertType: type,
+        alertIcon: icon,
+        alertText: text,
+      });
+      setTimeout(() => this.$store.commit("toggleAlert"), 2000);
+    },
     handleSave() {
+      this.loading_1 = true;
+      setTimeout(() => (this.loading_1 = false), 2000);
       console.log("Save");
+    },
+    handleChangePassword() {
+      console.log("Change password");
+      if (this.newPassword !== this.confirmPassword) {
+        this.setAlert(
+          "error",
+          "mdi-alert-circle",
+          "New password and confirm password must be same"
+        );
+        return;
+      }
+      this.loading_2 = true;
+      setTimeout(() => (this.loading_2 = false), 2000);
     },
   },
 };
