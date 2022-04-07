@@ -144,7 +144,7 @@ export default {
     return {
       subscribed: false,
       error: null,
-      tabs: ["Home", "Vidoes"],
+      tabs: ["Home", "Videos"],
       tab: null,
       channelName: "",
       subscribers: 0,
