@@ -13,9 +13,9 @@ const data = [
 				to: '/trending'
 			},
 			{
-				name: 'Subscriptions',
+				name: 'Shorts',
 				icon: 'mdi-youtube-subscription',
-				to: '/subscriptions'
+				to: '/shorts'
 			},
 		]
 	},

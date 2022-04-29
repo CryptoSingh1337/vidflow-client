@@ -27,7 +27,7 @@ import Unauthorize from "@/components/UnauthorizedUser/Unauthorize.vue";
 export default {
   head() {
     return {
-      title: "Subscriptions - VidFlow",
+      title: "Shorts - VidFlow",
     };
   },
   components: {
