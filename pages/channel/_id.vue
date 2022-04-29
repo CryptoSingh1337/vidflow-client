@@ -119,6 +119,7 @@
             </client-only>
           </v-tab-item>
         </v-tabs-items>
+        <v-card v-intersect.quiet="infiniteScroll"></v-card>
       </v-container>
     </v-card>
   </div>
@@ -150,11 +151,12 @@ export default {
       subscribers: 0,
       videos: [],
       same: false,
+      page: 1,
     };
   },
   async fetch() {
     const userId = this.$route.params.id;
-    let response = await this.$axios.get(`/video/user/id/${userId}?page=${0}`);
+    let response = await this.$axios.get(`/video/user/id/${userId}?page=0`);
     const videos = await response.data;
 
     response = await this.$axios.get(`/user/id/${userId}/channel`);
@@ -186,6 +188,19 @@ export default {
   },
   methods: {
     handleTabClick(item) {},
+    infiniteScroll(entries, observer, isIntersecting) {
+      setTimeout(() => {
+        this.$axios.get(`/video/user/id/${this.$route.params.id}?page=${this.page}`)
+        .then(response => response.data)
+        .then(video => {
+          if (video.length > 0) {
+            this.videos.push(...video)
+            this.page += 1;
+          }
+        })
+        .catch(e => console.log(e));
+      }, 500);
+    }
   },
   filters: {
     numberfy: function (number) {

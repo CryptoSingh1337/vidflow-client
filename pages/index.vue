@@ -13,6 +13,7 @@
         <VideoCard :width="'90%'" :video="video" />
       </v-col>
     </v-row>
+    <v-card v-intersect.quiet="infiniteScroll"></v-card>
   </v-container>
 </template>
 
@@ -26,10 +27,26 @@ export default {
   data() {
     return {
       videos: [],
+      page: 1,
     };
   },
+  methods: {
+    infiniteScroll(entries, observer, isIntersecting) {
+      setTimeout(() => {
+        this.$axios.get(`/video?page=${this.page}`)
+        .then(response => response.data)
+        .then(video => {
+          if (video.length > 0) {
+            this.videos.push(...video)
+            this.page += 1;
+          }
+        })
+        .catch(e => console.log(e));
+      }, 500);
+    }
+  },
   async asyncData({ $axios }) {
-    const response = await $axios.get("/video?page=0");
+    const response = await $axios.get(`/video?page=0`);
     const videos = await response.data;
     return { videos };
   },
