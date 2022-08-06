@@ -1,12 +1,27 @@
 {
+	"version": 2,
 	"github": {
-		"silent": true
+	  "silent": true
 	},
 	"builds": [
-		{
-			"src": "nuxt.config.js",
-			"use": "@nuxtjs/vercel-builder",
-			"config": {}
+	  {
+		"src": "nuxt.config.js",
+		"use": "@nuxtjs/vercel-builder",
+		"config": {
+		  "serverFiles": [
+			"package.json"
+		  ]
 		}
+	  }
+	],
+	"routes": [
+	  {
+		"src": "/sw.js",
+		"continue": true,
+		"headers": {
+		  "Cache-Control": "public, max-age=0, must-revalidate",
+		  "Service-Worker-Allowed": "/"
+		}
+	  }
 	]
-}
+  }
