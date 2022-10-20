@@ -4,6 +4,8 @@
 
 An open source content sharing platform (similar to YouTube).
 
+Preview: [https://www.youtube.com/watch?v=WJZyM-X8wAo](https://www.youtube.com/watch?v=WJZyM-X8wAo)
+
 Backend repo: [https://github.com/CryptoSingh1337/vidflow-backend](https://github.com/CryptoSingh1337/vidflow-backend)
 
 [![Issues Closed](https://img.shields.io/github/issues-closed/CryptoSingh1337/vidflow-client?color=red)](https://github.com/CryptoSingh1337/vidflow-client/issues?q=is%3Aissue+is%3Aclosed)
