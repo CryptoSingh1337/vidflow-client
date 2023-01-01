@@ -82,7 +82,7 @@ export default {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: "/users/login", method: "post" },
+          login: { url: "/login", method: "post" },
           refresh: { url: "/user/token/refresh", method: "post" },
           user: { url: "/user", method: "get" },
           logout: false
