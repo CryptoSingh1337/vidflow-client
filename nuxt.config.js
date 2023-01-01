@@ -38,7 +38,7 @@ export default {
     "@nuxtjs/auth-next"
   ],
   axios: {
-    baseURL: process.env.BACKEND_BASE_URL || "http://localhost:5000/api/v1/"
+    baseURL: process.env.BACKEND_BASE_URL || "http://localhost:8080/api/v1/"
   },
   vuetify: {
     theme: {
