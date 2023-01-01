@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <SystemBar />
+    <!-- <SystemBar /> -->
     <NavigationBar />
     <Alert
       :model="alert"
