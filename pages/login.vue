@@ -100,7 +100,10 @@ export default {
         .loginWith("local", { data: data })
         .then((res) => res.data)
         .then((data) => {
-          this.$auth.setUserToken(data.accessToken, data.refreshToken);
+          this.$auth.setUserToken(
+            data.data.accessToken,
+            data.data.refreshToken
+          );
         })
         .then(() => (this.loading = false))
         .catch((err) => {
