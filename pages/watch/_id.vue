@@ -2,15 +2,14 @@
   <Loader v-if="$fetchState.pending" />
   <div v-else>
     <div class="d-flex justify-center black">
-      <video
-        id="video"
-        class="my-10"
-        :src="video.videoUrl"
-        :poster="video.thumbnail"
-        controls
-        :width="$vuetify.breakpoint.smAndDown ? '100%' : '60%'"
-        :height="$vuetify.breakpoint.smAndDown ? '100%' : '50%'"
-      ></video>
+      <vue-plyr :options="options">
+        <video
+          :src="video.videoUrl"
+          controls
+          playsinline
+          :data-poster="video.thumbnail"
+        ></video>
+      </vue-plyr>
     </div>
     <v-row class="px-lg-5" no-gutters>
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
@@ -67,6 +66,7 @@ export default {
       subscribed: false,
       subscribers: 0,
       liked: false,
+      options: {},
     };
   },
   async fetch() {

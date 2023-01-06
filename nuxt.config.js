@@ -27,7 +27,7 @@ export default {
     height: "3px",
   },
   css: [],
-  plugins: [],
+  plugins: [{ src: '~/plugins/vue-plyr', mode: 'client' }],
   components: true,
   buildModules: [
     "@nuxtjs/vuetify",
