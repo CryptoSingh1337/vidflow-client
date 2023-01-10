@@ -156,7 +156,7 @@ export default {
     },
   },
   filters: {
-    numberfy: (views) => views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    numberfy: (views) => String(views).replace(/\B(?=(\d{3})+(?!\d))/g, ","),
     formatLikes: (likes) => {
       if (likes < 999) return likes;
       else if (likes >= 1000 && likes < 1000000)
