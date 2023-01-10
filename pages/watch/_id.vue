@@ -2,14 +2,16 @@
   <Loader v-if="$fetchState.pending" />
   <div v-else>
     <div class="d-flex justify-center black">
-      <vue-plyr :options="options">
-        <video
-          :src="video.videoUrl"
-          controls
-          playsinline
-          :data-poster="video.thumbnail"
-        ></video>
-      </vue-plyr>
+      <client-only>
+        <vue-plyr :options="options">
+          <video
+            :src="video.videoUrl"
+            controls
+            playsinline
+            :data-poster="video.thumbnail"
+          ></video>
+        </vue-plyr>
+      </client-only>
     </div>
     <v-row class="px-lg-5" no-gutters>
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
@@ -127,8 +129,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 video {
   aspect-ratio: 16/9;
+}
+@media only screen and (min-width: 961px) {
+  .plyr {
+    width: 60% !important;
+    height: 50% !important;
+  }
 }
 </style>
