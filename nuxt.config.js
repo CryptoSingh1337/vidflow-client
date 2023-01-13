@@ -18,6 +18,9 @@ export default {
         property: "description",
         name: "description",
         content: "VidFlow - An open source content sharing platform (similar to YouTube)"
+      },
+      {
+        "http-equiv": "Content-Security-Policy", content: "upgrade-insecure-requests"
       }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/logo.svg" }]
