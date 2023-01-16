@@ -2,56 +2,36 @@
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
-        <Header />
-        <v-alert :value="alert" outlined dense type="error">{{
-          alertText
-        }}</v-alert>
         <v-card flat outlined>
           <v-card-title>Login</v-card-title>
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
-                v-model="username"
-                prepend-inner-icon="mdi-account"
-                :rules="[rules.required]"
+                v-model="uname"
+                prepend-inner-icon="mdi:mdi-account"
                 label="Enter your username"
                 outlined
-              >
-              </v-text-field>
+              />
               <v-text-field
-                v-model="password"
-                :type="show ? 'text' : 'password'"
-                prepend-inner-icon="mdi-lock"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.required]"
+                v-model="pass"
+                type="password"
+                prepend-inner-icon="mdi:mdi-lock"
                 label="Enter your password"
-                @click:append="show = !show"
                 outlined
-              >
-              </v-text-field>
-              <div class="caption d-flex justify-space-between">
-                <NuxtLink class="text-decoration-none" to="/forgot">
-                  <span class="blue--text">Forgot your password?</span>
-                </NuxtLink>
-                <span
-                  >No account?
-                  <NuxtLink class="text-decoration-none" to="/register"
-                    >SignIn</NuxtLink
-                  ></span
-                >
-              </div>
+              />
               <v-card-actions class="px-0">
                 <v-btn
-                  class="tile"
-                  elevation="0"
+                  rounded="0"
+                  variant="outlined"
                   color="primary"
+                  size="large"
                   block
-                  x-large
-                  @click="handleLogin"
-                  :loading="loading"
                   :disabled="!valid"
-                  >Login</v-btn
+                  :loading="loader"
+                  @click="handleLogin"
                 >
+                  Login
+                </v-btn>
               </v-card-actions>
             </v-form>
           </v-card-text>
@@ -60,64 +40,23 @@
     </v-row>
   </v-container>
 </template>
+<script setup>
+const uname = ref('')
+const pass = ref('')
+const valid = ref(true)
+const loader = ref(false)
+const { signIn } = useSession()
 
-<script>
-import Header from "@/components/Login/Header.vue";
+definePageMeta({ auth: false })
 
-export default {
-  layout: "basic",
-  head() {
-    return {
-      title: "Login - VidFlow",
-    };
-  },
-  components: {
-    Header,
-  },
-  data() {
-    return {
-      valid: true,
-      loading: false,
-      username: "",
-      password: "",
-      show: false,
-      rules: {
-        required: (value) => !!value || "Required.",
-      },
-      alert: false,
-      alertText: "",
-    };
-  },
-  methods: {
-    handleLogin() {
-      const data = {
-        username: this.username,
-        password: this.password,
-      };
-      console.log(data);
-      this.loading = true;
-      this.$auth
-        .loginWith("local", { data: data })
-        .then((res) => res.data)
-        .then((data) => {
-          this.$auth.setUserToken(
-            data.data.accessToken,
-            data.data.refreshToken
-          );
-        })
-        .then(() => (this.loading = false))
-        .catch((err) => {
-          if (err.response.data.status === 401) {
-            this.alertText = "Invalid username/password";
-            this.alert = true;
-          }
-          this.loading = false;
-        });
-    },
-  },
-  mounted() {
-    this.$vuetify.theme.dark =
-      localStorage.getItem("theme") === "dark" ? true : false;
-  },
-};
+async function handleLogin () {
+  loader.value = true
+  setTimeout(() => { loader.value = false }, 3000)
+  const { error } = await signIn('credentials', { username: uname.value, password: pass.value, redirect: false })
+  if (error) {
+    alert('You have made a terrible mistake while entering your credentials')
+  } else {
+    return navigateTo('/')
+  }
+}
 </script>

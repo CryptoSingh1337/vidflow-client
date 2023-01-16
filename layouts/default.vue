@@ -1,49 +1,18 @@
 <template>
   <v-app>
-    <!-- <SystemBar /> -->
-    <NavigationBar />
-    <Alert
-      :model="alert"
-      :icon="alertIcon"
-      :type="alertType"
-      :text="alertText"
-    />
+    <v-app-bar elevation="0" border>
+      <v-img
+        src="/images/logo.svg"
+        max-width="100"
+        max-height="50"
+      />
+      <v-app-bar-title>Authentication example</v-app-bar-title>
+    </v-app-bar>
     <v-main>
-      <Nuxt />
+      <slot />
     </v-main>
   </v-app>
 </template>
-
-<script>
-import { mapState } from "vuex";
-import SystemBar from "@/components/SystemBar.vue";
-import NavigationBar from "@/components/Navbar/NavigationBar.vue";
-
-export default {
-  name: "App",
-  components: {
-    SystemBar,
-    NavigationBar,
-  },
-  computed: {
-    ...mapState(["alert", "alertType", "alertIcon", "alertText"]),
-  },
-  methods: {
-    initializeTheme() {
-      const theme = localStorage.getItem("theme");
-      if (theme) {
-        this.$vuetify.theme.dark = theme === "dark" ? true : false;
-      } else {
-        this.$vuetify.theme.dark = true;
-        localStorage.setItem("theme", "dark");
-      }
-    },
-  },
-  mounted() {
-    this.initializeTheme();
-  },
-};
-</script>
 
 <style>
 * {
