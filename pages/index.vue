@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="max-w-5xl mx-auto mt-5 px-5">
-      <h3 class="text-xl font-bold ">
+      <h3 class="text-xl font-bold">
         Authentication Overview
       </h3>
       <p class="text-sm">
@@ -20,7 +20,7 @@
     </v-btn>
   </div>
 </template>
-<script lang="ts" setup>
+<script lang='ts' setup>
 const { data, status, getCsrfToken, getProviders, signOut } = useSession()
 const providers = await getProviders()
 const csrfToken = await getCsrfToken()

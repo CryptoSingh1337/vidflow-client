@@ -7,15 +7,15 @@ export default defineNuxtConfig({
       viewport: 'width=500, initial-scale=1',
       title: 'VidFlow',
       meta: [
-        { property: "og:title", name: "og:title", content: "VidFlow" },
-        { property: "og:url", name: "og:url", content: "https://vidflow.vercel.app/" },
-        { property: "og:image", name: "og:image", content: "/images/logo.svg" },
-        { property: "og:type", name: "og:type", content: "Web application" },
-        { property: "og:description", name: "og:description", content: "VidFlow - An open source content sharing platform." },
+        { property: 'og:title', name: 'og:title', content: 'VidFlow' },
+        { property: 'og:url', name: 'og:url', content: 'https://vidflow.vercel.app/' },
+        { property: 'og:image', name: 'og:image', content: '/images/logo.svg' },
+        { property: 'og:type', name: 'og:type', content: 'Web application' },
+        { property: 'og:description', name: 'og:description', content: 'VidFlow - An open source content sharing platform.' },
         {
-          property: "description",
-          name: "description",
-          content: "VidFlow - An open source content sharing platform."
+          property: 'description',
+          name: 'description',
+          content: 'VidFlow - An open source content sharing platform.'
         }
       ],
       link: [
