@@ -6,7 +6,7 @@ function parseJwt (token: string): Jwt {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 }
 
-const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL
+const BACKEND_BASE_URL = useRuntimeConfig().backendBaseUrl
 
 async function refreshAccessToken (refreshToken: {
   accessToken: string;
@@ -44,7 +44,7 @@ async function refreshAccessToken (refreshToken: {
 }
 
 export default NuxtAuthHandler({
-  secret: process.env.SECRET,
+  secret: useRuntimeConfig().authSecret,
   pages: {
     signIn: '/login'
   },
@@ -92,6 +92,15 @@ export default NuxtAuthHandler({
             accessTokenExpires: parseJwt(userTokens.data.accessToken).exp,
             refreshToken: userTokens.data.refreshToken
           }
+          // const user = {
+          //   id: '1',
+          //   username: 'john',
+          //   channelName: 'john',
+          //   firstName: 'John',
+          //   lastName: 'Doe',
+          //   email: 'abc@xyz.com',
+          //   profileImage: 'https://google.com'
+          // }
           return user
         } catch (error) {
           console.warn('Error logging in', error)
@@ -99,6 +108,7 @@ export default NuxtAuthHandler({
         }
       }
     })
+  // ]
   ],
   session: {
     strategy: 'jwt'
@@ -113,7 +123,7 @@ export default NuxtAuthHandler({
         }
       }
       // Handle token refresh before it expires
-      if (token.accessTokenExpires && Date.now() > token.accessTokenExpires) {
+      if (token.accessTokenExpires && (Math.round(Date.now() / 1000)) > token.accessTokenExpires) {
         console.warn('Token is expired. Getting a new')
         return refreshAccessToken(token)
       }
