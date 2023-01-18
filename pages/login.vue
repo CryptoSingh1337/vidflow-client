@@ -47,7 +47,7 @@ const valid = ref(true)
 const loader = ref(false)
 const { signIn } = useSession()
 
-definePageMeta({ auth: false })
+definePageMeta({ auth: false, layout: 'basic' })
 
 async function handleLogin () {
   loader.value = true

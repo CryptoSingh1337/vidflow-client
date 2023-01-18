@@ -1,37 +1,30 @@
 <template>
   <div>
-    <div class="max-w-5xl mx-auto mt-5 px-5">
-      <h3 class="text-xl font-bold">
-        Authentication Overview
-      </h3>
-      <p class="text-sm">
-        See all available authentication & session information below.
-      </p>
-      <pre v-if="status"><span>Status:</span> {{ status }}</pre>
-      <pre v-if="data"><span>Data:</span> {{ data }}</pre>
-      <pre v-if="csrfToken"><span>CSRF Token:</span> {{ csrfToken }}</pre>
-      <pre v-if="providers"><span>Providers:</span> {{ providers }}</pre>
-      <div>
-        {{ video }}
-      </div>
-    </div>
-    <v-btn class="tile" color="primary" elevation="0" @click="handleClick">
-      {{ status === 'authenticated' ? 'Sign Out' : 'Sign In' }}
-    </v-btn>
+    <v-container fluid>
+      <v-row class="ma-3" no-gutters>
+        <v-col
+          v-for="video in videos"
+          :key="video.id"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+          class="mx-xs-auto"
+        >
+          <VideoMainCard :width="'90%'" :video="video" />
+        </v-col>
+      </v-row>
+      <v-card v-intersect.quiet="infiniteScroll" />
+    </v-container>
   </div>
 </template>
 <script lang='ts' setup>
-const { data, status, getCsrfToken, getProviders, signOut } = useSession()
-const providers = await getProviders()
-const csrfToken = await getCsrfToken()
-const video = await useFetch('/api/video')
+import { Video } from 'utils/model'
+
+const { data } = await useFetch('/api/videos')
+const videos = data.value as Video[]
+
 definePageMeta({ auth: false })
 
-function handleClick () {
-  if (status.value === 'authenticated') {
-    signOut({ redirect: false })
-  } else {
-    navigateTo('/login')
-  }
-}
+function infiniteScroll () {}
 </script>
