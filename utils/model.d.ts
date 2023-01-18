@@ -33,16 +33,16 @@ export type Video = {
   id: string,
   title: string,
   userId: string,
-  username: string,
+  username?: string,
   channelName: string,
-  description: string,
-  videoUrl: string,
+  description?: string,
+  videoUrl?: string,
   views: number,
-  likes: number,
-  dislikes: number,
+  likes?: number,
+  dislikes?: number,
   createdAt: string,
   thumbnail: string
-  videoStatus: string,
+  videoStatus?: string,
   tags?: string[],
   comments?: Comment[]
 }
