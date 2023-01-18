@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       charset: 'utf-8',
-      viewport: 'width=500, initial-scale=1',
+      viewport: 'width=device-width, initial-scale=1',
       title: 'VidFlow',
       meta: [
         { property: 'og:title', name: 'og:title', content: 'VidFlow' },
@@ -28,6 +28,7 @@ export default defineNuxtConfig({
   },
   modules: [
     '@sidebase/nuxt-auth',
+    '@vueuse/nuxt',
     // @ts-ignore
     async (options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', config => config.plugins.push(vuetify()))
@@ -38,6 +39,10 @@ export default defineNuxtConfig({
     ssr: {
       noExternal: ['vuetify']
     }
+  },
+  runtimeConfig: {
+    authSecret: '',
+    backendBaseUrl: ''
   },
   auth: {
     origin: process.env.ORIGIN,
