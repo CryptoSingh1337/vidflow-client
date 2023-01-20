@@ -15,7 +15,7 @@
         <v-col class="pa-0">
           <h3>{{ user.username }}</h3>
           <NuxtLink to="/account/settings">
-            <span class="caption">Manage your account</span>
+            <span class="text-caption">Manage your account</span>
           </NuxtLink>
         </v-col>
       </v-row>
