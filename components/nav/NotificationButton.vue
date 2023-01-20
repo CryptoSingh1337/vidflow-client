@@ -22,11 +22,10 @@
         </v-badge>
       </v-btn>
     </template>
-    <v-list>
-      <v-list-subheader>
-        <div class="d-flex">
+    <v-list max-height="300px">
+      <v-list-subheader class="d-block">
+        <div class="d-flex justify-space-between">
           <span class="d-flex align-center">Notifications</span>
-          <v-spacer />
           <v-btn
             variant="text"
             icon
@@ -52,6 +51,22 @@
 
 <script lang='ts' setup>
 const notifications = ref([
+  {
+    channelName: 'Harsh Live',
+    content: 'How are you, you are noob'
+  },
+  {
+    channelName: 'Harsh Live',
+    content: 'How are you, you are noob'
+  },
+  {
+    channelName: 'Harsh Live',
+    content: 'How are you, you are noob'
+  },
+  {
+    channelName: 'Harsh Live',
+    content: 'How are you, you are noob'
+  },
   {
     channelName: 'Harsh Live',
     content: 'How are you, you are noob'
