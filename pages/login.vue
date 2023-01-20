@@ -1,33 +1,51 @@
 <template>
-  <v-container class="fill-height" fluid>
+  <v-layout full-height>
     <v-row align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
-        <v-card flat outlined>
+        <GlobalHeader />
+        <v-alert v-model="alert" class="my-4" variant="outlined" density="compact" type="error">
+          {{ alertText }}
+        </v-alert>
+        <v-card variant="outlined">
           <v-card-title>Login</v-card-title>
           <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
+            <v-form v-model="valid">
               <v-text-field
                 v-model="uname"
-                prepend-inner-icon="mdi:mdi-account"
+                variant="outlined"
+                prepend-inner-icon="mdi-account"
+                :rules="[
+                  v => !!v || 'Required.'
+                ]"
                 label="Enter your username"
-                outlined
               />
               <v-text-field
                 v-model="pass"
-                type="password"
-                prepend-inner-icon="mdi:mdi-lock"
+                :type="show ? 'text' : 'password'"
+                prepend-inner-icon="mdi-lock"
+                :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[
+                  v => !!v || 'Required.'
+                ]"
                 label="Enter your password"
-                outlined
+                variant="outlined"
+                @click:append-inner="show = !show"
               />
+              <div class="text-caption d-flex justify-space-between">
+                <NuxtLink class="text-decoration-none" to="/forgot">
+                  <span>Forgot your password?</span>
+                </NuxtLink>
+                <span>No account?
+                  <NuxtLink class="text-decoration-none" to="/register">SignIn</NuxtLink></span>
+              </div>
               <v-card-actions class="px-0">
                 <v-btn
-                  rounded="0"
-                  variant="outlined"
-                  color="primary"
-                  size="large"
                   block
-                  :disabled="!valid"
+                  variant="tonal"
+                  color="primary"
+                  size="x-large"
                   :loading="loader"
+                  :disabled="!valid"
                   @click="handleLogin"
                 >
                   Login
@@ -38,23 +56,31 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-layout>
 </template>
-<script setup>
+
+<script lang='ts' setup>
+const alert = ref(false)
+const alertText = ref('')
 const uname = ref('')
 const pass = ref('')
 const valid = ref(true)
 const loader = ref(false)
+const show = ref(false)
 const { signIn } = useSession()
 
 definePageMeta({ auth: false, layout: 'basic' })
+useHead({
+  title: 'Login - VidFlow'
+})
 
 async function handleLogin () {
   loader.value = true
-  setTimeout(() => { loader.value = false }, 3000)
   const { error } = await signIn('credentials', { username: uname.value, password: pass.value, redirect: false })
   if (error) {
-    alert('You have made a terrible mistake while entering your credentials')
+    alert.value = true
+    loader.value = false
+    alertText.value = 'Invalid username/password'
   } else {
     return navigateTo('/')
   }
