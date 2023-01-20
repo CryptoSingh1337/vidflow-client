@@ -7,7 +7,7 @@ export type LoginResponse = {
     error: any
   }
 
-export type RegisterResponse = LoginResponse
+export type RefreshTokenResponse = LoginResponse
 
 export type UserResponse = {
   user: User

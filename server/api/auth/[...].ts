@@ -1,12 +1,12 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { NuxtAuthHandler } from '#auth'
-import { UserResponse, LoginResponse, RegisterResponse, Jwt } from 'utils/model'
+import { UserResponse, LoginResponse, RefreshTokenResponse, Jwt } from 'utils/model'
+
+const { backendBaseUrl } = useRuntimeConfig()
 
 function parseJwt (token: string): Jwt {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 }
-
-const BACKEND_BASE_URL = useRuntimeConfig().backendBaseUrl
 
 async function refreshAccessToken (refreshToken: {
   accessToken: string;
@@ -15,7 +15,7 @@ async function refreshAccessToken (refreshToken: {
 }) {
   try {
     console.warn('trying to post to refresh token')
-    const refreshedTokens = await $fetch<RegisterResponse | null>(`${BACKEND_BASE_URL}/user/token/refresh`, {
+    const refreshedTokens = await $fetch<RefreshTokenResponse | null>(`${backendBaseUrl}/user/token/refresh`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ async function refreshAccessToken (refreshToken: {
   } catch (error) {
     console.warn('Error refreshing token', error)
     return {
-      ...refreshToken,
+      refreshToken: null,
       error: 'RefreshAccessTokenError'
     }
   }
@@ -58,7 +58,7 @@ export default NuxtAuthHandler({
             username: credentials.username,
             password: credentials.password
           }
-          const userTokens = await $fetch<LoginResponse | null>(`${BACKEND_BASE_URL}/login`, {
+          const userTokens = await $fetch<LoginResponse | null>(`${backendBaseUrl}/login`, {
             method: 'POST',
             body: payload,
             headers: {
@@ -66,7 +66,7 @@ export default NuxtAuthHandler({
               'Accept-Language': 'en-US'
             }
           })
-          const userDetails = await $fetch<UserResponse | null>(`${BACKEND_BASE_URL}/user`, {
+          const userDetails = await $fetch<UserResponse | null>(`${backendBaseUrl}/user`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -92,15 +92,6 @@ export default NuxtAuthHandler({
             accessTokenExpires: parseJwt(userTokens.data.accessToken).exp,
             refreshToken: userTokens.data.refreshToken
           }
-          // const user = {
-          //   id: '1',
-          //   username: 'john',
-          //   channelName: 'john',
-          //   firstName: 'John',
-          //   lastName: 'Doe',
-          //   email: 'abc@xyz.com',
-          //   profileImage: 'https://avatars.dicebear.com/api/bottts/johndoe.svg'
-          // }
           return user
         } catch (error) {
           console.warn('Error logging in', error)
