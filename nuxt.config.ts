@@ -47,5 +47,10 @@ export default defineNuxtConfig({
   auth: {
     origin: process.env.ORIGIN,
     enableGlobalAppMiddleware: true
+  },
+  nitro: {
+    prerender: {
+      routes: ['/login', '/register']
+    }
   }
 })
