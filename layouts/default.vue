@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <NuxtLoadingIndicator color="#2096f3" />
     <AppBar />
     <v-main>
       <slot />
