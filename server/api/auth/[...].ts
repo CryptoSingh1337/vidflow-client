@@ -37,7 +37,7 @@ async function refreshAccessToken (refreshToken: {
   } catch (error) {
     console.warn('Error refreshing token', error)
     return {
-      refreshToken: null,
+      ...refreshToken,
       error: 'RefreshAccessTokenError'
     }
   }
@@ -102,7 +102,11 @@ export default NuxtAuthHandler({
   // ]
   ],
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
+    maxAge: 129600 // seconds
+  },
+  jwt: {
+    maxAge: 129600 // seconds
   },
   callbacks: {
     jwt ({ token, user, account }) {
