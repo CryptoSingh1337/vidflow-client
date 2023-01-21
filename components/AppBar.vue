@@ -2,7 +2,7 @@
   <div>
     <v-app-bar border elevation="0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-img v-if="$vuetify.display.smAndUp" src="/images/logo.svg" max-width="100" max-height="50" />
+      <v-img v-if="$vuetify.display.smAndUp" src="/images/logo.svg" max-width="60" max-height="50" />
       <h3>VidFlow</h3>
       <v-spacer />
       <v-text-field
