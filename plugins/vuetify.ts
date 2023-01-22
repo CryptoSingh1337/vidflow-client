@@ -13,6 +13,9 @@ export default defineNuxtPlugin((nuxtApp) => {
         mdi
       }
     },
+    theme: {
+      defaultTheme: 'dark'
+    },
     ssr: true
   })
 
