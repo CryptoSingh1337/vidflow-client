@@ -21,7 +21,7 @@ const video = z.object({
     body: z.string(),
     createdAt: z.string()
   }))
-}).required()
+})
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
