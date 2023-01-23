@@ -1,0 +1,8 @@
+export const requiredRule = (v: any) => !!v || 'Required.'
+export const emailRule = (v: any) => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Invalid email.'
+export const videoFileSizeRule = (v: File[]) => !v || !v.length || v[0].size < 100000000 || 'Video size must be less than 100 MB.'
+export const videoFileTypeRule = (v: File[]) => !v || !v.length || v[0].type === 'video/mp4' || v[0].type === 'video/webm' || v[0].type === 'video/ogg' || 'Unsupported video format'
+export const titleRule = (v: any) => (v && v.length <= 100) || 'Title must be less than 100 characters.'
+export const descriptionRule = (v: any) => (v && v.length <= 500 && v.length > 50) || 'Description must be between 50-500 characters.'
+export const thumbnailSizeRule = (v: File[]) => !v || v[0].size < 10000000 || 'Thumbnail size must be less than 10 MB.'
+export const thumbnailTypeRule = (v: File[]) => !v || !v.length || v[0].type === 'image/png' || v[0].type === 'image/jpg' || v[0].type === 'image/jpeg' || 'Unsupported thumbnail format'

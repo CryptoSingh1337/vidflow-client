@@ -15,9 +15,7 @@
                   <v-text-field
                     v-model="firstName"
                     variant="outlined"
-                    :rules="[
-                      v => !!v || 'Required.'
-                    ]"
+                    :rules="[requiredRule]"
                     label="First name"
                   />
                 </v-col>
@@ -25,9 +23,7 @@
                   <v-text-field
                     v-model="lastName"
                     variant="outlined"
-                    :rules="[
-                      v => !!v || 'Required.'
-                    ]"
+                    :rules="[requiredRule]"
                     label="Last name"
                   />
                 </v-col>
@@ -36,9 +32,7 @@
                 v-model="username"
                 variant="outlined"
                 prepend-inner-icon="mdi-account"
-                :rules="[
-                  v => !!v || 'Required.'
-                ]"
+                :rules="[requiredRule]"
                 label="Username"
               />
               <v-text-field
@@ -46,9 +40,7 @@
                 :type="show ? 'text' : 'password'"
                 prepend-inner-icon="mdi-lock"
                 :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[
-                  v => !!v || 'Required.'
-                ]"
+                :rules="[requiredRule]"
                 label="Enter your password"
                 variant="outlined"
                 @click:append-inner="show = !show"
@@ -56,19 +48,14 @@
               <v-text-field
                 v-model="channelName"
                 variant="outlined"
-                :rules="[
-                  v => !!v || 'Required.'
-                ]"
+                :rules="[requiredRule]"
                 label="Channel name"
               />
               <v-text-field
                 v-model="email"
                 type="email"
                 variant="outlined"
-                :rules="[
-                  v => !!v || 'Required.',
-                  v => !!v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Invalid email.'
-                ]"
+                :rules="[requiredRule, emailRule]"
                 label="Email"
               />
               <div class="text-caption">
@@ -99,6 +86,8 @@
 </template>
 
 <script lang='ts' setup>
+import { requiredRule, emailRule } from '@/utils/rules'
+
 const alert = ref(false)
 const alertText = ref('')
 const valid = ref(true)

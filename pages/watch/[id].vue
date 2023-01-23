@@ -20,7 +20,7 @@ const page = ref(0)
 
 definePageMeta({ auth: false })
 
-const { pending, data: video } = await useFetch(`/api/video/${route.params.id}`, {
+const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id}`, {
   key: route.params.id as string
 })
 
