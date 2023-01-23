@@ -3,28 +3,28 @@
     class="ma-2 mx-auto"
     :color="$vuetify.theme.current.dark ? '#121212' : '#fff'"
     :max-width="width"
-    :to="`/watch/${video.id}`"
+    :to="`/watch/${props.video.id}`"
     variant="flat"
     :ripple="false"
     nuxt
   >
     <v-img
-      :src="video.thumbnail"
+      :src="props.video.thumbnail"
       alt="thumbnail"
       :aspect-ratio="16 / 9"
     />
     <div
       class="px-2 pt-2 subtitle-1 font-weight-bold mb-2"
       style="line-height: normal"
-      v-text="truncateText(video.title)"
+      v-text="truncateText(props.video.title)"
     />
     <v-row class="px-2 pb-2" no-gutters>
       <v-col cols="2">
         <ClientOnly>
-          <NuxtLink :to="`/channel/${video.userId}`" class="channel-link">
+          <NuxtLink :to="`/channel/${props.video.userId}`" class="channel-link">
             <v-avatar size="44">
               <v-img
-                :src="`https://avatars.dicebear.com/api/bottts/${video.channelName}.svg`"
+                :src="`https://avatars.dicebear.com/api/bottts/${props.video.channelName}.svg`"
               />
             </v-avatar>
           </NuxtLink>
@@ -33,11 +33,11 @@
       <v-col class="d-flex align-center flex-row">
         <v-card-subtitle class="pa-0 grey--text">
           <div class="font-weight-bold">
-            {{ video.channelName }}
+            {{ props.video.channelName }}
           </div>
           <span>
-            {{ formatViews(video.views) }} views •
-            {{ formatTimeAgo(new Date(video.createdAt)) }}
+            {{ formatViews(props.video.views) }} views •
+            {{ formatTimeAgo(new Date(props.video.createdAt)) }}
           </span>
         </v-card-subtitle>
       </v-col>
@@ -52,8 +52,8 @@ import { Video } from 'utils/model'
 
 const { name } = useDisplay()
 
-defineProps<{
-    video: Video,
+const props = defineProps<{
+    video: Video
     width: string
 }>()
 

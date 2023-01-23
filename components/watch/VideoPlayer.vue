@@ -11,8 +11,8 @@ const player = ref(null)
 const artPlayer = ref(null)
 
 const props = defineProps<{
-  src: string,
-  title: string,
+  src: string
+  title: string
   thumbnail: string
 }>()
 
@@ -35,8 +35,7 @@ const options = reactive({
   mutex: true,
   backdrop: true,
   playsInline: true,
-  airplay: true,
-  whitelist: ['*']
+  airplay: true
 })
 
 onMounted(() => {

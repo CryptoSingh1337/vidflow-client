@@ -22,8 +22,8 @@
 
 <script lang='ts' setup>
 const props = defineProps<{
-  to: string,
-  icon: string,
+  to: string
+  icon: string
   tooltip: string
 }>()
 </script>
