@@ -9,7 +9,7 @@
       <v-form v-model="valid" :class="[$vuetify.display.mdAndDown ? 'width-md' : 'width-lg']">
         <v-file-input
           v-model="videoFile"
-          :rules="[requiredRule, videoFileSizeRule, videoFileTypeRule]"
+          :rules="[requiredFileRule, videoFileSizeRule, videoFileTypeRule]"
           prepend-icon="mdi:mdi-video"
           variant="outlined"
           label="Upload your video file"
@@ -26,7 +26,7 @@
 </template>
 
 <script lang='ts' setup>
-import { requiredRule, videoFileSizeRule, videoFileTypeRule } from '@/utils/rules'
+import { requiredFileRule, videoFileSizeRule, videoFileTypeRule } from '@/utils/rules'
 
 const alert = ref(false)
 const valid = ref(false)

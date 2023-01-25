@@ -42,7 +42,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     authSecret: '',
-    backendBaseUrl: ''
+    backendBaseUrl: '',
+    public: {
+      backendBaseUrl: ''
+    }
   },
   auth: {
     origin: process.env.ORIGIN,

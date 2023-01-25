@@ -1,4 +1,5 @@
 export const requiredRule = (v: any) => !!v || 'Required.'
+export const requiredFileRule = (v: File[]) => !!v[0] || 'Required.'
 export const emailRule = (v: any) => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Invalid email.'
 export const videoFileSizeRule = (v: File[]) => !v || !v.length || v[0].size < 100000000 || 'Video size must be less than 100 MB.'
 export const videoFileTypeRule = (v: File[]) => !v || !v.length || v[0].type === 'video/mp4' || v[0].type === 'video/webm' || v[0].type === 'video/ogg' || 'Unsupported video format'

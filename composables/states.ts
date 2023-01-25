@@ -1,8 +1,6 @@
 export const useFile = () => {
   const videoFile = useState<File[]>('file', () => [])
   const setFile = (payload: File) => {
-    console.log(payload)
-
     videoFile.value = [payload] as File[]
   }
 

@@ -1,3 +1,13 @@
+export type ErrorResponse = {
+  error: any
+}
+
+export type UploadVideoResponse = {
+  videoId: string,
+  videoUrl: string,
+  thumbnailUrl: string
+}
+
 export type LoginResponse = {
     responseStatus: string,
     data: {
@@ -21,6 +31,12 @@ export type User = {
   lastName: string,
   email: string,
   profileImage: string
+}
+
+export type AuthenticatedUser = User & {
+  accessToken: string,
+  accessTokenExpires: number,
+  refreshToken: string
 }
 
 export type Jwt = {
