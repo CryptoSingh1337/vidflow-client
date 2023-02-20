@@ -1,5 +1,5 @@
 <template>
-  <UnauthorizeUser v-if="$auth.status.value === 'unauthenticated'" icon="mdi-history" heading="Enjoy your favorite videos" caption="Sign in to access videos that you’ve liked" />
+  <UnauthorizeUser v-if="$auth.status.value === 'unauthenticated'" icon="mdi-thumb-up" heading="Enjoy your favorite videos" caption="Sign in to access videos that you’ve liked" />
   <div v-else>
     Liked videos
   </div>
