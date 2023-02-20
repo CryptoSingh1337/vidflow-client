@@ -59,7 +59,7 @@
               counter
               accept="image/*"
               label="Upload thumbnail"
-              prepend-icon="mdi:mdi-image"
+              prepend-icon="mdi-image"
               :rules="[requiredFileRule, thumbnailSizeRule, thumbnailTypeRule]"
             />
             <v-container class="px-0">

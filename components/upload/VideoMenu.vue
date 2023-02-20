@@ -5,19 +5,19 @@
         {{ alertText }}
       </v-alert>
       <h3>Upload Video</h3>
-      <v-icon class="my-4" size="100" icon="mdi:mdi-video-plus" />
+      <v-icon class="my-4" size="100" icon="mdi-video-plus" />
       <v-form v-model="valid" :class="[$vuetify.display.mdAndDown ? 'width-md' : 'width-lg']">
         <v-file-input
           v-model="videoFile"
           :rules="[requiredFileRule, videoFileSizeRule, videoFileTypeRule]"
-          prepend-icon="mdi:mdi-video"
+          prepend-icon="mdi-video"
           variant="outlined"
           label="Upload your video file"
           show-size
           counter
           accept="video/*"
         />
-        <v-btn class="my-2 mx-auto" color="primary" prepend-icon="mdi:mdi-cloud-upload" :disabled="!valid" @click.prevent="handleVideoUpload">
+        <v-btn class="my-2 mx-auto" color="primary" prepend-icon="mdi-cloud-upload" :disabled="!valid" @click.prevent="handleVideoUpload">
           Upload
         </v-btn>
       </v-form>

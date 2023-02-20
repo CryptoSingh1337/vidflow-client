@@ -13,7 +13,7 @@
         density="compact"
         hide-details
         label="Search"
-        append-inner-icon="mdi:mdi-magnify"
+        append-inner-icon="mdi-magnify"
         @click:append="search"
         @keyup.enter="search"
       />
@@ -21,7 +21,7 @@
       <v-dialog v-if="$vuetify.display.xs" v-model="searchDialog">
         <template #activator="{ props }">
           <v-btn small icon v-bind="props">
-            <v-icon icon="mdi:mdi-magnify" />
+            <v-icon icon="mdi-magnify" />
           </v-btn>
         </template>
         <v-card>

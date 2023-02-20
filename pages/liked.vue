@@ -1,3 +1,10 @@
 <template>
-  <h3>Liked</h3>
+  <UnauthorizeUser v-if="$auth.status.value === 'unauthenticated'" icon="mdi-history" heading="Enjoy your favorite videos" caption="Sign in to access videos that you’ve liked" />
+  <div v-else>
+    Liked videos
+  </div>
 </template>
+
+<script lang="ts" setup>
+definePageMeta({ auth: false })
+</script>

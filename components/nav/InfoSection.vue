@@ -1,7 +1,7 @@
 <template>
   <v-list-item href="https://github.com/CryptoSingh1337" target="_blank" rounded="xl">
     <template #prepend>
-      <v-icon icon="mdi:mdi-github" />
+      <v-icon icon="mdi-github" />
     </template>
     <v-list-item-title>GitHub</v-list-item-title>
   </v-list-item>
@@ -9,7 +9,7 @@
     <template #activator="{ props }">
       <v-list-item v-bind="props" rounded="xl">
         <template #prepend>
-          <v-icon icon="mdi:mdi-information" />
+          <v-icon icon="mdi-information" />
         </template>
         <v-list-item-title>About</v-list-item-title>
       </v-list-item>

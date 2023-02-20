@@ -20,8 +20,8 @@
         </v-col>
       </v-row>
       <v-divider class="px-2" />
-      <v-list-item rounded="xl" :to="`/channel/${user.id}`" prepend-icon="mdi:mdi-account" title="Your Channel" />
-      <v-list-item rounded="xl" prepend-icon="mdi:mdi-logout" title="Sign out" @click="$auth.signOut({ redirect: false })" />
+      <v-list-item rounded="xl" :to="`/channel/${user.id}`" prepend-icon="mdi-account" title="Your Channel" />
+      <v-list-item rounded="xl" prepend-icon="mdi-logout" title="Sign out" @click="$auth.signOut({ redirect: false })" />
       <v-divider class="px-2" />
       <NavThemeChanger />
       <NavInfoSection />

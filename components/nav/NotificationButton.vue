@@ -32,7 +32,7 @@
             size="x-small"
             @click="clearNotifications"
           >
-            <v-icon icon="mdi:mdi-notification-clear-all" />
+            <v-icon icon="mdi-notification-clear-all" />
           </v-btn>
         </div>
       </v-list-subheader>
