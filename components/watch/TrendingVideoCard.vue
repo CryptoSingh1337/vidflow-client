@@ -10,18 +10,14 @@
       />
     </template>
     <template #title>
-      <div class="text-body-2">
-        {{
-          ($vuetify.display.xs ? video.title.substring(0, 60) : video.title.substring(0, 100)) + "..."
-        }}
+      {{ props.video.title }}
+    </template>
+    <template #subtitle>
+      <div class="font-weight-bold text-caption">
+        {{ video.channelName }}
       </div>
-      <div>
-        <div class="font-weight-bold text-caption">
-          {{ video.channelName }}
-        </div>
-        <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
-          {{ formatViews(props.video.views) }} views</span>
-      </div>
+      <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
+        {{ formatViews(props.video.views) }} views</span>
     </template>
   </v-list-item>
 </template>
