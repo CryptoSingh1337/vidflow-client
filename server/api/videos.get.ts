@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const videos = z.array(z.object({
+const videosSchema = z.array(z.object({
   id: z.string(),
   title: z.string(),
   userId: z.string(),
@@ -13,7 +13,7 @@ const videos = z.array(z.object({
 }))
 
 export default defineEventHandler(async (event) => {
-  const page = Number(event.node.req.url?.split('=', 2)[1])
+  const { page } = getQuery(event)
   const result = await $fetch(`${backendBaseUrl}/video?page=${page}`)
-  return videos.parse(result)
+  return videosSchema.parse(result)
 })

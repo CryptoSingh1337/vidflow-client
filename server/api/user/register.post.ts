@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const user = z.object({
+const userSchema = z.object({
   id: z.string(),
   username: z.string(),
   channelName: z.string(),
@@ -12,7 +12,7 @@ const user = z.object({
   profileImage: z.string()
 })
 
-const errorResponse = z.object({
+const errorResponseSchema = z.object({
   responseStatus: z.string(),
   error: z.object({
     code: z.string(),
@@ -30,12 +30,12 @@ export default defineEventHandler(async (event) => {
     body: payload,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onResponseError ({ request, options, response }) {
-      const error = errorResponse.parse(response._data)
+      const error = errorResponseSchema.parse(response._data)
       throw createError({
         statusCode: response.status,
         statusMessage: error.error.message[0]
       })
     }
   })
-  return user.parse(result)
+  return userSchema.parse(result)
 })
