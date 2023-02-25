@@ -10,7 +10,7 @@
         lg="3"
         class="mx-xs-auto"
       >
-        <VideoMainCard :width="'90%'" :video="video" />
+        <VideoMainCard :width="$vuetify.display.xs ? '100%' : '90%'" :video="video" />
       </v-col>
     </v-row>
     <v-card v-intersect.quiet="infiniteScroll" />

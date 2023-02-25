@@ -1,12 +1,10 @@
 <template>
   <v-card
-    class="ma-2 mx-auto"
-    :color="$vuetify.theme.current.dark ? '#121212' : '#fff'"
+    class="ma-2 mx-auto bg-transparent"
     :max-width="width"
     :to="`/watch/${props.video.id}`"
     variant="flat"
     :ripple="false"
-    nuxt
   >
     <v-img
       :src="props.video.thumbnail"
