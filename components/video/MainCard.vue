@@ -11,7 +11,7 @@
     <v-img
       :src="props.video.thumbnail"
       alt="thumbnail"
-      :aspect-ratio="16 / 9"
+      aspect-ratio="16/9"
     />
     <div
       class="px-2 pt-2 subtitle-1 font-weight-bold mb-2"
@@ -19,7 +19,7 @@
       v-text="truncateText(props.video.title)"
     />
     <v-row class="px-2 pb-2" no-gutters>
-      <v-col cols="2">
+      <v-col cols="2" class="mr-2">
         <ClientOnly>
           <NuxtLink :to="`/channel/${props.video.userId}`" class="channel-link">
             <v-avatar size="44">
