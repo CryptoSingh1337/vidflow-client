@@ -55,7 +55,7 @@
         <NavSideMenu />
         <v-btn
           class="mr-3"
-          :small="$vuetify.display.xs"
+          :size="$vuetify.display.xs ? 'small' : 'default'"
           variant="outlined"
           elevation="0"
           color="grey"
