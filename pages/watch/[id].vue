@@ -2,21 +2,32 @@
   <GlobalPageLoader v-if="pending" />
   <div v-else>
     <WatchVideoPlayer :src="video.videoUrl" :title="video.title" :thumbnail="video.thumbnail" />
-    {{ route.params.id }}
-    <div>
-      Video:
-      {{ video }}
-    </div>
-    <div>
-      Trending video:
-      {{ trendingVideo }}
-    </div>
+    <v-row class="px-lg-5" no-gutters>
+      <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
+        <WatchVideoFooter
+          :same="same"
+          :subscribers="subscribers"
+          :subscribed="subscribed"
+          :video="video"
+          :liked="liked"
+        />
+      </v-col>
+      <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
+        <div class="d-flex flex-column-reverse">
+          <WatchTrendingVideoCard v-for="(trendingVideo, idx) in trendingVideos" :key="idx" :video="trendingVideo" />
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script lang='ts' setup>
 const route = useRoute()
 const page = ref(0)
+const same = ref(false)
+const subscribers = ref(10034)
+const subscribed = ref(false)
+const liked = ref(false)
 
 definePageMeta({ auth: false })
 
@@ -24,5 +35,5 @@ const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id
   key: route.params.id as string
 })
 
-const { data: trendingVideo } = await useFetch(`/api/video/trending?page=${page.value}`)
+const { data: trendingVideos } = await useFetch(`/api/video/trending?page=${page.value}`)
 </script>
