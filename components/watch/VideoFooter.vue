@@ -6,17 +6,15 @@
         <span class="align-self-center">{{ numberfy(props.video.views) }} views • {{ formatDate(new Date(props.video.createdAt), "D, MMM YYYY") }}</span>
       </v-col>
       <v-col cols="12" sm="8" class="d-flex justify-sm-end">
-        <span class="d-flex">
+        <span class="d-flex align-center">
           <v-btn
-            class="mx-1"
+            :ripple="false"
             variant="plain"
-            :prepend-icon="like ? 'mdi:mdi-thumb-up' : 'mdi:mdi-thumb-up-outline'"
-            :disabled="$auth.status.value !== 'authenticated'"
+            :icon="like ? 'mdi:mdi-thumb-up' : 'mdi:mdi-thumb-up-outline'"
             @click="handleLike"
-          >
-            {{ formatLikes(likes) }}
-          </v-btn>
-          <v-btn class="mx-1" variant="plain" prepend-icon="mdi:mdi-thumb-down-outline" :disabled="true" />
+          />
+          <span>{{ formatLikes(likes) }}</span>
+          <v-btn :ripple="false" class="mx-1" variant="plain" icon="mdi:mdi-thumb-down-outline" :disabled="true" />
           <v-btn variant="plain" prepend-icon="mdi:mdi-share-outline" @click="copy">
             Share
           </v-btn>
@@ -84,6 +82,7 @@ const { name } = useDisplay()
 
 function handleLike () {
   console.log('Liked')
+  like.value = !like.value
 }
 
 function show () {
