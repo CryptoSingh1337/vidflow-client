@@ -53,7 +53,7 @@
         <div class="text-subtitle-1" style="line-height: 1.2">
           {{ truncate ? truncateText(props.video.description) : props.video.description }}
         </div>
-        <v-btn class="mt-2" variant="plain" @click="show">
+        <v-btn class="my-2" variant="plain" @click="show">
           {{ showText }}
         </v-btn>
       </v-col>
