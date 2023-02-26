@@ -11,6 +11,8 @@
           :video="video"
           :liked="liked"
         />
+        <v-divider />
+        <WatchCommentSection :comments="video.comments" />
       </v-col>
       <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
         <div class="d-flex flex-column-reverse">
