@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="`/watch/${video.id}`" class="px-0 px-sm-5" :active="false">
+  <v-list-item :to="`/watch/${video.id}`" class="px-0 px-sm-5 my-1" :active="false">
     <template #prepend>
       <v-img
         class="mr-2"
