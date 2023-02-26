@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const video = z.object({
+const videoSchema = z.object({
   id: z.string(),
   title: z.string(),
   userId: z.string(),
@@ -26,5 +26,5 @@ const video = z.object({
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
   const result = await $fetch(`${backendBaseUrl}/video/id/${id}`)
-  return video.parse(result)
+  return videoSchema.parse(result)
 })

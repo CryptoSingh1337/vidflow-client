@@ -1,6 +1,6 @@
 <template>
   <GlobalPageLoader v-if="pending" />
-  <div v-else>
+  <div v-else-if="video">
     <WatchVideoPlayer :src="video.videoUrl" :title="video.title" :thumbnail="video.thumbnail" />
     <v-row class="px-lg-5" no-gutters>
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
@@ -24,7 +24,13 @@
 </template>
 
 <script lang='ts' setup>
+import { User } from 'utils/model'
+
 const route = useRoute()
+const { backendBaseUrl } = useRuntimeConfig()
+const { $auth } = useNuxtApp()
+const user = $auth.data.value?.user as User
+
 const page = ref(0)
 const same = ref(false)
 const subscribers = ref(10034)
@@ -38,4 +44,18 @@ const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id
 })
 
 const { data: trendingVideos } = await useFetch(`/api/video/trending?page=${page.value}`)
+
+onMounted(async () => {
+  $fetch(`/video/views/id/${route.params.id}`, {
+    baseURL: backendBaseUrl
+  })
+  if ($auth.status.value === 'authenticated') {
+    await useFetch(`/api/user/history/${user.id}`, {
+      method: 'post',
+      query: {
+        videoId: route.params.id
+      }
+    })
+  }
+})
 </script>
