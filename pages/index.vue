@@ -21,7 +21,11 @@ import { Video } from 'utils/model'
 const page = ref(1)
 const videos = ref<Video[]>([])
 
-const { data } = await useFetch('/api/videos?page=0')
+const { data } = await useFetch('/api/videos', {
+  query: {
+    page: 0
+  }
+})
 data.value?.forEach(video => videos.value.push(video))
 
 definePageMeta({ auth: false })
