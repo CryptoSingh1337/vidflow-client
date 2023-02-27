@@ -13,14 +13,14 @@
     />
     <v-scroll-y-transition>
       <div v-if="typing" class="d-flex my-3 justify-end">
-        <v-btn class="mx-3" depressed @click="resetCommentField">
+        <v-btn class="mx-3" :size="$vuetify.display.xs ? 'x-small' : 'default'" @click="resetCommentField">
           Cancel
         </v-btn>
         <v-btn
           v-if="!editing"
           class="mx-3"
           color="primary"
-          depressed
+          :size="$vuetify.display.xs ? 'x-small' : 'default'"
           :disabled="props.comments.length < 3 || props.comments.length > 50"
           @click="handleComment"
         >
@@ -30,7 +30,7 @@
           v-else
           class="mx-3"
           color="primary"
-          depressed
+          :size="$vuetify.display.xs ? 'x-small' : 'default'"
           :disabled="props.comments.length < 3 || props.comments.length > 50"
           @click="handleSave"
         >
@@ -38,7 +38,7 @@
         </v-btn>
       </div>
     </v-scroll-y-transition>
-    <div class="mt-6">
+    <div v-if="commentsData.length > 0" class="mt-6">
       <WatchCommentListItem v-for="(c, index) in commentsData" :key="index" :comment="c" />
     </div>
   </v-container>
