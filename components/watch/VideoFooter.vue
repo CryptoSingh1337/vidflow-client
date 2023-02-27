@@ -50,7 +50,7 @@
         />
       </v-col>
       <v-col cols="12" md="12">
-        <div class="text-subtitle-1" style="line-height: 1.2">
+        <div class="text-subtitle-1" style="line-height: 1.2; white-space: pre-wrap;">
           {{ truncate ? truncateText(props.video.description) : props.video.description }}
         </div>
         <v-btn class="my-2" variant="plain" @click="show">
