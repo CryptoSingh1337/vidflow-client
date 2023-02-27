@@ -7,4 +7,7 @@
 
 <script lang="ts" setup>
 definePageMeta({ auth: false })
+useHead({
+  title: 'Your videos - VidFlow'
+})
 </script>

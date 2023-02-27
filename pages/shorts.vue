@@ -14,4 +14,7 @@
 
 <script lang='ts' setup>
 definePageMeta({ auth: false })
+useHead({
+  title: 'Shorts - VidFlow'
+})
 </script>

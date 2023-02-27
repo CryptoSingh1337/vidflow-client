@@ -33,6 +33,9 @@
 import { User } from 'utils/model'
 
 definePageMeta({ auth: false })
+useHead({
+  title: 'History - VidFlow'
+})
 
 const user = useNuxtApp().$auth.data.value?.user as User
 const { data: history } = useFetch(`/api/user/history/${user.id}`, {

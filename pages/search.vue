@@ -29,6 +29,11 @@ const route = useRoute()
 const page = ref(0)
 const searchVideos = ref<Video[]>([])
 
+definePageMeta({ auth: false })
+useHead({
+  title: 'Search - VidFlow'
+})
+
 const { refresh } = await useAsyncData(() => $fetch('/api/video/search', {
   query: {
     q: route.query.q,
@@ -40,8 +45,6 @@ const { refresh } = await useAsyncData(() => $fetch('/api/video/search', {
     }
   }
 }))
-
-definePageMeta({ auth: false })
 
 watch(() => route.query, () => refresh())
 </script>

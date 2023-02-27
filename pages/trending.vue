@@ -22,14 +22,17 @@ import { Video } from 'utils/model'
 const page = ref(1)
 const videos = ref<Video[]>([])
 
+definePageMeta({ auth: false })
+useHead({
+  title: 'Trending - VidFlow'
+})
+
 const { data } = await useFetch('/api/video/trending', {
   query: {
     page: 0
   }
 })
 data.value?.forEach(video => videos.value.push(video))
-
-definePageMeta({ auth: false })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
