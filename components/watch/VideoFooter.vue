@@ -64,6 +64,7 @@
 <script lang='ts' setup>
 import { formatDate } from '@vueuse/core'
 import { useDisplay } from 'vuetify'
+import { User } from 'utils/model'
 
 const props = defineProps<{
     video: any
@@ -73,6 +74,9 @@ const props = defineProps<{
     liked: boolean
 }>()
 
+const { $auth } = useNuxtApp()
+const user = $auth.data.value?.user as User
+
 const like = ref(props.liked)
 const likes = ref(props.video.likes)
 const truncate = ref(true)
@@ -81,8 +85,29 @@ const showText = ref('Show More')
 const { name } = useDisplay()
 
 function handleLike () {
-  console.log('Liked')
-  like.value = !like.value
+  if ($auth.status.value === 'authenticated') {
+    useFetch(`/api/user/${user.id}/like/${props.video.id}`, {
+      method: 'post',
+      query: {
+        isLiked: !like.value
+      },
+      onRequest () {
+        like.value = !like.value
+      },
+      onResponse () {
+        if (like.value) {
+          likes.value += 1
+        } else if (!like.value && likes.value > 0) {
+          likes.value -= 1
+        }
+      },
+      onResponseError ({ response }) {
+        console.log(response)
+      }
+    })
+  } else {
+    alert('You are not logged in')
+  }
 }
 
 function show () {

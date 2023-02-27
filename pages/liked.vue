@@ -1,10 +1,42 @@
 <template>
   <UnauthorizeUser v-if="$auth.status.value === 'unauthenticated'" icon="mdi-thumb-up" heading="Enjoy your favorite videos" caption="Sign in to access videos that you’ve liked" />
-  <div v-else>
-    Liked videos
-  </div>
+  <v-container v-else-if="$auth.status.value === 'authenticated' && likedVideos && likedVideos.length > 0" fluid>
+    <div class="text-h6 font-weight-bold mb-5">
+      Liked videos
+    </div>
+    <v-row align="center" justify="center" no-gutters>
+      <v-col cols="12" md="10" lg="8">
+        <client-only>
+          <SearchVideoCard
+            v-for="(video, idx) in likedVideos"
+            :key="idx"
+            :video="video"
+          />
+        </client-only>
+      </v-col>
+    </v-row>
+  </v-container>
+  <v-container v-else class="d-flex mt-16 pt-16 align-center justify-center flex-column">
+    <v-icon class="mb-5" :color="$vuetify.theme.current.dark ? '' : '#000000'" :size="90" icon="mdi:mdi-information" />
+    <div class="mx-auto text-h5 text-center font-weight-bold">
+      No liked video in this playlist
+    </div>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
+import { User } from 'utils/model'
+
 definePageMeta({ auth: false })
+useHead({
+  title: 'Liked videos - VidFlow'
+})
+
+const user = useNuxtApp().$auth.data.value?.user as User
+
+const { data: likedVideos } = useFetch(`/api/user/${user.id}/liked`, {
+  query: {
+    page: 0
+  }
+})
 </script>

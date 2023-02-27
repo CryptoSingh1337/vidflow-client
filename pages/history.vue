@@ -9,8 +9,8 @@
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="10" lg="8">
         <SearchVideoCard
-          v-for="(video, i) in history"
-          :key="i"
+          v-for="(video, idx) in history"
+          :key="idx"
           :video="video"
         />
       </v-col>
@@ -38,7 +38,7 @@ useHead({
 })
 
 const user = useNuxtApp().$auth.data.value?.user as User
-const { data: history } = useFetch(`/api/user/history/${user.id}`, {
+const { data: history } = useFetch(`/api/user/${user.id}/history`, {
   query: {
     page: 0
   }

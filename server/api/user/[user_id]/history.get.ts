@@ -15,10 +15,10 @@ const videoSchema = z.array(z.object({
 }))
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id')
+  const userId = getRouterParam(event, 'user_id')
   const { page } = getQuery(event)
   const token = await getToken({ event })
-  const result = await $fetch(`${backendBaseUrl}/user/id/${id}/watch/history?page=${page}`, {
+  const result = await $fetch(`${backendBaseUrl}/user/id/${userId}/watch/history?page=${page}`, {
     headers: {
       Authorization: `Bearer ${token.accessToken}`
     }

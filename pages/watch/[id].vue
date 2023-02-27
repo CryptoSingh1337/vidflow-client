@@ -46,14 +46,23 @@ const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id
 const { data: trendingVideos } = await useFetch(`/api/video/trending?page=${page.value}`)
 
 onMounted(async () => {
-  $fetch(`/video/views/id/${route.params.id}`, {
-    baseURL: backendBaseUrl
+  useFetch(`/video/views/id/${route.params.id}`, {
+    baseURL: backendBaseUrl,
+    onResponse () {
+      if (video.value && video.value.views) {
+        video.value.views += 1
+      }
+    }
   })
   if ($auth.status.value === 'authenticated') {
-    await useFetch(`/api/user/history/${user.id}`, {
-      method: 'post',
-      query: {
-        videoId: route.params.id
+    await useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
+      method: 'post'
+    })
+    await useFetch(`/api/user/${user.id}/video/${route.params.id}/liked`, {
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          liked.value = true
+        }
       }
     })
   }
