@@ -18,10 +18,18 @@ export default defineEventHandler(async (event) => {
   const userId = getRouterParam(event, 'user_id')
   const { page } = getQuery(event)
   const token = await getToken({ event })
-  const result = await $fetch(`${backendBaseUrl}/user/id/${userId}/watch/history?page=${page}`, {
-    headers: {
-      Authorization: `Bearer ${token.accessToken}`
-    }
-  })
-  return videoSchema.parse(result)
+
+  if (token) {
+    const result = await $fetch(`${backendBaseUrl}/user/id/${userId}/watch/history?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`
+      }
+    })
+    return videoSchema.parse(result)
+  } else {
+    throw createError({
+      statusCode: 403,
+      statusMessage: 'Token is missing'
+    })
+  }
 })

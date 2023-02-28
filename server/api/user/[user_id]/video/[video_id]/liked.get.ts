@@ -7,13 +7,26 @@ export default defineEventHandler(async (event) => {
   const videoId = getRouterParam(event, 'video_id')
   const session = await getServerSession(event)
 
+  let result = false
   if (session) {
     const token = await getToken({ event })
-    await $fetch(`${backendBaseUrl}/user/id/${userId}/video/id/${videoId}/liked`, {
-      headers: {
-        Authorization: `Bearer ${token.accessToken}`
-      }
-    })
+    if (token) {
+      await $fetch(`${backendBaseUrl}/user/id/${userId}/video/id/${videoId}/liked`, {
+        headers: {
+          Authorization: `Bearer ${token.accessToken}`
+        },
+        onResponse ({ response }) {
+          if (response.status === 200) {
+            result = true
+          }
+        }
+      })
+      return result
+    } else {
+      throw createError({
+        statusCode: 403,
+        statusMessage: 'Token is missing'
+      })
+    }
   }
-  return null
 })

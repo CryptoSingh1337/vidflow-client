@@ -12,11 +12,18 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusMessage: 'Unauthenticated', statusCode: 403 })
   }
   const token = await getToken({ event })
-  $fetch(`${backendBaseUrl}/user/id/${userId}/video/id/${videoId}/like?isLiked=${isLiked}`, {
-    method: 'post',
-    headers: {
-      Authorization: `Bearer ${token.accessToken}`
-    }
-  })
-  return null
+  if (token) {
+    $fetch(`${backendBaseUrl}/user/id/${userId}/video/id/${videoId}/like?isLiked=${isLiked}`, {
+      method: 'post',
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`
+      }
+    })
+    return null
+  } else {
+    throw createError({
+      statusCode: 403,
+      statusMessage: 'Token is missing'
+    })
+  }
 })

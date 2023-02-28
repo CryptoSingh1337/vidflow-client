@@ -102,7 +102,9 @@ function handleLike () {
         }
       },
       onResponseError ({ response }) {
-        console.log(response)
+        if (response.status === 401) {
+          alert('You are not logged in')
+        }
       }
     })
   } else {
