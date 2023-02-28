@@ -2,10 +2,10 @@
   <div class="text-h6 font-weight-bold d-block" style="line-height: 1.35">
     {{ props.video.title }}
     <v-row no-gutters class="align-center text-subtitle-2 text-disabled">
-      <v-col cols="12" sm="4">
+      <v-col cols="12" sm="5">
         <span class="align-self-center">{{ numberfy(props.video.views) }} views • {{ formatDate(new Date(props.video.createdAt), "D, MMM YYYY") }}</span>
       </v-col>
-      <v-col cols="12" sm="8" class="d-flex justify-sm-end">
+      <v-col cols="12" sm="7" class="d-flex justify-sm-end">
         <span class="d-flex align-center">
           <v-btn
             :ripple="false"
