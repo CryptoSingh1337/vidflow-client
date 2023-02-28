@@ -25,18 +25,23 @@
 </template>
 
 <script lang="ts" setup>
-import { User } from 'utils/model'
+import { User, Video } from 'utils/model'
 
 definePageMeta({ auth: false })
 useHead({
   title: 'Liked videos - VidFlow'
 })
 
-const user = useNuxtApp().$auth.data.value?.user as User
+const { $auth } = useNuxtApp()
+const likedVideos = ref<Video[]>([])
 
-const { data: likedVideos } = useFetch(`/api/user/${user.id}/liked`, {
-  query: {
-    page: 0
-  }
-})
+if ($auth.status.value === 'authenticated') {
+  const user = $auth.data.value?.user as User
+  const { data } = await useFetch(`/api/user/${user.id}/liked`, {
+    query: {
+      page: 0
+    }
+  })
+  data.value?.forEach(video => likedVideos.value.push(video))
+}
 </script>

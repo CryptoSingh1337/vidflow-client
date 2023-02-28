@@ -30,17 +30,23 @@
 </template>
 
 <script lang="ts" setup>
-import { User } from 'utils/model'
+import { User, Video } from 'utils/model'
 
 definePageMeta({ auth: false })
 useHead({
   title: 'History - VidFlow'
 })
 
-const user = useNuxtApp().$auth.data.value?.user as User
-const { data: history } = useFetch(`/api/user/${user.id}/history`, {
-  query: {
-    page: 0
-  }
-})
+const { $auth } = useNuxtApp()
+const history = ref<Video[]>([])
+
+if ($auth.status.value === 'authenticated') {
+  const user = $auth.data.value?.user as User
+  const { data } = await useFetch(`/api/user/${user.id}/history`, {
+    query: {
+      page: 0
+    }
+  })
+  data.value?.forEach(video => history.value.push(video))
+}
 </script>
