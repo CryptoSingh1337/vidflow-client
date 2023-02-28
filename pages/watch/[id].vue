@@ -32,20 +32,55 @@ const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
 const page = ref(0)
-const same = ref(false)
-const subscribers = ref(10034)
+const subscribers = ref(0)
 const subscribed = ref(false)
 const liked = ref(false)
+let same = false
 
 definePageMeta({ auth: false })
+useHead({
+  title: 'Watch - VidFlow'
+})
 
 const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id}`, {
   key: route.params.id as string
 })
-
 const { data: trendingVideos } = await useFetch(`/api/video/trending?page=${page.value}`)
 
-onMounted(async () => {
+await useFetch(`/api/user/${video.value?.userId}/subscribers`, {
+  onResponse ({ response }) {
+    if (response.status === 200) {
+      subscribers.value = response._data
+    }
+  }
+})
+
+if ($auth.status.value === 'authenticated') {
+  if (user.id === video.value?.userId) {
+    same = true
+  }
+  await Promise.all([
+    useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
+      method: 'post'
+    }),
+    useFetch(`/api/user/${user.id}/video/${route.params.id}/liked`, {
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          liked.value = true
+        }
+      }
+    }),
+    useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`, {
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          subscribed.value = response._data
+        }
+      }
+    })
+  ])
+}
+
+onMounted(() => {
   useFetch(`/video/views/id/${route.params.id}`, {
     baseURL: backendBaseUrl,
     onResponse () {
@@ -54,17 +89,5 @@ onMounted(async () => {
       }
     }
   })
-  if ($auth.status.value === 'authenticated') {
-    await useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
-      method: 'post'
-    })
-    await useFetch(`/api/user/${user.id}/video/${route.params.id}/liked`, {
-      onResponse ({ response }) {
-        if (response.status === 200) {
-          liked.value = true
-        }
-      }
-    })
-  }
 })
 </script>
