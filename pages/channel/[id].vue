@@ -7,5 +7,7 @@
 <script lang='ts' setup>
 const route = useRoute()
 
-definePageMeta({ auth: false })
+useHead({
+  title: 'Your Channel - VidFlow'
+})
 </script>
