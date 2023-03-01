@@ -35,7 +35,7 @@
         </NuxtLink>
       </div>
       <div class="text-caption">
-        {{ `${props.video.description.substring(0, 250)}...` }}
+        {{ `${props.video.description && props.video.description.substring(0, 250)}...` }}
       </div>
     </template>
   </v-list-item>
