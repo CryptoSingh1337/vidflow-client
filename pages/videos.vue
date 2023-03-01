@@ -1,8 +1,11 @@
 <template>
   <UnauthorizeUser v-if="$auth.status.value === 'unauthenticated'" icon="mdi-video" heading="Keep your eyes on your vidoes stats" caption="Sign in to see your videos stats" />
-  <div v-else-if="videos && videos.length > 0">
+  <v-container v-else-if="videos && videos.length > 0">
+    <div class="text-h6 font-weight-bold mb-5">
+      Your videos
+    </div>
     <VideoLikedList :videos="videos" />
-  </div>
+  </v-container>
 </template>
 
 <script lang='ts' setup>
