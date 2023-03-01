@@ -17,28 +17,17 @@
         {{ video.channelName }}
       </div>
       <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
-        {{ formatViews(props.video.views) }} views</span>
+        {{ shortifyNumber(props.video.views) }} views</span>
     </template>
   </v-list-item>
 </template>
 
 <script lang='ts' setup>
 import { formatTimeAgo } from '@vueuse/core'
-import { Video } from '@/utils/model'
+import { Video } from 'utils/model'
+import { shortifyNumber } from 'utils/functions'
 
 const props = defineProps<{
     video: Video
 }>()
-
-function formatViews (views: number) {
-  if (views < 999) {
-    return views
-  } else if (views >= 1000 && views < 1000000) {
-    return Math.floor(views / 1000) + 'K'
-  } else if (views >= 1000000 && views < 1000000000) {
-    return Math.floor(views / 1000000) + 'M'
-  } else {
-    return Math.floor(views / 1000000000) + 'B'
-  }
-}
 </script>

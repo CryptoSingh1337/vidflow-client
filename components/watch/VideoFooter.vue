@@ -3,7 +3,7 @@
     {{ props.video.title }}
     <v-row no-gutters class="align-center text-subtitle-2 text-disabled">
       <v-col cols="12" sm="5">
-        <span class="align-self-center">{{ numberfy(props.video.views) }} views • {{ formatDate(new Date(props.video.createdAt), "D, MMM YYYY") }}</span>
+        <span class="align-self-center">{{ formatNumberInInternationalSystem(props.video.views) }} views • {{ formatDate(new Date(props.video.createdAt), "D, MMM YYYY") }}</span>
       </v-col>
       <v-col cols="12" sm="7" class="d-flex justify-sm-end">
         <span class="d-flex align-center">
@@ -13,7 +13,7 @@
             :icon="like ? 'mdi:mdi-thumb-up' : 'mdi:mdi-thumb-up-outline'"
             @click="handleLike"
           />
-          <span>{{ formatLikes(likes) }}</span>
+          <span>{{ shortifyNumber(likes) }}</span>
           <v-btn :ripple="false" class="mx-1" variant="plain" icon="mdi:mdi-thumb-down-outline" :disabled="true" />
           <v-btn variant="plain" prepend-icon="mdi:mdi-share-outline" @click="copy">
             Share
@@ -25,7 +25,7 @@
     <v-row class="justify-space-between" no-gutters>
       <v-col cols="8" sm="6" md="5" lg="5">
         <v-list class="bg-transparent" lines="two" density="compact">
-          <v-list-item :subtitle="formatLikes(props.subscribers) + ' subscribers'">
+          <v-list-item :subtitle="shortifyNumber(props.subscribers) + ' subscribers'">
             <template #prepend>
               <NuxtLink :to="`/channel/${props.video.userId}`">
                 <v-avatar size="50" class="mr-4">
@@ -51,7 +51,7 @@
       </v-col>
       <v-col cols="12" md="12">
         <div class="text-subtitle-1" style="line-height: 1.2; white-space: pre-wrap;">
-          {{ truncate ? truncateText(props.video.description) : props.video.description }}
+          {{ truncate ? truncateText(props.video.description, $vuetify.display.xs ? 150 : 300) : props.video.description }}
         </div>
         <v-btn class="my-2" variant="plain" @click="show">
           {{ showText }}
@@ -63,8 +63,8 @@
 
 <script lang='ts' setup>
 import { formatDate } from '@vueuse/core'
-import { useDisplay } from 'vuetify'
 import { User } from 'utils/model'
+import { formatNumberInInternationalSystem, shortifyNumber, truncateText } from 'utils/functions'
 
 const props = defineProps<{
     video: any
@@ -81,8 +81,6 @@ const like = ref(props.liked)
 const likes = ref(props.video.likes)
 const truncate = ref(true)
 const showText = ref('Show More')
-
-const { name } = useDisplay()
 
 function handleLike () {
   if ($auth.status.value === 'authenticated') {
@@ -125,23 +123,5 @@ function show () {
 function copy () {
   navigator.clipboard.writeText(document.URL)
   alert('Copy to clipboard')
-}
-
-function numberfy (views: number) {
-  return String(views).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
-
-function formatLikes (likes: number) {
-  if (likes < 999) {
-    return likes
-  } else if (likes >= 1000 && likes < 1000000) {
-    return Math.floor(likes / 1000) + 'K'
-  } else if (likes >= 1000000 && likes < 1000000000) {
-    return Math.floor(likes / 1000000) + 'M'
-  }
-}
-
-function truncateText (description: string) {
-  return description.substring(0, name.value === 'xs' ? 150 : 300)
 }
 </script>

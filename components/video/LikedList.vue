@@ -10,10 +10,10 @@
               $vuetify.theme.current.dark ? 'text-white' : 'text-black',
             ]"
           >
-            {{ minify(item.raw.title) }}
+            {{ truncateText(item.raw.title, 85) }}
           </div>
           <div class="text-caption ml-2 text-grey">
-            {{ minifyDescription(item.raw.description) }}
+            {{ truncateText(item.raw.description, 160) }}
           </div>
         </div>
       </NuxtLink>
@@ -26,13 +26,13 @@
       {{ formatDate(new Date(item.raw.createdAt), "D, MMM YYYY") }}
     </template>
     <template #item.views="{ item }">
-      {{ numberfy(item.raw.views) }}
+      {{ formatNumberInInternationalSystem(item.raw.views) }}
     </template>
     <template #item.ratio="{ item }">
       <div>
         {{ `${calculateRatio(item.raw.likes, item.raw.dislikes)}%` }}
       </div>
-      <div>{{ numberfy(item.raw.likes) }} likes</div>
+      <div>{{ formatNumberInInternationalSystem(item.raw.likes) }} likes</div>
       <v-progress-linear
         v-if="calculateRatio(item.raw.likes, item.raw.dislikes) > 0"
         color="grey"
@@ -60,12 +60,12 @@
 import { useDisplay } from 'vuetify'
 import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
+import { formatNumberInInternationalSystem, truncateText, capitalize } from 'utils/functions'
 
 const _props = defineProps<{
   videos: Video[]
 }>()
 const { smAndDown } = useDisplay()
-const page = ref(0)
 
 const headers = [
   {
@@ -108,21 +108,6 @@ const headers = [
     key: 'operations'
   }
 ]
-
-function minify (text: string) {
-  if (text.length < 85) { return text }
-  return `${text.substring(0, 85)}...`
-}
-function minifyDescription (text: string) {
-  if (text.length < 160) { return text }
-  return `${text.substring(0, 160)}...`
-}
-function capitalize (text: string) {
-  return `${text.substring(0, 1)}${text.substring(1).toLowerCase()}`
-}
-function numberfy (views: number) {
-  return views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-}
 
 function calculateRatio (likes: number, dislikes: number) {
   if (likes === 0) {
