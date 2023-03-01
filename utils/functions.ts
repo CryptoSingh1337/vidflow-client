@@ -24,3 +24,10 @@ export function truncateText (text: string, size: number): string {
   }
   return `${text.substring(0, size)}...`
 }
+
+export function calculateRatio (likes: number, dislikes: number): number {
+  if (likes === 0) {
+    return 0
+  }
+  return Number(((likes / (likes + dislikes)) * 100).toFixed(2))
+}

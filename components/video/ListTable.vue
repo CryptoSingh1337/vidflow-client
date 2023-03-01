@@ -60,7 +60,7 @@
 import { useDisplay } from 'vuetify'
 import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
-import { formatNumberInInternationalSystem, truncateText, capitalize } from '@/utils/functions'
+import { formatNumberInInternationalSystem, truncateText, capitalize, calculateRatio } from '@/utils/functions'
 
 const _props = defineProps<{
   videos: Video[]
@@ -108,13 +108,6 @@ const headers = [
     key: 'operations'
   }
 ]
-
-function calculateRatio (likes: number, dislikes: number) {
-  if (likes === 0) {
-    return 0
-  }
-  return Number(((likes / (likes + dislikes)) * 100).toFixed(2))
-}
 
 function handleEdit (id: string) {
   console.log('Edit', id)

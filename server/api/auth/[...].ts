@@ -118,7 +118,7 @@ export default NuxtAuthHandler({
         }
       }
       // Handle token refresh before it expires
-      if (token.accessTokenExpires && (Math.round(Date.now() / 1000)) > token.accessTokenExpires) {
+      if (token.accessTokenExpires && (Math.round(Date.now() / 1000)) > (token.accessTokenExpires as number)) {
         console.warn('Token is expired. Getting a new')
         return refreshAccessToken(token)
       }

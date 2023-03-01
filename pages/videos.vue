@@ -4,7 +4,12 @@
     <div class="text-h6 font-weight-bold mb-5">
       Your videos
     </div>
-    <VideoLikedList :videos="videos" />
+    <VideoListTable v-if="$vuetify.display.mdAndUp" :videos="videos" />
+    <v-row v-else no-gutters justify="center">
+      <v-col v-for="(video, idx) in videos" :key="idx" cols="12" sm="6">
+        <VideoListCard :video="video" />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
