@@ -25,7 +25,7 @@
 <script lang='ts' setup>
 import { formatTimeAgo } from '@vueuse/core'
 import { Video } from 'utils/model'
-import { shortifyNumber } from 'utils/functions'
+import { shortifyNumber } from '@/utils/functions'
 
 const props = defineProps<{
     video: Video

@@ -47,7 +47,7 @@
 import { formatTimeAgo } from '@vueuse/core'
 import { useDisplay } from 'vuetify'
 import { Video } from 'utils/model'
-import { shortifyNumber, truncateText } from 'utils/functions'
+import { shortifyNumber, truncateText } from '@/utils/functions'
 
 const { name } = useDisplay()
 

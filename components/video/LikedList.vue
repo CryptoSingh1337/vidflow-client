@@ -60,7 +60,7 @@
 import { useDisplay } from 'vuetify'
 import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
-import { formatNumberInInternationalSystem, truncateText, capitalize } from 'utils/functions'
+import { formatNumberInInternationalSystem, truncateText, capitalize } from '@/utils/functions'
 
 const _props = defineProps<{
   videos: Video[]

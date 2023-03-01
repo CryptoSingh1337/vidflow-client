@@ -1,7 +1,7 @@
 <template>
   <div class="text-h6 font-weight-bold d-block" style="line-height: 1.35">
     {{ props.video.title }}
-    <v-row no-gutters class="align-center text-subtitle-2 text-disabled">
+    <v-row no-gutters class="align-center text-subtitle-2 text-grey">
       <v-col cols="12" sm="5">
         <span class="align-self-center">{{ formatNumberInInternationalSystem(props.video.views) }} views • {{ formatDate(new Date(props.video.createdAt), "D, MMM YYYY") }}</span>
       </v-col>
@@ -64,7 +64,7 @@
 <script lang='ts' setup>
 import { formatDate } from '@vueuse/core'
 import { User } from 'utils/model'
-import { formatNumberInInternationalSystem, shortifyNumber, truncateText } from 'utils/functions'
+import { formatNumberInInternationalSystem, shortifyNumber, truncateText } from '@/utils/functions'
 
 const props = defineProps<{
     video: any

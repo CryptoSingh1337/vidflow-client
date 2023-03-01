@@ -6,13 +6,11 @@
     </div>
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="10" lg="8">
-        <client-only>
-          <SearchVideoCard
-            v-for="(video, idx) in likedVideos"
-            :key="idx"
-            :video="video"
-          />
-        </client-only>
+        <SearchVideoCard
+          v-for="(video, idx) in likedVideos"
+          :key="idx"
+          :video="video"
+        />
       </v-col>
     </v-row>
   </v-container>
