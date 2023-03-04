@@ -21,7 +21,7 @@
           class="mx-3"
           color="primary"
           :size="$vuetify.display.xs ? 'x-small' : 'default'"
-          :disabled="props.comments.length < 3 || props.comments.length > 50"
+          :disabled="comment.length < 3 || comment.length > 50"
           @click="handleComment"
         >
           Comment
@@ -31,7 +31,7 @@
           class="mx-3"
           color="primary"
           :size="$vuetify.display.xs ? 'x-small' : 'default'"
-          :disabled="props.comments.length < 3 || props.comments.length > 50"
+          :disabled="comment.length < 3 || comment.length > 50"
           @click="handleSave"
         >
           Save
@@ -39,7 +39,7 @@
       </div>
     </v-scroll-y-transition>
     <div v-if="commentsData.length > 0" class="mt-6">
-      <WatchCommentListItem v-for="(c, index) in commentsData" :key="index" :comment="c" />
+      <WatchCommentListItem v-for="(c, index) in commentsData" :key="index" :comment="c" @edit-comment="handleEditComment" @delete-comment="handleDeleteComment" />
     </div>
   </v-container>
 </template>
@@ -63,6 +63,14 @@ function handleComment () {
 
 function handleSave () {
   console.log('Comment saved')
+}
+
+function handleEditComment (id: string) {
+  console.log('Editing comment', id)
+}
+
+function handleDeleteComment (id: string) {
+  console.log('Deleting comment', id)
 }
 
 function resetCommentField () {

@@ -17,6 +17,8 @@
           v-if="$auth.status.value === 'authenticated' ? user.username === comment.username : false"
           :key="comment.id"
           :comment-id="comment.id"
+          @edit-comment="emit('editComment', comment.id)"
+          @delete-comment="emit('deleteComment', comment.id)"
         />
       </div>
       <div class="text-body-2">
@@ -32,6 +34,8 @@ import { Comment, User } from 'utils/model'
 
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
+
+const emit = defineEmits(['editComment', 'deleteComment'])
 
 const props = defineProps<{
   comment: Comment
