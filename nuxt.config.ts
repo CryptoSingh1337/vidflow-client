@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     shim: false
   },
   modules: [
+    '@nuxtjs/color-mode',
     '@sidebase/nuxt-auth',
     '@vueuse/nuxt',
     // @ts-ignore
@@ -35,6 +36,10 @@ export default defineNuxtConfig({
     }
   ],
   css: ['vuetify/styles'],
+  colorMode: {
+    preference: 'dark',
+    classSuffix: ''
+  },
   vite: {
     ssr: {
       noExternal: ['vuetify']

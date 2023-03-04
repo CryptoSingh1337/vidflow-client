@@ -17,8 +17,11 @@
 import { useTheme } from 'vuetify'
 
 const theme = useTheme()
+const colorMode = useColorMode()
 
 function toggleTheme (name: string) {
+  colorMode.value = name
+  colorMode.preference = name
   theme.global.name.value = name
 }
 </script>

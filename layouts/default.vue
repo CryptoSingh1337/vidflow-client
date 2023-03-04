@@ -8,6 +8,17 @@
   </v-app>
 </template>
 
+<script lang='ts' setup>
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
+const colorMode = useColorMode()
+
+onMounted(() => {
+  theme.global.name.value = colorMode.value
+})
+</script>
+
 <style>
 * {
   scrollbar-width: thin;
