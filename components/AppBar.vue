@@ -80,8 +80,9 @@
           </v-list-item>
           <v-divider class="my-2" />
         </div>
+        <NavSubscriptionsList v-if="$auth.status.value === 'authenticated'" />
       </v-list>
-      <v-list-item dense>
+      <v-list-item density="compact">
         <v-list-item-subtitle class="text-center">
           <span>© CryptoSingh1337</span>
         </v-list-item-subtitle>
