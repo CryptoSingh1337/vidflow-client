@@ -12,13 +12,13 @@
     <template #title>
       {{ props.video.title }}
     </template>
-    <template #subtitle>
-      <div class="font-weight-bold text-caption">
+    <v-list-item-subtitle style="opacity: 1 !important;">
+      <div class="font-weight-medium text-caption">
         {{ video.channelName }}
       </div>
       <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
         {{ shortifyNumber(props.video.views) }} views</span>
-    </template>
+    </v-list-item-subtitle>
   </v-list-item>
 </template>
 
