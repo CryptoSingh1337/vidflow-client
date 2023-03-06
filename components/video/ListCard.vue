@@ -7,15 +7,7 @@
     <v-divider />
     <v-card-title class="d-flex justify-space-between">
       <span>Statistics</span>
-      <v-menu location="bottom">
-        <template #activator="{ props }">
-          <v-icon class="mx-2" icon="mdi:mdi-dots-vertical" v-bind="props" />
-        </template>
-        <v-list density="compact">
-          <v-list-item prepend-icon="mdi-pencil" title="Edit" @click="handleEdit(_props.video.id)" />
-          <v-list-item prepend-icon="mdi-delete" title="Delete" @click="handleDelete(_props.video.id)" />
-        </v-list>
-      </v-menu>
+      <VideoSideMenu :id="_props.video.id" @edit-video="editVideo" @delete-video="deleteVideo" />
     </v-card-title>
     <v-card-text>
       <div class="d-flex justify-space-between">
@@ -61,15 +53,18 @@
 import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
 import { truncateText, calculateRatio, capitalize, formatNumberInInternationalSystem } from '@/utils/functions'
+
+const emit = defineEmits(['editVideo', 'deleteVideo'])
+
 const _props = defineProps<{
-    video: Video
+  video: Video
 }>()
 
-function handleEdit (id: string) {
-  console.log('Edit', id)
+function editVideo (id: string) {
+  emit('editVideo', id)
 }
 
-function handleDelete (id: string) {
-  console.log('Delete', id)
+function deleteVideo (id: string) {
+  emit('deleteVideo', id)
 }
 </script>

@@ -42,15 +42,7 @@
     </template>
     <template #item.operations="{ item }">
       <div class="d-flex">
-        <v-menu location="bottom">
-          <template #activator="{ props }">
-            <v-icon class="mx-2" icon="mdi:mdi-dots-vertical" v-bind="props" />
-          </template>
-          <v-list density="compact">
-            <v-list-item prepend-icon="mdi-pencil" title="Edit" @click="handleEdit(item.raw.id)" />
-            <v-list-item prepend-icon="mdi-delete" title="Delete" @click="handleDelete(item.raw.id)" />
-          </v-list>
-        </v-menu>
+        <VideoSideMenu :id="item.raw.id" @edit-video="editVideo" @delete-video="deleteVideo" />
       </div>
     </template>
   </v-data-table>
@@ -61,6 +53,8 @@ import { useDisplay } from 'vuetify'
 import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
 import { formatNumberInInternationalSystem, truncateText, capitalize, calculateRatio } from '@/utils/functions'
+
+const emit = defineEmits(['editVideo', 'deleteVideo'])
 
 const _props = defineProps<{
   videos: Video[]
@@ -109,11 +103,11 @@ const headers = [
   }
 ]
 
-function handleEdit (id: string) {
-  console.log('Edit', id)
+function editVideo (id: string) {
+  emit('editVideo', id)
 }
 
-function handleDelete (id: string) {
-  console.log('Delete', id)
+function deleteVideo (id: string) {
+  emit('deleteVideo', id)
 }
 </script>
