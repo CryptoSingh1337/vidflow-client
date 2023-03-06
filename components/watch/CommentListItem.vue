@@ -21,10 +21,12 @@
           @delete-comment="emit('deleteComment', comment.id)"
         />
       </div>
+    </template>
+    <v-list-item-subtitle style="opacity: 1 !important;">
       <div class="text-body-2">
         {{ comment.body }}
       </div>
-    </template>
+    </v-list-item-subtitle>
   </v-list-item>
 </template>
 
