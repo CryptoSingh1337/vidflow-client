@@ -57,6 +57,7 @@
                 variant="outlined"
                 :rules="[requiredRule, emailRule]"
                 label="Email"
+                @keyup.enter="register"
               />
               <div class="text-caption">
                 <span>Having an account?</span>

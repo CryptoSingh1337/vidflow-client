@@ -47,6 +47,7 @@
                   :loading="loader"
                   :disabled="!valid"
                   @click="handleLogin"
+                  @keyup.enter="handleLogin"
                 >
                   Login
                 </v-btn>
