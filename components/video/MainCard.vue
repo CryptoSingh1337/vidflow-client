@@ -29,7 +29,7 @@
         </ClientOnly>
       </v-col>
       <v-col class="d-flex align-center flex-row">
-        <v-card-subtitle class="pa-0 grey--text">
+        <v-card-subtitle class="pa-0">
           <div class="font-weight-bold">
             {{ props.video.channelName }}
           </div>

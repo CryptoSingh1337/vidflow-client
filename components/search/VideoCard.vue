@@ -17,8 +17,8 @@
           {{ formatTimeAgo(new Date(props.video.createdAt)) }}</span>
       </div>
     </template>
-    <template #subtitle>
-      <div style="opacity: 1;">
+    <v-list-item-subtitle style="opacity: 1 !important;">
+      <div>
         <NuxtLink :to="`/channel/${props.video.userId}`" class="text-decoration-none">
           <div class="d-flex my-2" no-gutters>
             <span>
@@ -27,17 +27,17 @@
               </v-avatar>
             </span>
             <span class="d-flex align-center">
-              <div class="text-caption text-grey font-weight-bold ml-2">
+              <div class="text-grey font-weight-medium ml-2">
                 {{ props.video.channelName }}
               </div>
             </span>
           </div>
         </NuxtLink>
       </div>
-      <div class="text-caption">
+      <div>
         {{ `${props.video.description && props.video.description.substring(0, 250)}...` }}
       </div>
-    </template>
+    </v-list-item-subtitle>
   </v-list-item>
 </template>
 
