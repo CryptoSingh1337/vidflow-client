@@ -30,6 +30,7 @@
                 label="Enter your password"
                 variant="outlined"
                 @click:append-inner="show = !show"
+                @keyup.enter="handleLogin"
               />
               <div class="text-caption d-flex justify-space-between">
                 <NuxtLink class="text-decoration-none" to="/forgot">
@@ -47,7 +48,6 @@
                   :loading="loader"
                   :disabled="!valid"
                   @click="handleLogin"
-                  @keyup.enter="handleLogin"
                 >
                   Login
                 </v-btn>
