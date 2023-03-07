@@ -137,14 +137,27 @@ function addTag () {
 }
 
 function handleSave () {
-  console.log('Edit', props.id)
+  const thumbnail = thumbnailFile.value[0]
+  const payload = {
+    id: props.id,
+    title: title.value,
+    description: description.value,
+    videoStatus: videoStatus.value,
+    tags: tags.value.length > 0 ? tags.value : null,
+    thumbnail: null as any
+  }
+  if (thumbnail && validateThumbnail()) {
+    payload.thumbnail = thumbnail
+  }
+  console.log(payload)
+
   setTimeout(() => {
     emit('close')
     open.value = false
   }, 2000)
 }
 
-function validatePayload () {
+function validateThumbnail () {
   let error = ''
   const file = thumbnailFile.value[0]
   if (!file || (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/jpg')) {
