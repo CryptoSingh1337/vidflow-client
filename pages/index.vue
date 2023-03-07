@@ -1,6 +1,6 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row class="ma-3" no-gutters>
+  <v-container style="height: 100%;">
+    <v-row class="" no-gutters>
       <v-col
         v-for="video in videos"
         :key="video.id"
@@ -13,7 +13,7 @@
         <VideoMainCard :width="$vuetify.display.xs ? '100%' : '90%'" :video="video" />
       </v-col>
     </v-row>
-    <v-card v-intersect.quiet="infiniteScroll" />
+    <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
   </v-container>
 </template>
 <script lang='ts' setup>

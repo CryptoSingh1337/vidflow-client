@@ -1,6 +1,5 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <h3>Trending</h3>
+  <v-container style="height: 100%;">
     <v-row class="ma-3" no-gutters>
       <v-col
         v-for="video in videos"
