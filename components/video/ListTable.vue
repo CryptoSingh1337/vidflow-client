@@ -6,13 +6,13 @@
         <div>
           <div
             :class="[
-              'text-caption font-weight-bold ml-2 mb-1',
+              'font-weight-bold ml-2',
               $vuetify.theme.current.dark ? 'text-white' : 'text-black',
             ]"
           >
             {{ truncateText(item.raw.title, 85) }}
           </div>
-          <div class="text-caption ml-2 text-grey">
+          <div class="ml-2 text-caption text-disabled">
             {{ truncateText(item.raw.description, 160) }}
           </div>
         </div>
