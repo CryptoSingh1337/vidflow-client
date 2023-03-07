@@ -34,7 +34,7 @@
               </NuxtLink>
             </template>
             <template #title>
-              <NuxtLink class="text-decoration-none font-weight-medium" :to="`/channel/${props.video.userId}`">
+              <NuxtLink class="text-decoration-none font-weight-medium" :class="$vuetify.theme.current.dark ? 'text-white' : 'text-black'" :to="`/channel/${props.video.userId}`">
                 {{ props.video.channelName }}
               </NuxtLink>
             </template>
