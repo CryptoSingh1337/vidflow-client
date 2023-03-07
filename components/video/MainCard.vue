@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="ma-2 mx-auto bg-transparent"
-    :max-width="width"
+    :max-width="props.width"
     :to="`/watch/${props.video.id}`"
     variant="flat"
     :ripple="false"
@@ -23,17 +23,18 @@
             <v-avatar size="44">
               <v-img
                 :src="`https://avatars.dicebear.com/api/bottts/${props.video.channelName}.svg`"
+                :title="props.video.channelName"
               />
             </v-avatar>
           </NuxtLink>
         </ClientOnly>
       </v-col>
       <v-col class="d-flex align-center flex-row">
-        <v-card-subtitle class="pa-0">
-          <div class="font-weight-bold">
+        <v-card-subtitle class="pa-0" style="opacity: 1 !important">
+          <div class="font-weight-medium">
             {{ props.video.channelName }}
           </div>
-          <span>
+          <span class="text-grey">
             {{ shortifyNumber(props.video.views) }} views •
             {{ formatTimeAgo(new Date(props.video.createdAt)) }}
           </span>
