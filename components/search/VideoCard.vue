@@ -34,7 +34,7 @@
           </div>
         </NuxtLink>
       </div>
-      <div>
+      <div class="text-disabled">
         {{ `${props.video.description && props.video.description.substring(0, 250)}...` }}
       </div>
     </v-list-item-subtitle>
