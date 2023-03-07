@@ -119,8 +119,8 @@ function register () {
   const { error } = useFetch('/api/user/register', {
     method: 'POST',
     body: user,
-    onResponse (context) {
-      if (context.response.status === 200) {
+    onResponse ({ response }) {
+      if (response.status === 200) {
         navigateTo('/login')
       }
     },

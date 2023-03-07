@@ -85,7 +85,7 @@ const showText = ref('Show More')
 function handleLike () {
   if ($auth.status.value === 'authenticated') {
     useFetch(`/api/user/${user.id}/like/${props.video.id}`, {
-      method: 'post',
+      method: 'POST',
       query: {
         isLiked: !like.value
       },

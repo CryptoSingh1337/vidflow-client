@@ -76,7 +76,7 @@ if ($auth.status.value === 'authenticated') {
   }
   await Promise.all([
     useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
-      method: 'post'
+      method: 'POST'
     }),
     useFetch(`/api/user/${user.id}/video/${route.params.id}/liked`, {
       onResponse ({ response }) {

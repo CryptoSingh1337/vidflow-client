@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const token = await getToken({ event })
   if (token) {
     await $fetch(`${backendBaseUrl}/user/id/${userId}/video/id/${videoId}`, {
-      method: 'post',
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token.accessToken}`
       }

@@ -39,9 +39,9 @@ const { refresh } = await useAsyncData(() => $fetch('/api/video/search', {
     q: route.query.q,
     page: page.value
   },
-  onResponse (context) {
-    if (context.response.status === 200) {
-      searchVideos.value = context.response._data
+  onResponse ({ response }) {
+    if (response.status === 200) {
+      searchVideos.value = response._data
     }
   }
 }))

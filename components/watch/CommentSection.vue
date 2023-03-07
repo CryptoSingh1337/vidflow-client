@@ -45,8 +45,10 @@
 </template>
 
 <script lang='ts' setup>
-import { Comment } from 'utils/model'
+import { User, Comment } from 'utils/model'
 
+const { $auth } = useNuxtApp()
+const route = useRoute()
 const props = defineProps<{
     comments: Comment[]
 }>()
@@ -54,23 +56,87 @@ const props = defineProps<{
 const comment = ref('')
 const typing = ref(false)
 const editing = ref(false)
+const editCommentId = ref('')
 
-const commentsData = ref(props.comments ? props.comments : [])
+const commentsData = ref<Comment[]>(props.comments ? props.comments : [])
 
-function handleComment () {
-  console.log('Comment created')
-}
+async function handleComment () {
+  if ($auth.status.value === 'unauthenticated') {
+    navigateTo('/login')
+  } else if (comment.value.length >= 3 && comment.value.length <= 50) {
+    const user = $auth.data.value?.user as User
+    const payload = {
+      username: user.username,
+      channelName: user.channelName,
+      body: comment.value
+    }
 
-function handleSave () {
-  console.log('Comment saved')
+    await useFetch(`/api/video/id/${route.params.id}/comment`, {
+      method: 'POST',
+      body: payload,
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          const comment = response._data as Comment
+          commentsData.value.unshift(comment)
+          resetCommentField()
+        }
+      }
+    })
+  }
 }
 
 function handleEditComment (id: string) {
-  console.log('Editing comment', id)
+  if (commentsData.value.length > 0) {
+    const c = commentsData.value.find(c => c.id === id)
+    if (c) {
+      comment.value = c.body
+      editing.value = true
+      typing.value = true
+      editCommentId.value = id
+    }
+  }
+}
+
+async function handleSave () {
+  if ($auth.status.value === 'unauthenticated') {
+    navigateTo('/login')
+  } else if (comment.value.length >= 3 && comment.value.length <= 50) {
+    const payload = {
+      body: comment.value
+    }
+    await useFetch(`/api/video/id/${route.params.id}/comment/${editCommentId.value}`, {
+      method: 'PUT',
+      body: payload,
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          const c = commentsData.value.find(c => c.id === editCommentId.value)
+          if (c) {
+            c.body = comment.value
+          }
+          resetCommentField()
+        }
+      }
+    })
+    editing.value = false
+  }
 }
 
 function handleDeleteComment (id: string) {
-  console.log('Deleting comment', id)
+  if ($auth.status.value === 'unauthenticated') {
+    navigateTo('/login')
+  } else {
+    useFetch(`/api/video/id/${route.params.id}/comment/${id}`, {
+      method: 'DELETE',
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          const idx = commentsData.value.findIndex(c => c.id === id)
+          if (idx !== -1) {
+            commentsData.value.splice(idx, 1)
+          }
+        }
+      }
+    })
+  }
 }
 
 function resetCommentField () {
