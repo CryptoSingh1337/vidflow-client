@@ -1,7 +1,9 @@
 <template>
   <v-dialog v-model="open" :max-width="$vuetify.display.smAndUp ? '50%' : '95%'">
     <v-card>
-      <v-card-title>Edit</v-card-title>
+      <v-card-title style="border-bottom: grey solid 1px;">
+        Edit
+      </v-card-title>
       <v-card-text>
         <v-row no-gutters>
           <v-col cols="12" sm="12" md="4">
@@ -10,7 +12,7 @@
                 Thumbnail
               </h4>
               <v-img
-                class="mx-auto"
+                class="mx-auto rounded-lg"
                 :src="thumbnail"
                 aspect-ratio="16/9"
                 min-width="100%"
@@ -19,7 +21,7 @@
                 max-height="100%"
                 alt="Thumbnail"
               />
-              <div>
+              <div class="my-2">
                 <span class="text-subtitle font-weight-bold">Thumbnail: </span> <a :href="thumbnail" target="_blank">{{ thumbnail }}</a>
               </div>
             </v-container>

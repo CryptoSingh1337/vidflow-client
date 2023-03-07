@@ -1,7 +1,9 @@
 <template>
   <v-dialog v-model="open" :max-width="$vuetify.display.smAndUp ? '30%' : '95%'">
     <v-card>
-      <v-card-title>Delete</v-card-title>
+      <v-card-title style="border-bottom: grey solid 1px;">
+        Delete
+      </v-card-title>
       <v-card-text>
         <v-layout align="center" justify="center">
           <v-icon class="mr-2" icon="mdi:mdi-information" />
