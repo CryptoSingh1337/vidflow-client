@@ -12,7 +12,7 @@
       :thumbnail="video.thumbnail"
       @close="editDialog = false"
     />
-    <VideoOptionsDeleteDialog v-if="deleteDialog" :id="deleteId" :open="deleteDialog" @close="deleteDialog = false" />
+    <VideoOptionsDeleteDialog v-if="deleteDialog" :id="deleteId" :open="deleteDialog" @close="deleteDialog = false" @delete="handleDelete" />
     <v-container>
       <div class="text-h6 font-weight-bold mb-5">
         Your videos
@@ -66,5 +66,15 @@ function openEditDialog (id: string) {
 function openDeleteDialog (id: string) {
   deleteDialog.value = true
   deleteId.value = id
+}
+
+function handleDelete (id: string) {
+  if (videos.value && videos.value.length > 0) {
+    const idx = videos.value.findIndex(v => v.id === id)
+    if (idx !== -1) {
+      videos.value.splice(idx, 1)
+    }
+  }
+  deleteDialog.value = false
 }
 </script>

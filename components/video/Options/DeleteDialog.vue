@@ -28,15 +28,22 @@ const props = defineProps<{
   open: boolean
   id: string
 }>()
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'delete'])
 
 const open = ref(props.open)
 
-function handleDelete () {
-  console.log('Delete', props.id)
-  setTimeout(() => {
-    open.value = false
-    emit('close')
-  }, 2000)
+async function handleDelete () {
+  await useFetch(`/api/video/id/${props.id}`, {
+    method: 'DELETE',
+    onResponse ({ response }) {
+      if (response.status === 200) {
+        open.value = false
+        emit('delete', props.id)
+      } else {
+        open.value = false
+        alert('Something went wrong while deleting the video!')
+      }
+    }
+  })
 }
 </script>

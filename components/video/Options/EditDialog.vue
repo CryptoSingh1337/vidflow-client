@@ -129,7 +129,7 @@ const tags = ref<string[]>(props.tags)
 const thumbnail = ref(props.thumbnail)
 const thumbnailFile = ref<File[]>([])
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'edit'])
 
 function addTag () {
   if (tag.value.trim() !== '') {
