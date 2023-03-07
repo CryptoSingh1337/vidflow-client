@@ -31,7 +31,7 @@
       </v-col>
       <v-col class="d-flex align-center flex-row">
         <v-card-subtitle class="pa-0" style="opacity: 1 !important">
-          <div class="font-weight-medium">
+          <div class="font-weight-medium" :title="props.video.channelName">
             {{ props.video.channelName }}
           </div>
           <span class="text-grey">
