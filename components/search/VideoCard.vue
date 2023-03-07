@@ -20,8 +20,8 @@
     <v-list-item-subtitle style="opacity: 1 !important;">
       <div>
         <NuxtLink :to="`/channel/${props.video.userId}`" class="text-decoration-none">
-          <div class="d-flex my-2" no-gutters>
-            <span>
+          <div class="d-flex my-2">
+            <span :title="props.video.channelName">
               <v-avatar size="30">
                 <v-img :src="`https://avatars.dicebear.com/api/bottts/${props.video.channelName}.svg`" />
               </v-avatar>
