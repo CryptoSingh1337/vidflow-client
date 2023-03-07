@@ -13,3 +13,14 @@ export const useFile = () => {
     clearFile
   }
 }
+
+export const useSubscribeState = () => {
+  const subscribeState = useState<boolean>('subscribeState', () => false)
+  const setSubscribeState = (payload: boolean) => {
+    subscribeState.value = payload
+  }
+  return {
+    subscribeState,
+    setSubscribeState
+  }
+}

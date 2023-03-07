@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     const token = await getToken({ event })
     if (token) {
       $fetch(`${backendBaseUrl}/user/id/${userId}/subscribers`, {
-        method: 'post',
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token.accessToken}`
         },
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
           increase: query.increase
         }
       })
-      return null
+      return 'success'
     } else {
       throw createError({
         statusCode: 403,
