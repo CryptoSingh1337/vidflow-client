@@ -13,7 +13,8 @@ const videoSchema = z.array(z.object({
   dislikes: z.number(),
   thumbnail: z.string(),
   description: z.string(),
-  videoStatus: z.string()
+  videoStatus: z.string(),
+  tags: z.nullable(z.array(z.string()))
 }))
 
 export default defineEventHandler(async (event: any) => {
@@ -25,6 +26,7 @@ export default defineEventHandler(async (event: any) => {
         Authorization: `Bearer ${token.accessToken}`
       }
     })
+
     return videoSchema.parse(result)
   } else {
     throw createError({
