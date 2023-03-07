@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="`/watch/${video.id}`" class="px-0 px-sm-5 my-1" :active="false">
+  <v-list-item :to="`/watch/${props.video.id}`" class="px-0 px-sm-5 my-1" :active="false">
     <template #prepend>
       <v-img
         class="mr-2"
@@ -13,8 +13,8 @@
       {{ props.video.title }}
     </template>
     <v-list-item-subtitle style="opacity: 1 !important;">
-      <div class="font-weight-medium text-caption">
-        {{ video.channelName }}
+      <div class="font-weight-medium text-caption" :title="props.video.channelName">
+        {{ props.video.channelName }}
       </div>
       <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
         {{ shortifyNumber(props.video.views) }} views</span>
