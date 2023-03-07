@@ -24,13 +24,14 @@
 </template>
 
 <script lang='ts' setup>
-import { User } from 'utils/model'
+import { User, Video } from 'utils/model'
 
 const route = useRoute()
 const { backendBaseUrl } = useRuntimeConfig()
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
+const trendingVideos = ref<Video[]>([])
 const page = ref(0)
 const subscribers = ref(0)
 const subscribed = ref(false)
@@ -45,7 +46,12 @@ useHead({
 const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id}`, {
   key: route.params.id as string
 })
-const { data: trendingVideos } = await useFetch(`/api/video/trending?page=${page.value}`)
+const { data } = await useFetch(`/api/video/trending?page=${page.value}`)
+data.value?.forEach((v) => {
+  if (v.id !== route.params.id) {
+    trendingVideos.value.push(v)
+  }
+})
 
 await useFetch(`/api/user/${video.value?.userId}/subscribers`, {
   onResponse ({ response }) {
@@ -59,6 +65,15 @@ if ($auth.status.value === 'authenticated') {
   if (user.id === video.value?.userId) {
     same = true
   }
+  if (user.id !== video.value?.userId) {
+    await useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`, {
+      onResponse ({ response }) {
+        if (response.status === 200) {
+          subscribed.value = response._data
+        }
+      }
+    })
+  }
   await Promise.all([
     useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
       method: 'post'
@@ -67,13 +82,6 @@ if ($auth.status.value === 'authenticated') {
       onResponse ({ response }) {
         if (response.status === 200) {
           liked.value = true
-        }
-      }
-    }),
-    useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`, {
-      onResponse ({ response }) {
-        if (response.status === 200) {
-          subscribed.value = response._data
         }
       }
     })
