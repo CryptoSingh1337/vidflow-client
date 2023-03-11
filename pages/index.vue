@@ -1,5 +1,5 @@
 <template>
-  <v-container style="height: 100%;">
+  <v-container style="height: 100%;" fluid>
     <v-row class="" no-gutters>
       <v-col
         v-for="video in videos"
