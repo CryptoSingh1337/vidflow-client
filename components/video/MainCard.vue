@@ -12,7 +12,7 @@
       aspect-ratio="16/9"
     />
     <div
-      class="px-2 pt-2 subtitle-1 font-weight-bold mb-2"
+      class="pt-2 subtitle-1 font-weight-bold mb-2"
       style="line-height: normal"
       v-text="truncateTitle(props.video.title)"
     />
