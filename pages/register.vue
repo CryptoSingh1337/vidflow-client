@@ -91,7 +91,7 @@ import { requiredRule, emailRule } from '@/utils/rules'
 
 const alert = ref(false)
 const alertText = ref('')
-const valid = ref(true)
+const valid = ref(false)
 const firstName = ref('')
 const lastName = ref('')
 const username = ref('')
