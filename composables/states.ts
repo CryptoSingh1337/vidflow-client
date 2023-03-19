@@ -16,11 +16,11 @@ export const useFile = () => {
 
 export const useSubscribeState = () => {
   const subscribeState = useState<boolean>('subscribeState', () => false)
-  const setSubscribeState = (payload: boolean) => {
-    subscribeState.value = payload
+  const toggleSubscribeState = () => {
+    subscribeState.value = !subscribeState.value
   }
   return {
     subscribeState,
-    setSubscribeState
+    toggleSubscribeState
   }
 }

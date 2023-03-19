@@ -22,7 +22,7 @@ const props = defineProps<{
 
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
-const { setSubscribeState } = useSubscribeState()
+const { toggleSubscribeState } = useSubscribeState()
 
 const subscribe = ref(props.subscribed)
 const notLoggedIn = ref($auth.status.value === 'unauthenticated')
@@ -38,7 +38,7 @@ async function handleSubscribe () {
       },
       onResponse ({ response }) {
         if (response.status === 200) {
-          setSubscribeState(true)
+          toggleSubscribeState()
         }
       }
     })

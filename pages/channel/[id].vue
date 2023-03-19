@@ -18,12 +18,14 @@
           </v-list>
         </v-col>
         <v-col :class="['d-flex', 'align-center', $vuetify.display.xs ? '' : 'justify-end']" cols="12" sm="4" md="4" lg="3">
-          <SubscribeButton
-            :id="userId"
-            :channel-name="channelName"
-            :subscribed="subscribed"
-            :same="same"
-          />
+          <ClientOnly>
+            <SubscribeButton
+              :id="userId"
+              :channel-name="channelName"
+              :subscribed="subscribed"
+              :same="same"
+            />
+          </ClientOnly>
         </v-col>
       </v-row>
     </v-container>
@@ -63,6 +65,7 @@ useHead({
 
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
+
 const userId = useRoute().params.id
 const page = ref(0)
 const channelName = ref('')
@@ -80,35 +83,21 @@ const { data: videos } = await useFetch(`/api/video/${userId}`, {
 
 if (videos.value && videos.value.length > 0) {
   channelName.value = videos.value[0].channelName
-  await useFetch(`/api/user/${userId}/subscribers`, {
-    onResponse ({ response }) {
-      if (response.status === 200) {
-        subscribers.value = response._data
-      }
-    }
-  })
+  const { data } = await useFetch(`/api/user/${userId}/subscribers`) as any
+  subscribers.value = data.value
 } else {
-  await useFetch(`/api/user/${userId}/channel`, {
-    onResponse ({ response }) {
-      if (response.status === 200) {
-        channelName.value = response._data
-      }
-    },
-    onResponseError ({ response }) {
-      throw createError({ statusCode: response.status, statusMessage: response.statusText })
-    }
-  })
+  const { data } = await useFetch(`/api/user/${userId}/channel`)
+  channelName.value = data.value as any
 }
 
 if ($auth.status.value === 'authenticated') {
-  if (user.id !== userId) {
-    await useFetch(`/api/user/${user.id}/subscribed/${userId}`, {
-      onResponse ({ response }) {
-        if (response.status === 200) {
-          subscribed.value = response._data
-        }
-      }
-    })
+  if (user.id === userId) {
+    same.value = true
+  } else {
+    const { data, error } = await useFetch(`/api/user/${user.id}/subscribed/${userId}`)
+    if (!error.value) {
+      subscribed.value = data.value as any
+    }
   }
 }
 </script>

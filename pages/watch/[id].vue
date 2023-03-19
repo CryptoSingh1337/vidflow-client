@@ -6,7 +6,7 @@
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
         <WatchVideoFooter
           :same="same"
-          :subscribers="subscribers"
+          :subscribers="subscribers ? subscribers : 0"
           :subscribed="subscribed"
           :video="video"
           :liked="liked"
@@ -33,7 +33,7 @@ const user = $auth.data.value?.user as User
 
 const trendingVideos = ref<Video[]>([])
 const page = ref(0)
-const subscribers = ref(0)
+// const subscribers = ref(0)
 const subscribed = ref(false)
 const liked = ref(false)
 let same = false
@@ -53,27 +53,16 @@ data.value?.forEach((v) => {
   }
 })
 
-await useFetch(`/api/user/${video.value?.userId}/subscribers`, {
-  onResponse ({ response }) {
-    if (response.status === 200) {
-      subscribers.value = response._data
-    }
-  }
-})
+const { data: subscribers } = await useFetch(`/api/user/${video.value?.userId}/subscribers`)
 
 if ($auth.status.value === 'authenticated') {
   if (user.id === video.value?.userId) {
     same = true
+  } else {
+    const { data } = await useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`)
+    subscribed.value = data.value as any
   }
-  if (user.id !== video.value?.userId) {
-    await useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`, {
-      onResponse ({ response }) {
-        if (response.status === 200) {
-          subscribed.value = response._data
-        }
-      }
-    })
-  }
+
   await Promise.all([
     useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
       method: 'POST'

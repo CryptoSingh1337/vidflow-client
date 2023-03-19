@@ -27,12 +27,13 @@ import { User } from 'utils/model'
 
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
-const { subscribeState, setSubscribeState } = useSubscribeState()
+const { subscribeState } = useSubscribeState()
 
-const { data: subscribedChannels, refresh } = await useFetch(`/api/user/${user.id}/subscribed`)
+const { data: subscribedChannels, refresh } = await useFetch(`/api/user/${user.id}/subscribed`, {
+  watch: [subscribeState]
+})
 
-watch(() => subscribeState.value, () => {
-  setSubscribeState(false)
+watch(subscribeState, () => {
   refresh()
 })
 </script>

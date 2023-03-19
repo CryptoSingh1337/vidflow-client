@@ -25,7 +25,7 @@
     <v-row class="justify-space-between" no-gutters>
       <v-col cols="8" sm="6" md="5" lg="5">
         <v-list class="bg-transparent" lines="two" density="compact">
-          <v-list-item :subtitle="shortifyNumber(props.subscribers) + ' subscribers'">
+          <v-list-item>
             <template #prepend>
               <NuxtLink :to="`/channel/${props.video.userId}`">
                 <v-avatar size="50" class="mr-4">
@@ -38,16 +38,21 @@
                 {{ props.video.channelName }}
               </NuxtLink>
             </template>
+            <template #subtitle>
+              {{ shortifyNumber(props.subscribers) + ' subscribers' }}
+            </template>
           </v-list-item>
         </v-list>
       </v-col>
       <v-col cols="4" sm="6" md="4" lg="4" class="d-flex align-center justify-end">
-        <SubscribeButton
-          :id="video.userId"
-          :same="same"
-          :subscribed="subscribed"
-          :channel-name="video.channelName"
-        />
+        <ClientOnly>
+          <SubscribeButton
+            :id="video.userId"
+            :same="same"
+            :subscribed="subscribed"
+            :channel-name="video.channelName"
+          />
+        </ClientOnly>
       </v-col>
       <v-col cols="12" md="12">
         <div class="text-subtitle-1" style="line-height: 1.2; white-space: pre-wrap;">
