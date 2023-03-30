@@ -20,7 +20,9 @@ export type LoginResponse = {
 export type RefreshTokenResponse = LoginResponse
 
 export type UserResponse = {
-  user: User
+  data: {
+    user: User
+  }
 }
 
 export type User = {

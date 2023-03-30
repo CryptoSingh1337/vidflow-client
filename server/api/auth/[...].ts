@@ -74,20 +74,21 @@ export default NuxtAuthHandler({
               Authorization: `Bearer ${userTokens?.data.accessToken}`
             }
           })
-          if (!userTokens || !userTokens.data || !userDetails || !userDetails.user) {
+
+          if (!userTokens || !userTokens.data || !userDetails || !userDetails.data.user) {
             throw createError({
               statusCode: 500,
               statusMessage: 'Next auth failed'
             })
           }
           const user = {
-            id: userDetails.user.id,
-            username: userDetails.user.username,
-            channelName: userDetails.user.channelName,
-            firstName: userDetails.user.firstName,
-            lastName: userDetails.user.lastName,
-            email: userDetails.user.email,
-            profileImage: userDetails.user.profileImage,
+            id: userDetails.data.user.id,
+            username: userDetails.data.user.username,
+            channelName: userDetails.data.user.channelName,
+            firstName: userDetails.data.user.firstName,
+            lastName: userDetails.data.user.lastName,
+            email: userDetails.data.user.email,
+            profileImage: userDetails.data.user.profileImage,
             accessToken: userTokens.data.accessToken,
             accessTokenExpires: parseJwt(userTokens.data.accessToken).exp,
             refreshToken: userTokens.data.refreshToken
