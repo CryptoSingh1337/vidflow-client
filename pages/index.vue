@@ -19,6 +19,7 @@
 <script lang='ts' setup>
 import { Video } from 'utils/model'
 const page = ref(1)
+const totalPages = ref(0)
 const videos = ref<Video[]>([])
 
 const { data } = await useFetch('/api/videos', {
@@ -26,7 +27,8 @@ const { data } = await useFetch('/api/videos', {
     page: 0
   }
 })
-data.value?.forEach(video => videos.value.push(video))
+data.value?.data.videos.content?.forEach(video => videos.value.push(video))
+totalPages.value = data.value?.data.videos.totalPages ? data.value?.data.videos.totalPages : 1
 
 definePageMeta({ auth: false })
 
@@ -34,8 +36,8 @@ definePageMeta({ auth: false })
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
     const { data } = await useFetch(`/api/videos?page=${page.value}`)
-    if (data.value?.length !== 0) {
-      data.value?.forEach(video => videos.value.push(video))
+    if (page.value <= totalPages.value) {
+      data.value?.data.videos.content?.forEach(video => videos.value.push(video))
       page.value++
     }
   }, 500)
