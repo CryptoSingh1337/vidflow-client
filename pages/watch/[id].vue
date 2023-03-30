@@ -1,22 +1,23 @@
 <template>
   <GlobalPageLoader v-if="pending" />
-  <div v-else-if="video">
-    <WatchVideoPlayer :src="video.videoUrl" :title="video.title" :thumbnail="video.thumbnail" />
+  <div v-else-if="response?.video && response.channel">
+    <WatchVideoPlayer :src="response.video.videoUrl" :title="response.video.title" :thumbnail="response.video.thumbnail" />
     <v-row class="px-lg-5" no-gutters>
       <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
         <WatchVideoFooter
           :same="same"
-          :subscribers="subscribers ? subscribers : 0"
+          :subscribers="response.channel.subscribers"
           :subscribed="subscribed"
-          :video="video"
+          :video="response.video"
           :liked="liked"
         />
         <v-divider />
-        <WatchCommentSection :comments="video.comments" />
+        <WatchCommentSection :comments="response.video.comments" />
       </v-col>
       <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
         <div class="d-flex flex-column-reverse">
           <WatchTrendingVideoCard v-for="(trendingVideo, idx) in trendingVideos" :key="idx" :video="trendingVideo" />
+          <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
         </div>
       </v-col>
     </v-row>
@@ -32,7 +33,8 @@ const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
 const trendingVideos = ref<Video[]>([])
-const page = ref(0)
+const page = ref(1)
+let totalPages = 0
 // const subscribers = ref(0)
 const subscribed = ref(false)
 const liked = ref(false)
@@ -43,48 +45,58 @@ useHead({
   title: 'Watch - VidFlow'
 })
 
-const { pending, data: video } = await useFetch(`/api/video/id/${route.params.id}`, {
+const { pending, data: response } = await useFetch(`/api/video/id/${route.params.id}`, {
   key: route.params.id as string
 })
-const { data } = await useFetch(`/api/video/trending?page=${page.value}`)
-data.value?.forEach((v) => {
+const { data } = await useFetch('/api/video/trending', {
+  query: {
+    page: 0
+  }
+})
+data.value?.content.forEach((v) => {
   if (v.id !== route.params.id) {
     trendingVideos.value.push(v)
   }
 })
+totalPages = data.value?.totalPages ? data.value?.totalPages : 1
 
-const { data: subscribers } = await useFetch(`/api/user/${video.value?.userId}/subscribers`)
-
-if ($auth.status.value === 'authenticated') {
-  if (user.id === video.value?.userId) {
-    same = true
-  } else {
-    const { data } = await useFetch(`/api/user/${user.id}/subscribed/${video.value?.userId}`)
-    subscribed.value = data.value as any
+if (response.value?.video && response.value.channel) {
+  if ($auth.status.value === 'authenticated' && response.value.userProperties) {
+    if (user.id === response.value.video.userId) {
+      same = true
+    } else {
+      subscribed.value = response.value.userProperties.subscribeStatus
+    }
+    liked.value = response.value.userProperties.likeStatus
   }
-
-  await Promise.all([
-    useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
-      method: 'POST'
-    }),
-    useFetch(`/api/user/${user.id}/video/${route.params.id}/liked`, {
-      onResponse ({ response }) {
-        if (response.status === 200) {
-          liked.value = true
-        }
-      }
-    })
-  ])
 }
 
 onMounted(() => {
-  useFetch(`/video/views/id/${route.params.id}`, {
-    baseURL: backendBaseUrl,
-    onResponse () {
-      if (video.value && video.value.views) {
-        video.value.views += 1
+  Promise.all([
+    useFetch(`/video/views/id/${route.params.id}`, {
+      baseURL: backendBaseUrl,
+      method: 'PUT',
+      onResponse () {
+        if (response.value?.video && response.value.video.views) {
+          response.value.video.views += 1
+        }
       }
-    }
-  })
+    }),
+    useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
+      method: 'POST'
+    })
+  ])
 })
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
+  setTimeout(async () => {
+    const { data } = await useFetch(`/api/videos?page=${page.value}`)
+    totalPages = data.value?.totalPages ? data.value?.totalPages : 1
+    if (page.value <= totalPages) {
+      data.value?.content?.forEach(video => trendingVideos.value.push(video))
+      page.value++
+    }
+  }, 500)
+}
 </script>

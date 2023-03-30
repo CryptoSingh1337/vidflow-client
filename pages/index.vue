@@ -27,8 +27,8 @@ const { data } = await useFetch('/api/videos', {
     page: 0
   }
 })
-data.value?.data.videos.content?.forEach(video => videos.value.push(video))
-totalPages.value = data.value?.data.videos.totalPages ? data.value?.data.videos.totalPages : 1
+data.value?.content?.forEach(video => videos.value.push(video))
+totalPages.value = data.value?.totalPages ? data.value?.totalPages : 1
 
 definePageMeta({ auth: false })
 
@@ -37,7 +37,7 @@ function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
     const { data } = await useFetch(`/api/videos?page=${page.value}`)
     if (page.value <= totalPages.value) {
-      data.value?.data.videos.content?.forEach(video => videos.value.push(video))
+      data.value?.content?.forEach(video => videos.value.push(video))
       page.value++
     }
   }, 500)

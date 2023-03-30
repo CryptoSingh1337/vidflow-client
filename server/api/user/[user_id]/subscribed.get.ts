@@ -17,8 +17,8 @@ export default defineEventHandler(async (event) => {
       headers: {
         Authorization: `Bearer ${token.accessToken}`
       }
-    })
-    return subscribedChannelsSchema.parse(result)
+    }) as any
+    return subscribedChannelsSchema.parse(result.data.subscribedChannels)
   } else {
     throw createError({
       statusCode: 403,
