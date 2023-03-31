@@ -15,7 +15,8 @@ export default defineEventHandler(async (event) => {
   if (token) {
     const result = await $fetch(`${backendBaseUrl}/user/id/${userId}/subscribed`, {
       headers: {
-        Authorization: `Bearer ${token.accessToken}`
+        Authorization: `Bearer ${token.accessToken}`,
+        'Cache-Control': 'no-cache'
       }
     }) as any
     return subscribedChannelsSchema.parse(result.data.subscribedChannels)

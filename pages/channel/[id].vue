@@ -4,14 +4,14 @@
       src="https://picsum.photos/1546/423?random"
       height="230"
     />
-    <v-container>
+    <v-container v-if="response?.channel">
       <v-row class="justify-space-between" no-gutters>
         <v-col class="d-flex" cols="12" sm="5" md="5" lg="3">
           <v-list class="bg-transparent" lines="two" density="compact">
-            <v-list-item class="px-0" :title="channelName" :subtitle="shortifyNumber(subscribers) + ' subscribers'">
+            <v-list-item class="px-0" :title="response.channel.name" :subtitle="shortifyNumber(response?.channel.subscribers) + ' subscribers'">
               <template #prepend>
                 <v-avatar size="100" class="mr-4">
-                  <v-img :src="`https://avatars.dicebear.com/api/bottts/${channelName}.svg`" />
+                  <v-img :src="`https://avatars.dicebear.com/api/bottts/${response.channel.name}.svg`" />
                 </v-avatar>
               </template>
             </v-list-item>
@@ -21,15 +21,15 @@
           <ClientOnly>
             <SubscribeButton
               :id="userId"
-              :channel-name="channelName"
-              :subscribed="subscribed"
+              :channel-name="response.channel.name"
+              :subscribed="response.userMetadata ? response.userMetadata.subscribeStatus : false"
               :same="same"
             />
           </ClientOnly>
         </v-col>
       </v-row>
     </v-container>
-    <v-container>
+    <v-container v-if="videos.length > 0">
       <v-tabs v-model="tab" :items="tabs" align-tabs="center" />
       <v-window v-model="tab">
         <v-window-item v-for="(t, idx) in tabs" :key="idx" :value="t">
@@ -47,16 +47,28 @@
                 <VideoMainCard :width="$vuetify.display.xs ? '100%' : '90%'" :video="video" />
               </v-col>
             </v-row>
+            <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
           </v-container>
         </v-window-item>
       </v-window>
+    </v-container>
+    <v-container v-else class="d-flex align-center justify-center flex-column">
+      <v-icon
+        class="mb-5"
+        :color="$vuetify.theme.current.dark ? '' : '#000000'"
+        :size="90"
+        icon="mdi:mdi-information"
+      />
+      <div class="mx-auto text-h5 text-center font-weight-bold">
+        {{ response?.channel.name }} has not uploaded any video yet!
+      </div>
     </v-container>
   </div>
 </template>
 
 <script lang='ts' setup>
 import { shortifyNumber } from '@/utils/functions'
-import { User } from 'utils/model'
+import { User, Video } from 'utils/model'
 
 definePageMeta({ auth: false })
 useHead({
@@ -67,37 +79,40 @@ const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
 const userId = useRoute().params.id
-const page = ref(0)
-const channelName = ref('')
-const subscribers = ref(0)
-const subscribed = ref(false)
+const videos = ref<Video[]>([])
+const page = ref(1)
 const same = ref(false)
 const tabs = ['Home', 'Videos']
 const tab = ref('Home')
-
-const { data: videos } = await useFetch(`/api/video/${userId}`, {
-  query: {
-    page: page.value
-  }
-})
-
-if (videos.value && videos.value.length > 0) {
-  channelName.value = videos.value[0].channelName
-  const { data } = await useFetch(`/api/user/${userId}/subscribers`) as any
-  subscribers.value = data.value
-} else {
-  const { data } = await useFetch(`/api/user/${userId}/channel`)
-  channelName.value = data.value as any
-}
+let subscribeStatus = false
+let authenticatedUserId = ''
+let totalPages = 1
 
 if ($auth.status.value === 'authenticated') {
-  if (user.id === userId) {
-    same.value = true
-  } else {
-    const { data, error } = await useFetch(`/api/user/${user.id}/subscribed/${userId}`)
-    if (!error.value) {
-      subscribed.value = data.value as any
-    }
+  same.value = userId === user.id
+  subscribeStatus = true
+  authenticatedUserId = user.id
+}
+
+const { data: response } = await useFetch(`/api/user/${userId}/channel`, {
+  query: {
+    page: 0,
+    subscribeStatus,
+    authenticatedUserId
   }
+})
+response.value?.videos.content.forEach(video => videos.value.push(video))
+totalPages = response.value?.videos.totalPages ? response.value?.videos.totalPages : 1
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
+  setTimeout(async () => {
+    if (page.value < totalPages) {
+      const { data } = await useFetch(`/api/video/${userId}?page=${page.value}`) as any
+      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
+      data.value?.content?.forEach((video: any) => videos.value.push(video))
+      page.value++
+    }
+  }, 500)
 }
 </script>
