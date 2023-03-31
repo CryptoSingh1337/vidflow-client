@@ -2,14 +2,16 @@ import { z } from 'zod'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const userSchema = z.object({
-  id: z.string(),
-  username: z.string(),
-  channelName: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string(),
-  profileImage: z.string()
+const response = z.object({
+  user: z.object({
+    id: z.string(),
+    username: z.string(),
+    channelName: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string(),
+    profileImage: z.string()
+  })
 })
 
 const errorResponseSchema = z.object({
@@ -36,6 +38,6 @@ export default defineEventHandler(async (event) => {
         statusMessage: error.error.message[0]
       })
     }
-  })
-  return userSchema.parse(result)
+  }) as any
+  return response.parse(result.data)
 })
