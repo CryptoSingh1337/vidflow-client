@@ -5,6 +5,7 @@
         <SearchVideoCard v-for="(searchVideo, idx) in searchVideos" :key="idx" :video="searchVideo" />
       </v-col>
     </v-row>
+    <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
   </v-container>
   <v-container
     v-else
@@ -26,8 +27,9 @@
 import { Video } from 'utils/model'
 
 const route = useRoute()
-const page = ref(0)
+const page = ref(1)
 const searchVideos = ref<Video[]>([])
+let totalPages = 1
 
 definePageMeta({ auth: false })
 useHead({
@@ -37,14 +39,27 @@ useHead({
 const { refresh } = await useAsyncData(() => $fetch('/api/video/search', {
   query: {
     q: route.query.q,
-    page: page.value
+    page: 0
   },
   onResponse ({ response }) {
     if (response.status === 200) {
-      searchVideos.value = response._data
+      searchVideos.value = response._data?.content
+      totalPages = response._data?.totalPages ? response._data?.totalPages : 1
     }
   }
 }))
 
 watch(() => route.query, () => refresh())
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
+  setTimeout(async () => {
+    if (page.value < totalPages) {
+      const { data } = await useFetch(`/api/video/search?q=${route.query.q}&page=${page.value}`)
+      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
+      data.value?.content?.forEach(video => searchVideos.value.push(video))
+      page.value++
+    }
+  }, 500)
+}
 </script>
