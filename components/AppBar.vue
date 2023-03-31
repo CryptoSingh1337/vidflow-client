@@ -80,7 +80,9 @@
           </v-list-item>
           <v-divider class="my-2" />
         </div>
-        <NavSubscriptionsList v-if="$auth.status.value === 'authenticated'" />
+        <ClientOnly>
+          <NavSubscriptionsList v-if="$auth.status.value === 'authenticated'" />
+        </ClientOnly>
       </v-list>
       <v-list-item density="compact">
         <v-list-item-subtitle class="text-center">

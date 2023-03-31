@@ -22,16 +22,20 @@ const props = defineProps<{
 
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
-const { toggleSubscribeState } = useSubscribeState()
+const { subscribeState, toggleSubscribeState } = useSubscribeState()
 
 const subscribe = ref(props.subscribed)
 const notLoggedIn = ref($auth.status.value === 'unauthenticated')
+
+if (props.subscribed !== subscribeState.value) {
+  toggleSubscribeState()
+}
 
 async function handleSubscribe () {
   subscribe.value = !subscribe.value
   if ($auth.status.value === 'authenticated') {
     await useFetch(`/api/user/${user.id}/subscribe`, {
-      method: 'POST',
+      method: 'PUT',
       query: {
         subscribeToUserId: props.id,
         increase: subscribe.value

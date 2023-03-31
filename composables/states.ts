@@ -17,7 +17,9 @@ export const useFile = () => {
 export const useSubscribeState = () => {
   const subscribeState = useState<boolean>('subscribeState', () => false)
   const toggleSubscribeState = () => {
-    subscribeState.value = !subscribeState.value
+    setTimeout(() => {
+      subscribeState.value = !subscribeState.value
+    }, 300)
   }
   return {
     subscribeState,
