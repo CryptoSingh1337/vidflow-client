@@ -3,16 +3,19 @@ import { getToken } from '#auth'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const videosSchema = z.array(z.object({
-  id: z.string(),
-  title: z.string(),
-  userId: z.string(),
-  channelName: z.string(),
-  views: z.number(),
-  description: z.string(),
-  createdAt: z.string(),
-  thumbnail: z.string()
-}))
+const response = z.object({
+  content: z.array(z.object({
+    id: z.string(),
+    title: z.string(),
+    userId: z.string(),
+    channelName: z.string(),
+    description: z.string(),
+    views: z.number(),
+    createdAt: z.string(),
+    thumbnail: z.string()
+  })),
+  totalPages: z.number()
+})
 
 export default defineEventHandler(async (event) => {
   const userId = getRouterParam(event, 'user_id')
@@ -24,8 +27,8 @@ export default defineEventHandler(async (event) => {
       headers: {
         Authorization: `Bearer ${token.accessToken}`
       }
-    })
-    return videosSchema.parse(result)
+    }) as any
+    return response.parse(result.data.videos)
   } else {
     throw createError({
       statusCode: 403,

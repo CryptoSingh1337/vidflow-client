@@ -56,13 +56,16 @@ if ($auth.status.value === 'authenticated') {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
-  setTimeout(async () => {
-    if (page.value < totalPages) {
-      const { data } = await useFetch(`/api/videos?page=${page.value}`)
-      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
-      data.value?.content?.forEach(video => history.value.push(video))
-      page.value++
-    }
-  }, 500)
+  if ($auth.status.value === 'authenticated') {
+    setTimeout(async () => {
+      if (page.value < totalPages) {
+        const user = $auth.data.value?.user as User
+        const { data } = await useFetch(`/api/user/${user.id}/history?page=${page.value}`)
+        totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
+        data.value?.content?.forEach(video => history.value.push(video))
+        page.value++
+      }
+    }, 500)
+  }
 }
 </script>
