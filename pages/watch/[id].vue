@@ -33,6 +33,7 @@
 import { User, Video } from 'utils/model'
 
 const route = useRoute()
+const videoId = route.params.id
 const { backendBaseUrl } = useRuntimeConfig()
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
@@ -49,8 +50,8 @@ useHead({
   title: 'Watch - VidFlow'
 })
 
-const { pending, data: response } = await useFetch(`/api/video/id/${route.params.id}`, {
-  key: route.params.id as string
+const { pending, data: response } = await useFetch(`/api/video/id/${videoId}`, {
+  key: videoId as string
 })
 const { data } = await useFetch('/api/video/trending', {
   query: {
@@ -58,7 +59,7 @@ const { data } = await useFetch('/api/video/trending', {
   }
 })
 data.value?.content.forEach((v) => {
-  if (v.id !== route.params.id) {
+  if (v.id !== videoId) {
     trendingVideos.value.push(v)
   }
 })
@@ -72,13 +73,16 @@ if (response.value?.video && response.value.channel) {
       subscribed.value = response.value.userMetadata.subscribeStatus
     }
     liked.value = response.value.userMetadata.likeStatus
+    useFetch(`/api/user/${user.id}/history/${videoId}`, {
+      method: 'POST'
+    })
   }
 }
 
 onMounted(async () => {
   await Promise.all([
     new Promise(() => setTimeout(() => {
-      useFetch(`/video/views/id/${route.params.id}`, {
+      useFetch(`/video/views/id/${videoId}`, {
         baseURL: backendBaseUrl,
         method: 'PUT',
         onResponse () {
@@ -87,10 +91,7 @@ onMounted(async () => {
           }
         }
       })
-    }, 1000)),
-    useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
-      method: 'POST'
-    })
+    }, 1000))
   ])
 })
 

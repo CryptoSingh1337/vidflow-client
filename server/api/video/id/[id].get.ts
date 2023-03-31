@@ -30,7 +30,7 @@ const generalResponse = z.object({
   userMetadata: z.object({
     likeStatus: z.boolean(),
     subscribeStatus: z.boolean()
-  }).optional()
+  }).nullable()
 })
 
 const authResponse = generalResponse.required({
