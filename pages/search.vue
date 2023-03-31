@@ -7,20 +7,7 @@
     </v-row>
     <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
   </v-container>
-  <v-container
-    v-else
-    class="d-flex mt-16 pt-16 align-center justify-center flex-column"
-  >
-    <v-icon
-      class="mb-5"
-      :color="$vuetify.theme.current.dark ? '' : '#000000'"
-      :size="90"
-      icon="mdi-close-circle"
-    />
-    <div class="mx-auto text-h4 text-center font-weight-bold">
-      No video found with title: {{ $route.query.q }}
-    </div>
-  </v-container>
+  <GlobalEmptyDataHandler v-else class="mt-16 pt-16" :text="'No video found with title: ' + $route.query.q" :icon="'mdi-close-circle'" />
 </template>
 
 <script lang='ts' setup>

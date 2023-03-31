@@ -1,10 +1,11 @@
 <template>
   <v-container>
+    <SettingsConfirmationDialog v-if="confirmationDialog" :open="confirmationDialog" @close="confirmationDialog = false" />
     <h3 class="text-h5 text-center font-weight-bold">
       Your account
     </h3>
     <v-row class="mt-10" no-gutters justify-md="center">
-      <v-col class="d-flex justify-center" cols="12" md="3">
+      <v-col class="d-flex align-center flex-column" cols="12" md="3">
         <v-avatar
           class="user-avatar"
           :size="$vuetify.display.xs ? '100px' : '150px'"
@@ -15,6 +16,22 @@
             :src="user.profileImage"
           />
         </v-avatar>
+        <v-container>
+          <v-alert class="pa-0" variant="outlined" color="error">
+            <template #title>
+              <div class="pa-2" style="width: 100%">
+                <span class="font-weight-bold text-subtitle-1">Danger zone</span>
+              </div>
+            </template>
+            <v-divider class="border-opacity-100" color="error" />
+            <div class="pa-5 d-flex align-center flex-column">
+              <v-btn class="mb-2" prepend-icon="mdi:mdi-delete" color="error" @click="confirmationDialog = true">
+                Delete account
+              </v-btn>
+              <span>Warning: Your videos cannot be recovered after deleting your account.</span>
+            </div>
+          </v-alert>
+        </v-container>
       </v-col>
       <v-divider v-if="$vuetify.display.mdAndUp" vertical />
       <v-col
@@ -115,12 +132,14 @@
 import { User } from 'utils/model'
 import { requiredRule, emailRule } from '@/utils/rules'
 
-const user = useNuxtApp().$auth.data.value?.user as User
+const { $auth } = useNuxtApp()
+const user = $auth.data.value?.user as User
 
 useHead({
   title: 'Settings - VidFlow'
 })
 
+const confirmationDialog = ref(false)
 const validDetails = ref(false)
 const validPassword = ref(false)
 const show = ref(false)

@@ -19,12 +19,12 @@
   "dependencies": {
     "@mdi/font": "^7.1.96",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@sidebase/nuxt-auth": "^0.4.2",
+    "@sidebase/nuxt-auth": "^0.4.4",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "artplayer": "^4.6.1",
     "vite-plugin-vuetify": "^1.0.2",
-    "vuetify": "^3.1.6",
+    "vuetify": "^3.1.12",
     "zod": "^3.20.2"
   }
 }

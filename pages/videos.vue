@@ -12,7 +12,7 @@
       :thumbnail="video.thumbnail"
       @close="editDialog = false"
     />
-    <VideoOptionsDeleteDialog v-if="deleteDialog" :id="deleteId" :open="deleteDialog" @close="deleteDialog = false" @delete="handleDelete" />
+    <VideoOptionsDeleteConfirmationDialog v-if="deleteDialog" :id="deleteId" :open="deleteDialog" @close="deleteDialog = false" @delete="handleDelete" />
     <v-container>
       <div class="text-h6 font-weight-bold mb-5">
         Your videos
@@ -32,6 +32,7 @@
       </v-row>
     </v-container>
   </div>
+  <GlobalEmptyDataHandler v-else class="mt-16 pt-16" :icon="'mdi-information'" :text="`You don't have any uploaded videos!`" />
 </template>
 
 <script lang='ts' setup>

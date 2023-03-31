@@ -52,17 +52,7 @@
         </v-window-item>
       </v-window>
     </v-container>
-    <v-container v-else class="d-flex align-center justify-center flex-column">
-      <v-icon
-        class="mb-5"
-        :color="$vuetify.theme.current.dark ? '' : '#000000'"
-        :size="90"
-        icon="mdi:mdi-information"
-      />
-      <div class="mx-auto text-h5 text-center font-weight-bold">
-        {{ response?.channel.name }} has not uploaded any video yet!
-      </div>
-    </v-container>
+    <GlobalEmptyDataHandler v-else :icon="'mdi-information'" :text="response?.channel.name + ' has not uploaded any video yet!'" />
   </div>
 </template>
 

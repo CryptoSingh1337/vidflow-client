@@ -17,17 +17,7 @@
     </v-row>
     <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
   </v-container>
-  <v-container v-else class="d-flex mt-16 pt-16 align-center justify-center flex-column">
-    <v-icon
-      class="mb-5"
-      :color="$vuetify.theme.current.dark ? '' : '#000000'"
-      :size="90"
-      icon="mdi:mdi-information"
-    />
-    <div class="mx-auto text-h5 text-center font-weight-bold">
-      Your watch history is empty!
-    </div>
-  </v-container>
+  <GlobalEmptyDataHandler v-else class="mt-16 pt-16" :icon="'mdi-information'" :text="'Your watch history is empty!'" />
 </template>
 
 <script lang="ts" setup>
