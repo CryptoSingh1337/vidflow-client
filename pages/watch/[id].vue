@@ -82,8 +82,7 @@ if (response.value?.video && response.value.channel) {
 onMounted(async () => {
   await Promise.all([
     new Promise(() => setTimeout(() => {
-      useFetch(`/video/views/id/${videoId}`, {
-        baseURL: backendBaseUrl,
+      useFetch(`/api/video/views/${videoId}`, {
         method: 'PUT',
         onResponse () {
           if (response.value?.video && response.value.video.views) {
