@@ -2,30 +2,23 @@
   <div class="d-flex justify-center bg-black">
     <div
       ref="player"
-      class="player mx-auto"
-      :style="playerStyle"
+      class="player"
+      style="width: 100% !important; height: 100% !important;"
     />
   </div>
 </template>
 
 <script lang='ts' setup>
 import ArtPlayer from 'artplayer'
-import { useDisplay } from 'vuetify'
 
 const player = ref(null)
 const artPlayer = ref(null)
-const { name } = useDisplay()
 
 const props = defineProps<{
   src: string
   title: string
   thumbnail: string
 }>()
-
-const playerStyle = ref({
-  width: name.value === 'xs' ? '100%' : '60%',
-  height: name.value === 'xs' ? '100%' : '50%'
-})
 
 const options = reactive({
   url: props.src,

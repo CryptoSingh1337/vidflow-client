@@ -41,6 +41,9 @@
     <div v-if="commentsData.length > 0" class="mt-6">
       <WatchCommentListItem v-for="(c, index) in commentsData" :key="index" :comment="c" @edit-comment="handleEditComment" @delete-comment="handleDeleteComment" />
     </div>
+    <v-btn v-if="$vuetify.display.xs" variant="text" block>
+      Show more
+    </v-btn>
   </v-container>
 </template>
 

@@ -1,20 +1,25 @@
 <template>
   <GlobalPageLoader v-if="pending" />
   <div v-else-if="response?.video && response.channel">
-    <WatchVideoPlayer :src="response.video.videoUrl" :title="response.video.title" :thumbnail="response.video.thumbnail" />
-    <v-row class="px-lg-5" no-gutters>
-      <v-col class="px-5 pt-5 pa-sm-5" cols="12" sm="12" md="7" lg="8">
-        <WatchVideoFooter
-          :same="same"
-          :subscribers="response.channel.subscribers"
-          :subscribed="subscribed"
-          :video="response.video"
-          :liked="liked"
-        />
-        <v-divider />
-        <WatchCommentSection :comments="response.video.comments" />
+    <v-row no-gutters>
+      <v-col cols="12" sm="12" md="7" lg="8">
+        <WatchVideoPlayer class="ml-md-10 mt-md-5 rounded-lg" :src="response.video.videoUrl" :title="response.video.title" :thumbnail="response.video.thumbnail" />
+        <div class="mt-5 mx-5 mx-md-10">
+          <WatchVideoFooter
+            :same="same"
+            :subscribers="response.channel.subscribers"
+            :subscribed="subscribed"
+            :video="response.video"
+            :liked="liked"
+          />
+          <v-divider />
+          <WatchCommentSection :comments="response.video.comments" />
+        </div>
       </v-col>
       <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
+        <h3 class="font-weight-medium">
+          Recommended videos
+        </h3>
         <div class="d-flex flex-column-reverse">
           <WatchTrendingVideoCard v-for="(trendingVideo, idx) in trendingVideos" :key="idx" :video="trendingVideo" />
           <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
@@ -35,7 +40,6 @@ const user = $auth.data.value?.user as User
 const trendingVideos = ref<Video[]>([])
 const page = ref(1)
 let totalPages = 0
-// const subscribers = ref(0)
 const subscribed = ref(false)
 const liked = ref(false)
 let same = false
@@ -71,17 +75,19 @@ if (response.value?.video && response.value.channel) {
   }
 }
 
-onMounted(() => {
-  Promise.all([
-    useFetch(`/video/views/id/${route.params.id}`, {
-      baseURL: backendBaseUrl,
-      method: 'PUT',
-      onResponse () {
-        if (response.value?.video && response.value.video.views) {
-          response.value.video.views += 1
+onMounted(async () => {
+  await Promise.all([
+    new Promise(() => setTimeout(() => {
+      useFetch(`/video/views/id/${route.params.id}`, {
+        baseURL: backendBaseUrl,
+        method: 'PUT',
+        onResponse () {
+          if (response.value?.video && response.value.video.views) {
+            response.value.video.views += 1
+          }
         }
-      }
-    }),
+      })
+    }, 1000)),
     useFetch(`/api/user/${user.id}/history/${route.params.id}`, {
       method: 'POST'
     })
