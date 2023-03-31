@@ -115,6 +115,7 @@ async function handleSave () {
           const c = commentsData.value.find(c => c.id === editCommentId.value)
           if (c) {
             c.body = comment.value
+            editCommentId.value = ''
           }
           resetCommentField()
         }

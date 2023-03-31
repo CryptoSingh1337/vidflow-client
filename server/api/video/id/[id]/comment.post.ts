@@ -26,8 +26,8 @@ export default defineEventHandler(async (event) => {
           'Content-Type': 'application/json'
         },
         body: payload
-      })
-      return commentSchema.parse(result)
+      }) as any
+      return commentSchema.parse(result.data)
     } else {
       throw createError({
         statusCode: 403,
