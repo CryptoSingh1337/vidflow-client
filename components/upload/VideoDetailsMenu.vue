@@ -152,7 +152,7 @@ async function uploadVideoAndThumbnail () {
       payload.append('thumbnail', thumbnail.value[0])
       payload.append('metadata', JSON.stringify(metadata))
 
-      await useFetch('/video/upload/new', {
+      await useFetch('/video/upload', {
         baseURL: backendBaseUrl,
         method: 'POST',
         headers: {
