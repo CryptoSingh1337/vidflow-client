@@ -1,10 +1,10 @@
 <template>
-  <v-list-item :to="`/watch/${props.video.id}`" class="px-0 px-sm-5 my-1" :active="false">
+  <v-list-item :to="`/watch/${props.video.id}`" class="pa-0 my-1 rounded-lg" :active="false">
     <template #prepend>
       <v-img
-        class="mr-2"
+        class="mr-2 rounded-lg"
         aspect-ratio="16/9"
-        width="100"
+        :width="$vuetify.display.xs ? 120 : 150"
         :src="props.video.thumbnail"
         alt="thumbnail"
       />
@@ -13,8 +13,8 @@
       {{ props.video.title }}
     </template>
     <v-list-item-subtitle style="opacity: 1 !important;">
-      <div class="font-weight-medium text-caption" :title="props.video.channelName">
-        {{ props.video.channelName }}
+      <div class="font-weight-medium text-caption">
+        <span :title="props.video.channelName">{{ props.video.channelName }}</span>
       </div>
       <span class="text-caption text-disabled">{{ formatTimeAgo(new Date(props.video.createdAt)) }} •
         {{ shortifyNumber(props.video.views) }} views</span>
