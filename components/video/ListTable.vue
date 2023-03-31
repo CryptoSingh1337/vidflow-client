@@ -1,5 +1,12 @@
 <template>
-  <v-data-table-server v-model:page="page" :headers="headers" :items="_props.videos" hide-default-footer items-per-page="10">
+  <v-data-table-server
+    v-model:page="page"
+    :headers="headers"
+    :items="_props.videos"
+    :items-length="_props.totalItems"
+    hide-default-footer
+    items-per-page="10"
+  >
     <template #item.video="{ item }">
       <NuxtLink :to="`/watch/${item.raw.id}`" class="d-flex py-2 text-decoration-none align-center">
         <v-img :src="item.raw.thumbnail" min-width="150" min-height="85" max-width="150" max-height="85" />
@@ -78,7 +85,8 @@ import { formatNumberInInternationalSystem, truncateText, capitalize, calculateR
 const emit = defineEmits(['fetchVideos', 'editVideo', 'deleteVideo'])
 
 const _props = defineProps<{
-  videos: Video[]
+  videos: Video[],
+  totalItems: number,
   totalPages: number
 }>()
 const { smAndDown } = useDisplay()

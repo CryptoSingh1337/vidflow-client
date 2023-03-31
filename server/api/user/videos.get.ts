@@ -17,6 +17,7 @@ const response = z.object({
     videoStatus: z.string(),
     tags: z.nullable(z.array(z.string()))
   })),
+  totalElements: z.number(),
   totalPages: z.number()
 })
 

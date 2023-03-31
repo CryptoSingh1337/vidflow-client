@@ -21,6 +21,7 @@
         v-if="$vuetify.display.mdAndUp"
         :videos="videos"
         :total-pages="totalPages"
+        :total-items="totalItems"
         @fetch-videos="fetchVideos"
         @edit-video="openEditDialog"
         @delete-video="openDeleteDialog"
@@ -57,6 +58,7 @@ const deleteId = ref('')
 const editDialog = ref(false)
 const deleteDialog = ref(false)
 let totalPages = 1
+let totalItems = 0
 
 if ($auth.status.value === 'authenticated') {
   const { data } = await useFetch('/api/user/videos', {
@@ -66,6 +68,7 @@ if ($auth.status.value === 'authenticated') {
   })
   data.value?.content?.forEach((v: any) => videos.value.push(v))
   totalPages = data.value?.totalPages ? data.value.totalPages : 1
+  totalItems = data.value?.totalElements ? data.value?.totalElements : 0
 }
 
 async function fetchVideos (_page: number) {
