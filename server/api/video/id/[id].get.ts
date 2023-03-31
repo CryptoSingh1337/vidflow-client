@@ -27,14 +27,14 @@ const generalResponse = z.object({
   channel: z.object({
     subscribers: z.number()
   }),
-  userProperties: z.object({
+  userMetadata: z.object({
     likeStatus: z.boolean(),
     subscribeStatus: z.boolean()
   }).optional()
 })
 
 const authResponse = generalResponse.required({
-  userProperties: true
+  userMetadata: true
 })
 
 export default defineEventHandler(async (event) => {

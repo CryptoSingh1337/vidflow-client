@@ -65,13 +65,13 @@ data.value?.content.forEach((v) => {
 totalPages = data.value?.totalPages ? data.value?.totalPages : 1
 
 if (response.value?.video && response.value.channel) {
-  if ($auth.status.value === 'authenticated' && response.value.userProperties) {
+  if ($auth.status.value === 'authenticated' && response.value.userMetadata) {
     if (user.id === response.value.video.userId) {
       same = true
     } else {
-      subscribed.value = response.value.userProperties.subscribeStatus
+      subscribed.value = response.value.userMetadata.subscribeStatus
     }
-    liked.value = response.value.userProperties.likeStatus
+    liked.value = response.value.userMetadata.likeStatus
   }
 }
 
