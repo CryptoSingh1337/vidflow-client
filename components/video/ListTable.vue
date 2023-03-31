@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="_props.videos">
+  <v-data-table-server v-model:page="page" :headers="headers" :items="_props.videos" hide-default-footer items-per-page="10">
     <template #item.video="{ item }">
       <NuxtLink :to="`/watch/${item.raw.id}`" class="d-flex py-2 text-decoration-none align-center">
         <v-img :src="item.raw.thumbnail" min-width="150" min-height="85" max-width="150" max-height="85" />
@@ -40,12 +40,33 @@
         rounded
       />
     </template>
-    <template #item.operations="{ item }">
-      <div class="d-flex">
-        <VideoSideMenu :id="item.raw.id" @edit-video="editVideo" @delete-video="deleteVideo" />
+    <template #item.actions="{ item }">
+      <v-icon
+        icon="mdi:mdi-pencil"
+        size="small"
+        class="me-2"
+        @click="emit('editVideo', item.raw.id)"
+      />
+      <v-icon
+        icon="mdi:mdi-delete"
+        size="small"
+        @click="emit('deleteVideo', item.raw.id)"
+      />
+    </template>
+    <template #bottom>
+      <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="_props.totalPages"
+        />
       </div>
     </template>
-  </v-data-table>
+    <template #no-data>
+      <v-btn color="primary" @click="emit('fetchVideos', 1)">
+        Reset
+      </v-btn>
+    </template>
+  </v-data-table-server>
 </template>
 
 <script lang='ts' setup>
@@ -54,13 +75,15 @@ import { formatDate } from '@vueuse/core'
 import { Video } from 'utils/model'
 import { formatNumberInInternationalSystem, truncateText, capitalize, calculateRatio } from '@/utils/functions'
 
-const emit = defineEmits(['editVideo', 'deleteVideo'])
+const emit = defineEmits(['fetchVideos', 'editVideo', 'deleteVideo'])
 
 const _props = defineProps<{
   videos: Video[]
+  totalPages: number
 }>()
 const { smAndDown } = useDisplay()
 
+const page = ref(1)
 const headers = [
   {
     title: 'Video',
@@ -97,17 +120,13 @@ const headers = [
     key: 'ratio'
   },
   {
-    title: '',
+    title: 'Actions',
     sortable: false,
-    key: 'operations'
+    key: 'actions'
   }
 ]
 
-function editVideo (id: string) {
-  emit('editVideo', id)
-}
-
-function deleteVideo (id: string) {
-  emit('deleteVideo', id)
-}
+watch(page, () => {
+  emit('fetchVideos', page.value)
+})
 </script>

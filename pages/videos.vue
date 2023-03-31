@@ -17,7 +17,14 @@
       <div class="text-h6 font-weight-bold mb-5">
         Your videos
       </div>
-      <VideoListTable v-if="$vuetify.display.mdAndUp" :videos="videos" @edit-video="openEditDialog" @delete-video="openDeleteDialog" />
+      <VideoListTable
+        v-if="$vuetify.display.mdAndUp"
+        :videos="videos"
+        :total-pages="totalPages"
+        @fetch-videos="fetchVideos"
+        @edit-video="openEditDialog"
+        @delete-video="openDeleteDialog"
+      />
       <v-row v-else no-gutters justify="center">
         <v-col v-for="(v, idx) in videos" :key="idx" cols="12" sm="6">
           <VideoListCard :video="v" @edit-video="openEditDialog" @delete-video="openDeleteDialog" />
@@ -35,7 +42,8 @@ useHead({
   title: 'Your videos - VidFlow'
 })
 
-const { data: videos } = await useFetch<Video[]>('/api/user/videos')
+const { $auth } = useNuxtApp()
+const videos = ref<Video[]>([])
 const video = ref({
   id: '',
   title: '',
@@ -47,6 +55,27 @@ const video = ref({
 const deleteId = ref('')
 const editDialog = ref(false)
 const deleteDialog = ref(false)
+let totalPages = 1
+
+if ($auth.status.value === 'authenticated') {
+  const { data } = await useFetch('/api/user/videos', {
+    query: {
+      page: 0
+    }
+  })
+  data.value?.content?.forEach((v: any) => videos.value.push(v))
+  totalPages = data.value?.totalPages ? data.value.totalPages : 1
+}
+
+async function fetchVideos (_page: number) {
+  const { data } = await useFetch('/api/user/videos', {
+    query: {
+      page: _page - 1
+    }
+  })
+  videos.value.splice(0, videos.value.length)
+  data.value?.content.forEach((v: any) => videos.value.push(v))
+}
 
 function openEditDialog (id: string) {
   editDialog.value = true
