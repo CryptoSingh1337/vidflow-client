@@ -35,8 +35,9 @@ definePageMeta({ auth: false })
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
-    const { data } = await useFetch(`/api/videos?page=${page.value}`)
-    if (page.value <= totalPages) {
+    if (page.value < totalPages) {
+      const { data } = await useFetch(`/api/videos?page=${page.value}`)
+      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
       data.value?.content?.forEach(video => videos.value.push(video))
       page.value++
     }

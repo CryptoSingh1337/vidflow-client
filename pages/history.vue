@@ -15,6 +15,7 @@
         />
       </v-col>
     </v-row>
+    <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
   </v-container>
   <v-container v-else class="d-flex mt-16 pt-16 align-center justify-center flex-column">
     <v-icon
@@ -39,6 +40,8 @@ useHead({
 
 const { $auth } = useNuxtApp()
 const history = ref<Video[]>([])
+const page = ref(1)
+let totalPages = 1
 
 if ($auth.status.value === 'authenticated') {
   const user = $auth.data.value?.user as User
@@ -47,6 +50,19 @@ if ($auth.status.value === 'authenticated') {
       page: 0
     }
   })
-  data.value?.forEach(video => history.value.push(video))
+  data.value?.content?.forEach(video => history.value.push(video))
+  totalPages = data.value?.totalPages ? data.value?.totalPages : 1
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
+  setTimeout(async () => {
+    if (page.value < totalPages) {
+      const { data } = await useFetch(`/api/videos?page=${page.value}`)
+      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
+      data.value?.content?.forEach(video => history.value.push(video))
+      page.value++
+    }
+  }, 500)
 }
 </script>

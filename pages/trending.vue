@@ -38,8 +38,9 @@ totalPages = data.value?.totalPages ? data.value?.totalPages : 1
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
-    const { data } = await useFetch(`/api/videos?page=${page.value}`)
-    if (page.value <= totalPages) {
+    if (page.value < totalPages) {
+      const { data } = await useFetch(`/api/video/trending?page=${page.value}`)
+      totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
       data.value?.content?.forEach(video => videos.value.push(video))
       page.value++
     }
