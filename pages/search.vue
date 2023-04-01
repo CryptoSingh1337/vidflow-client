@@ -23,18 +23,14 @@ useHead({
   title: 'Search - VidFlow'
 })
 
-const { refresh } = await useAsyncData(() => $fetch('/api/video/search', {
+const { data: response, refresh } = await useAsyncData(() => $fetch('/api/video/search', {
   query: {
     q: route.query.q,
     page: 0
-  },
-  onResponse ({ response }) {
-    if (response.status === 200) {
-      searchVideos.value = response._data?.content
-      totalPages = response._data?.totalPages ? response._data?.totalPages : 1
-    }
   }
 }))
+response.value?.content.forEach(v => searchVideos.value.push(v))
+totalPages = response.value?.totalPages ? response.value?.totalPages : 1
 
 watch(() => route.query, () => refresh())
 
