@@ -5,7 +5,7 @@
     heading="Don’t miss new videos"
     icon="mdi-youtube-subscription"
   />
-  <v-container v-else-if="response?.at(0)" style="height: 100%;" fluid>
+  <v-container v-else-if="videos.length > 0" style="height: 100%;" fluid>
     <v-row class="ma-3" no-gutters>
       <v-col
         v-for="video in videos"
@@ -25,34 +25,37 @@
 </template>
 <script lang='ts' setup>
 import { Video } from 'utils/model'
+
+const { $auth } = useNuxtApp()
+const videos = ref<Video[]>([])
 const page = ref(1)
 let totalPages = 1
-const videos = ref<Video[]>([])
 
 definePageMeta({ auth: false })
 useHead({
   title: 'Subscriptions - VidFlow'
 })
 
-const { data: response } = await useFetch('/api/user/feed/subscriptions', {
-  query: {
-    page: 0
-  }
-})
+if ($auth.status.value === 'authenticated') {
+  const { data: response } = await useFetch('/api/user/feed/subscriptions', {
+    query: {
+      page: 0
+    }
+  })
 
-response.value?.at(0)?.videos?.forEach(video => videos.value.push(video))
-totalPages = response.value?.at(0)?.totalPages?.at(0)?.id ? response.value?.at(0)?.totalPages?.at(0)?.id : 1 as any
+  response.value?.at(0)?.videos?.forEach(video => videos.value.push(video))
+  totalPages = response.value?.at(0)?.totalPages?.at(0)?.id ? response.value?.at(0)?.totalPages?.at(0)?.id : 1 as any
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
-    if (page.value < totalPages) {
+    if ($auth.status.value === 'authenticated' && page.value < totalPages) {
       const { data } = await useFetch(`/api/user/feed/subscriptions?page=${page.value}`)
-      totalPages = response.value?.at(0)?.totalPages?.at(0)?.id ? response.value?.at(0)?.totalPages?.at(0)?.id : totalPages as any
+      totalPages = data.value?.at(0)?.totalPages?.at(0)?.id ? data.value?.at(0)?.totalPages?.at(0)?.id : totalPages as any
       data.value?.at(0)?.videos?.forEach(video => videos.value.push(video))
       page.value++
     }
   }, 500)
 }
-
 </script>
