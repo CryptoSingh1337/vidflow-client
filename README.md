@@ -1,4 +1,4 @@
-<img src="/static/v.png" align="right" height="150" width="132" />
+<img src="/public/images/logo.svg" align="right" height="150" width="132" />
 
 # VidFlow
 
@@ -111,23 +111,21 @@ Start the server
 
 ## Tech Stack
 
-- **Frontend**:
-
-  - JavaScript
-  - Vue
+- **Client**:
+  - Typescript
   - Nuxt
-  - Vuex
-  - Vuex Router
   - Vuetify
   - **Deployment**:
-    - Heroku
+    - Vercel
+    - AWS
 
-- **Backend**:
+- **Server**:
   - Java
   - Spring Boot
   - Spring Data Mongo
   - Spring Data Redis
   - Spring Security
-  - Mircosoft Azure Blob Storage
+  - Microsoft Azure Blob Storage
+  - AWS Simple Storage Service
   - **Deployment**:
-    - Heroku
+    - AWS
