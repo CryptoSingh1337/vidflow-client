@@ -1,9 +1,9 @@
 <template>
   <VideoMainCard v-if="$vuetify.display.xs" :width="'100%'" :video="video" />
-  <v-list-item v-else lines="three" :to="`/watch/${props.video.id}`" :ripple="false">
+  <v-list-item v-else class="rounded-lg" lines="three" :to="`/watch/${props.video.id}`" :ripple="false">
     <template #prepend>
       <v-img
-        class="mr-2"
+        class="mr-2 rounded-lg"
         aspect-ratio="16/9"
         :src="video.thumbnail"
         alt="thumbnail"

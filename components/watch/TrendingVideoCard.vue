@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :to="`/watch/${props.video.id}`" class="pa-0 my-1 rounded-lg" :active="false">
+  <v-list-item :to="`/watch/${props.video.id}`" class="pa-3 rounded-lg" :active="false">
     <template #prepend>
       <v-img
         class="mr-2 rounded-lg"
