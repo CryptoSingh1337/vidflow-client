@@ -9,7 +9,7 @@
   >
     <template #item.video="{ item }">
       <NuxtLink :to="`/watch/${item.raw.id}`" class="d-flex py-2 text-decoration-none align-center">
-        <v-img :src="item.raw.thumbnail" min-width="150" min-height="85" max-width="150" max-height="85" />
+        <v-img :src="item.raw.thumbnail" class="rounded-lg" min-width="200" max-width="200" />
         <div>
           <div
             :class="[
