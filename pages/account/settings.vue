@@ -154,8 +154,27 @@ const oldPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
 
-function handleSave () {
-  console.log('Details saving...')
+async function handleSave () {
+  if ($auth.status.value === 'authenticated') {
+    const userDetails = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value
+    }
+    const { data } = await useFetch('/api/user/update', {
+      method: 'PUT',
+      body: userDetails,
+      onRequest () {
+        loadingDetails.value = true
+      },
+      onResponse () {
+        loadingDetails.value = false
+      }
+    })
+    firstName.value = data.value?.firstName as string
+    lastName.value = data.value?.lastName as string
+    email.value = data.value?.email as string
+  }
 }
 
 function handleChangePassword () {
