@@ -21,7 +21,7 @@
     </v-row>
     <v-card v-intersect.quiet="infiniteScroll" />
   </v-container>
-  <GlobalEmptyDataHandler v-else icon="mdi-information" text="No recently uploaded video available!" />
+  <GlobalEmptyDataHandler v-else class="mt-16 pt-16" icon="mdi-information" text="No recently uploaded video available!" />
 </template>
 <script lang='ts' setup>
 import { Video } from 'utils/model'
