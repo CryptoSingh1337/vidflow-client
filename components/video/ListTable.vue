@@ -26,7 +26,11 @@
       </NuxtLink>
     </template>
     <template #item.visibility="{ item }">
-      <v-icon class="mr-2" :color="item.raw.videoStatus === 'PUBLIC' ? 'green' : 'grey'" icon="mdi:mdi-eye" />
+      <v-icon
+        class="mr-2"
+        :color="item.raw.videoStatus === 'PUBLIC' ? 'green' : 'grey'"
+        :icon="item.raw.videoStatus === 'UNLISTED' ? 'mdi-link' : 'mdi-eye'"
+      />
       {{ capitalize(item.raw.videoStatus) }}
     </template>
     <template #item.createdAt="{ item }">

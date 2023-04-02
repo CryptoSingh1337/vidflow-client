@@ -13,7 +13,11 @@
       <div class="d-flex justify-space-between">
         <span>Visibility</span>
         <span>
-          <v-icon class="mr-2" :color="video.videoStatus === 'PUBLIC' ? 'green' : 'grey'" icon="mdi:mdi-eye" />
+          <v-icon
+            class="mr-2"
+            :color="video.videoStatus === 'PUBLIC' ? 'green' : 'grey'"
+            :icon="video.videoStatus === 'UNLISTED' ? 'mdi-link' : 'mdi-eye'"
+          />
           {{ capitalize(_props.video.videoStatus ?? 'Status not found') }}</span>
       </div>
       <div class="d-flex justify-space-between">
