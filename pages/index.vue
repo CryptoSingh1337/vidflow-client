@@ -1,6 +1,6 @@
 <template>
   <v-container style="height: 100%;" fluid>
-    <v-row class="" no-gutters>
+    <v-row no-gutters>
       <v-col
         v-for="video in videos"
         :key="video.id"
