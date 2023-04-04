@@ -8,7 +8,7 @@ function parseJwt (token: string): Jwt {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
 }
 
-async function refreshAccessToken (refreshToken: {
+async function refreshAccessToken (token: {
   accessToken: string;
   accessTokenExpires: string;
   refreshToken: string;
@@ -20,7 +20,7 @@ async function refreshAccessToken (refreshToken: {
       headers: {
         'Content-Type': 'application/json',
         'Accept-Language': 'en-US',
-        Authorization: `Bearer ${refreshToken.refreshToken}`
+        Authorization: `Bearer ${token.refreshToken}`
       }
     })
     if (!refreshedTokens || !refreshedTokens.data) {
@@ -29,7 +29,7 @@ async function refreshAccessToken (refreshToken: {
     }
     console.warn('Refreshed tokens successfully')
     return {
-      ...refreshToken,
+      ...token,
       accessToken: refreshedTokens.data.accessToken,
       accessTokenExpires: parseJwt(refreshedTokens.data.accessToken).exp,
       refreshToken: refreshedTokens.data.refreshToken
@@ -37,7 +37,7 @@ async function refreshAccessToken (refreshToken: {
   } catch (error) {
     console.warn('Error refreshing token', error)
     return {
-      ...refreshToken,
+      ...token,
       error: 'RefreshAccessTokenError'
     }
   }
