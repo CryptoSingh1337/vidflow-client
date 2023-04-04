@@ -103,6 +103,6 @@ function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
       data.value?.content?.forEach((video: any) => videos.value.push(video))
       page.value++
     }
-  }, 500)
+  }, 1000)
 }
 </script>

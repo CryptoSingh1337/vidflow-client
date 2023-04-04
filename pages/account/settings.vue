@@ -171,9 +171,6 @@ async function handleSave () {
         loadingDetails.value = false
       }
     })
-    firstName.value = data.value?.firstName as string
-    lastName.value = data.value?.lastName as string
-    email.value = data.value?.email as string
   }
 }
 

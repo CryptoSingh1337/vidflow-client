@@ -55,7 +55,7 @@ function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
         data.value?.content?.forEach(video => history.value.push(video))
         page.value++
       }
-    }, 500)
+    }, 1000)
   }
 }
 </script>
