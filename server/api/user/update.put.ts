@@ -6,8 +6,7 @@ const { backendBaseUrl } = useRuntimeConfig()
 const userSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string(),
-  channelName: z.string()
+  email: z.string()
 })
 
 export default defineEventHandler(async (event) => {

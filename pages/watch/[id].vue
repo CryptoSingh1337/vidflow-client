@@ -34,7 +34,6 @@ import { User, Video } from 'utils/model'
 
 const route = useRoute()
 const videoId = route.params.id
-const { backendBaseUrl } = useRuntimeConfig()
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
