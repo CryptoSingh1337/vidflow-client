@@ -44,7 +44,7 @@
             <v-row class="my-2">
               <v-col cols="6">
                 <v-text-field
-                  v-model="firstName"
+                  v-model="user.firstName"
                   :rules="[requiredRule]"
                   label="First name"
                   variant="outlined"
@@ -52,7 +52,7 @@
               </v-col>
               <v-col cols="6">
                 <v-text-field
-                  v-model="lastName"
+                  v-model="user.lastName"
                   :rules="[requiredRule]"
                   label="Last name"
                   variant="outlined"
@@ -60,21 +60,21 @@
               </v-col>
             </v-row>
             <v-text-field
-              v-model="username"
+              v-model="user.username"
               label="Username"
               variant="outlined"
               readonly
               disabled
             />
             <v-text-field
-              v-model="channelName"
+              v-model="user.channelName"
               label="Channel name"
               variant="outlined"
               readonly
               disabled
             />
             <v-text-field
-              v-model="email"
+              v-model="user.email"
               class="my-2"
               :rules="[requiredRule, emailRule]"
               label="Email"
@@ -132,8 +132,17 @@
 import { User } from 'utils/model'
 import { requiredRule, emailRule } from '@/utils/rules'
 
-const { $auth } = useNuxtApp()
-const user = $auth.data.value?.user as User
+const { status, data, signOut } = useSession()
+const sessionUser = data.value?.user as User
+
+const user = ref({
+  firstName: sessionUser.firstName,
+  lastName: sessionUser.lastName,
+  email: sessionUser.email,
+  channelName: sessionUser.channelName,
+  username: sessionUser.username,
+  profileImage: sessionUser.profileImage
+})
 
 useHead({
   title: 'Settings - VidFlow'
@@ -145,30 +154,31 @@ const validPassword = ref(false)
 const show = ref(false)
 const loadingDetails = ref(false)
 const loadingPassword = ref(false)
-const firstName = ref(user.firstName)
-const lastName = ref(user.lastName)
-const username = ref(user.username)
-const channelName = ref(user.channelName)
-const email = ref(user.email)
 const oldPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
 
 async function handleSave () {
-  if ($auth.status.value === 'authenticated') {
+  if (status.value === 'authenticated') {
     const userDetails = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: email.value
+      firstName: user.value.firstName,
+      lastName: user.value.lastName,
+      email: user.value.email
     }
-    const { data } = await useFetch('/api/user/update', {
+    await useFetch('/api/user/update', {
       method: 'PUT',
       body: userDetails,
       onRequest () {
         loadingDetails.value = true
       },
       onResponse () {
-        loadingDetails.value = false
+        setTimeout(() => {
+          loadingDetails.value = false
+          setTimeout(() => {
+            signOut({ redirect: false })
+            navigateTo('/login')
+          }, 200)
+        }, 1000)
       }
     })
   }
