@@ -11,11 +11,13 @@ const generalResponse = z.object({
     channelName: z.string(),
     description: z.string(),
     videoUrl: z.string(),
+    category: z.string(),
     views: z.number(),
     likes: z.number(),
     dislikes: z.number(),
     createdAt: z.string(),
     thumbnail: z.string(),
+    tags: z.array(z.string()),
     comments: z.array(z.object({
       id: z.string(),
       username: z.string(),

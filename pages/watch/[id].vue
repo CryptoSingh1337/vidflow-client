@@ -1,7 +1,7 @@
 <template>
   <GlobalPageLoader v-if="pending" />
   <div v-else-if="response?.video && response.channel">
-    <v-row no-gutters>
+    <v-row justify="center" no-gutters>
       <v-col cols="12" sm="12" md="7" lg="8">
         <WatchVideoPlayer class="ml-md-10 mt-md-5 rounded-lg" :src="response.video.videoUrl" :title="response.video.title" :thumbnail="response.video.thumbnail" />
         <div class="mt-5 mx-5 mx-md-10">
@@ -16,12 +16,19 @@
           <WatchCommentSection :comments="response.video.comments" />
         </div>
       </v-col>
-      <v-col class="px-5 py-3 py-sm-0 py-md-5" cols="12" sm="12" md="5" lg="4">
+      <v-col
+        v-if="recommendedVideos.length > 0"
+        class="px-5 py-3 py-sm-0 py-md-5"
+        cols="12"
+        sm="12"
+        md="5"
+        lg="4"
+      >
         <h3 class="font-weight-medium">
           Recommended videos
         </h3>
         <div class="d-flex flex-column-reverse">
-          <WatchTrendingVideoCard v-for="(trendingVideo, idx) in trendingVideos" :key="idx" :video="trendingVideo" />
+          <WatchRecommendVideoCard v-for="(recommendedVideo, idx) in recommendedVideos" :key="idx" :video="recommendedVideo" />
           <v-card v-intersect.quiet="infiniteScroll" class="my-auto" />
         </div>
       </v-col>
@@ -34,11 +41,10 @@ import { User, Video } from 'utils/model'
 
 const route = useRoute()
 const videoId = route.params.id
-const { backendBaseUrl } = useRuntimeConfig()
 const { $auth } = useNuxtApp()
 const user = $auth.data.value?.user as User
 
-const trendingVideos = ref<Video[]>([])
+const recommendedVideos = ref<Video[]>([])
 const page = ref(1)
 let totalPages = 0
 const subscribed = ref(false)
@@ -53,14 +59,21 @@ useHead({
 const { pending, data: response } = await useFetch(`/api/video/id/${videoId}`, {
   key: videoId as string
 })
-const { data } = await useFetch('/api/video/trending', {
-  query: {
+const category = response.value?.video.category
+const tags = response.value?.video.tags
+
+const { data } = await useFetch('/api/video/recommended', {
+  method: 'POST',
+  body: {
+    category,
+    tags,
     page: 0
   }
 })
+
 data.value?.content.forEach((v) => {
   if (v.id !== videoId) {
-    trendingVideos.value.push(v)
+    recommendedVideos.value.push(v)
   }
 })
 totalPages = data.value?.totalPages ? data.value?.totalPages : 1
@@ -98,9 +111,17 @@ onMounted(async () => {
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
     if (page.value < totalPages) {
-      const { data } = await useFetch(`/api/video/trending?page=${page.value}`)
+      const { data } = await useFetch('/api/video/recommended', {
+        body: {
+          category,
+          tags
+        },
+        query: {
+          page: 0
+        }
+      })
       totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
-      data.value?.content?.forEach(video => trendingVideos.value.push(video))
+      data.value?.content?.forEach(video => recommendedVideos.value.push(video))
       page.value++
     }
   }, 1000)

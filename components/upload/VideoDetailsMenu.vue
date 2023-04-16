@@ -33,6 +33,13 @@
               :rules="[requiredRule]"
               :items="videoStatusEnum"
             />
+            <v-select
+              v-model="category"
+              label="Catgory *"
+              variant="filled"
+              :rules="[requiredRule]"
+              :items="categories"
+            />
             <v-container class="pa-0">
               <h4 class="mb-2">
                 Tags
@@ -97,6 +104,8 @@ const title = ref('')
 const description = ref('')
 const videoStatus = ref('')
 const videoStatusEnum = ref(['PRIVATE', 'UNLISTED', 'PUBLIC'])
+const category = ref('')
+const categories = ref(['AUTOS_AND_VEHICLES', 'COMEDY', 'EDUCATION', 'ENTERTAINMENT', 'FILM_AND_ANIMATION', 'GAMING', 'HOWTO_AND_STYLE', 'MUSIC', 'NEWS_AND_POLITICS', 'NONPROFITS_AND_ACTIVISM', 'PEOPLE_AND_BLOGS', 'PETS_AND_ANIMALS', 'SCIENCE_AND_TECHNOLOGY', 'SPORTS', 'TRAVEL_AND_EVENTS'])
 const tag = ref('')
 const tags = ref<string[]>([])
 const thumbnail = ref<File[]>([])
@@ -144,7 +153,8 @@ async function uploadVideoAndThumbnail () {
         tags: tags.value.length > 0 ? tags.value : null,
         channelName: user.channelName,
         username: user.username,
-        videoStatus: videoStatus.value
+        videoStatus: videoStatus.value,
+        category: category.value
       }
 
       const payload = new FormData()
