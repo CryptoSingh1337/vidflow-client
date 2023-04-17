@@ -1,6 +1,6 @@
 <template>
   <v-layout full-height>
-    <v-row align="center" justify="center" dense>
+    <v-row class="mx-xs-2" align="center" justify="center" dense>
       <v-col cols="12" sm="8" md="4" lg="4">
         <GlobalHeader />
         <v-alert v-model="alert" class="my-4" variant="outlined" density="compact" type="error">
