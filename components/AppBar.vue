@@ -61,7 +61,7 @@
           color="grey"
           to="/login"
         >
-          Login/SignIn
+          Login/Signup
         </v-btn>
       </div>
       <div v-else class="d-flex">
