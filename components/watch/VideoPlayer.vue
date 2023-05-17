@@ -39,7 +39,26 @@ const options = reactive({
   mutex: true,
   backdrop: true,
   playsInline: true,
-  airplay: true
+  airplay: true,
+  quality: [
+    {
+      default: true,
+      html: '1080P',
+      url: props.src
+    },
+    {
+      html: '720P',
+      url: `${removeFileExtension(props.src)}_720.${getFileExtension(props.src)}`
+    },
+    {
+      html: '480P',
+      url: `${removeFileExtension(props.src)}_480.${getFileExtension(props.src)}`
+    },
+    {
+      html: '360P',
+      url: `${removeFileExtension(props.src)}_360.${getFileExtension(props.src)}`
+    }
+  ]
 })
 
 onMounted(() => {
@@ -61,6 +80,14 @@ defineExpose({
   player,
   options
 })
+
+function removeFileExtension (url: string) {
+  return url.substring(0, url.lastIndexOf('.'))
+}
+
+function getFileExtension (url: string) {
+  return url.substring(url.lastIndexOf('.') + 1).split('\\.')[0]
+}
 </script>
 
 <style>
