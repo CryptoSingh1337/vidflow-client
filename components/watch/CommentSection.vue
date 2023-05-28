@@ -83,6 +83,11 @@ async function handleComment () {
           commentsData.value.unshift(comment)
           resetCommentField()
         }
+      },
+      onResponseError ({ response }) {
+        if (response.status === 400 && response._data?.data?.error?.code === '400-003') {
+          alert('Entered comment is a spam comment!')
+        }
       }
     })
   }
@@ -118,6 +123,11 @@ async function handleSave () {
             editCommentId.value = ''
           }
           resetCommentField()
+        }
+      },
+      onResponseError ({ response }) {
+        if (response.status === 400 && response._data?.data?.error?.code === '400-003') {
+          alert('Entered comment is a spam comment!')
         }
       }
     })
