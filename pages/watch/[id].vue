@@ -62,11 +62,8 @@ const { pending, data: response } = await useFetch(`/api/video/id/${videoId}`, {
 const category = response.value?.video.category
 const tags = response.value?.video.tags
 
-const { data } = await useFetch('/api/video/recommended', {
-  method: 'POST',
-  body: {
-    category,
-    tags,
+const { data } = await useFetch(`/api/video/id/${videoId}/recommend`, {
+  query: {
     page: 0
   }
 })
