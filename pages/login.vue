@@ -37,7 +37,7 @@
                   <span>Forgot your password?</span>
                 </NuxtLink>
                 <span>No account?
-                  <NuxtLink class="text-decoration-none" to="/register">SignIn</NuxtLink></span>
+                  <NuxtLink class="text-decoration-none" to="/register">Sign Up</NuxtLink></span>
               </div>
               <v-card-actions class="px-0">
                 <v-btn
