@@ -23,16 +23,26 @@ useHead({
   title: 'Search - VidFlow'
 })
 
-const { data: response, refresh } = await useAsyncData(() => $fetch('/api/video/search', {
+const { data: response } = await useFetch('/api/video/search', {
   query: {
     q: route.query.q,
     page: 0
   }
-}))
+})
 response.value?.content.forEach(v => searchVideos.value.push(v))
 totalPages = response.value?.totalPages ? response.value?.totalPages : 1
 
-watch(() => route.query, () => refresh())
+watch(() => route.query, async () => {
+  const { data } = await useFetch('/api/video/search', {
+    query: {
+      q: route.query.q,
+      page: 0
+    }
+  })
+  searchVideos.value.splice(0, searchVideos.value.length)
+  data.value?.content.forEach(v => searchVideos.value.push(v))
+  totalPages = data.value?.totalPages ? data.value?.totalPages : 1
+})
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
