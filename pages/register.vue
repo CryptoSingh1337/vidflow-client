@@ -116,7 +116,7 @@ function register () {
     lastName: lastName.value,
     email: email.value
   }
-  const { error } = useFetch('/api/user/register', {
+  useFetch('/api/user/register', {
     method: 'POST',
     body: user,
     onResponse ({ response }) {
@@ -124,14 +124,14 @@ function register () {
         navigateTo('/login')
       }
     },
-    onResponseError () {
+    onResponseError ({ response }) {
       loader.value = false
+      if (response.status !== 200) {
+        alertText.value = response._data?.statusMessage
+        alert.value = true
+      }
     }
   })
   loader.value = false
-  if (error.value?.statusCode !== 201) {
-    alert.value = true
-    alertText.value = error.value?.message ? error.value?.message : ''
-  }
 }
 </script>
