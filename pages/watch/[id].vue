@@ -62,7 +62,22 @@ const { pending, data: response } = await useFetch(`/api/video/id/${videoId}`, {
 const category = response.value?.video.category
 const tags = response.value?.video.tags
 
-const { data } = await useFetch(`/api/video/id/${videoId}/recommend`, {
+// const { data } = await useFetch(`/api/video/id/${videoId}/recommend`, {
+//   query: {
+//     page: 0
+//   }
+// })
+
+// const { data } = await useFetch('/api/video/recommended', {
+//   method: 'POST',
+//   body: {
+//     category,
+//     tags,
+//     page: 0
+//   }
+// })
+
+const { data } = await useFetch('/api/video/trending', {
   query: {
     page: 0
   }
@@ -108,15 +123,16 @@ onMounted(async () => {
 function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
     if (page.value < totalPages) {
-      const { data } = await useFetch('/api/video/recommended', {
-        body: {
-          category,
-          tags
-        },
-        query: {
-          page: 0
-        }
-      })
+      // const { data } = await useFetch('/api/video/recommended', {
+      //   body: {
+      //     category,
+      //     tags
+      //   },
+      //   query: {
+      //     page: 0
+      //   }
+      // })
+      const { data } = await useFetch(`/api/video/trending?page=${page.value}`)
       totalPages = data.value?.totalPages ? data.value?.totalPages : totalPages
       data.value?.content?.forEach(video => recommendedVideos.value.push(video))
       page.value++
