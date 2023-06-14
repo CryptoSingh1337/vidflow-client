@@ -19,7 +19,7 @@
         About
       </v-card-title>
       <v-card-text>
-        This application is developed by Saransh Kumar
+        This application is developed by Saransh Kumar, Shivang Dubey, Mukund Khandelwal and Nama Sagar Gupta
       </v-card-text>
       <v-card-actions>
         <v-spacer />

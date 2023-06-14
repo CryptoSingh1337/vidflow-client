@@ -3,7 +3,11 @@
     <v-app-bar border elevation="0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-img v-if="$vuetify.display.smAndUp" src="/images/logo.svg" max-width="60" max-height="50" />
-      <h3>VidFlow</h3>
+      <NuxtLink to="/" class="text-decoration-none">
+        <h3 :style="{ color: $vuetify.theme.current.dark ? '#ffffff' : '#000000' }">
+          VidFlow
+        </h3>
+      </NuxtLink>
       <v-spacer />
       <v-text-field
         v-model="searchText"
