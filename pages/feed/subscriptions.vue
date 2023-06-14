@@ -43,8 +43,8 @@ if ($auth.status.value === 'authenticated') {
     }
   })
 
-  response.value?.at(0)?.videos?.forEach(video => videos.value.push(video))
-  totalPages = response.value?.at(0)?.totalPages?.at(0)?.id ? response.value?.at(0)?.totalPages?.at(0)?.id : 1 as any
+  response.value?.videos?.forEach(video => videos.value.push(video))
+  totalPages = response.value?.totalPages ? response.value?.totalPages : 1 as any
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,8 +52,8 @@ function infiniteScroll (isIntersecting: any, entries: any, observer: any) {
   setTimeout(async () => {
     if ($auth.status.value === 'authenticated' && page.value < totalPages) {
       const { data } = await useFetch(`/api/user/feed/subscriptions?page=${page.value}`)
-      totalPages = data.value?.at(0)?.totalPages?.at(0)?.id ? data.value?.at(0)?.totalPages?.at(0)?.id : totalPages as any
-      data.value?.at(0)?.videos?.forEach(video => videos.value.push(video))
+      data.value?.videos?.forEach(video => videos.value.push(video))
+      totalPages = data.value?.totalPages ? data.value?.totalPages : 1 as any
       page.value++
     }
   }, 1000)

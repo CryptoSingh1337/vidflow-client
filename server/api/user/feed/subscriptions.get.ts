@@ -3,7 +3,7 @@ import { getToken } from '#auth'
 
 const { backendBaseUrl } = useRuntimeConfig()
 
-const response = z.array(z.object({
+const response = z.object({
   videos: z.array(z.object({
     id: z.string(),
     title: z.string(),
@@ -13,10 +13,8 @@ const response = z.array(z.object({
     createdAt: z.string(),
     thumbnail: z.string()
   })),
-  totalPages: z.array(z.object({
-    id: z.number()
-  }))
-}))
+  totalPages: z.number()
+})
 
 export default defineEventHandler(async (event) => {
   const { page } = getQuery(event)
@@ -28,7 +26,7 @@ export default defineEventHandler(async (event) => {
         Authorization: `Bearer ${token.accessToken}`
       }
     }) as any
-    return response.parse(result.data.content)
+    return response.parse(result.data)
   } else {
     throw createError({
       statusCode: 403,
